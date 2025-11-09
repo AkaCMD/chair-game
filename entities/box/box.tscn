@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0hnp46ekplmk"]
+
+[ext_resource type="Texture2D" uid="uid://b3ix1fgerhyff" path="res://sokoban_tilesheet.png" id="1_josro"]
+[ext_resource type="Script" uid="uid://dg8r1km8fbmaj" path="res://entities/box/Box.cs" id="1_pihpk"]
+
+[sub_resource type="Animation" id="Animation_pihpk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_josro"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_mfoj8"]
+resource_name = "reached"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 64, 64, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mfoj8"]
+_data = {
+&"RESET": SubResource("Animation_pihpk"),
+&"default": SubResource("Animation_josro"),
+&"reached": SubResource("Animation_mfoj8")
+}
+
+[node name="Box" type="Node2D" groups=["boxes"]]
+script = ExtResource("1_pihpk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_josro")
+region_enabled = true
+region_rect = Rect2(64, 0, 64, 64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mfoj8")
+}
