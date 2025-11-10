@@ -10,6 +10,8 @@ public partial class Player : Mover
         {
             return;
         }
+
+        if (!CanInput()) return;
         
         Vector2I dir = (Vector2I)Input.GetVector("move_left", 
             "move_right", 
@@ -26,26 +28,14 @@ public partial class Player : Mover
             dir.Y = 0;
         }
 
-        Vector2I dest = GridPosition + dir;
-
-        if (IsWall(dest))
+        if (TryPlanMove(dir))
         {
-            Bump(dest);
-            return;
+            Game.Instance.MoveStart();
         }
+    }
 
-        Box box = GetBox(dest);
-        if (box != null)
-        {
-            Vector2I boxDest = dest + dir;
-            if (IsWall(boxDest) || GetBox(boxDest) != null)
-            {
-                Bump(dest);
-                return;
-            }
-            box.MoveTo(boxDest);
-        }
-        
-        MoveTo(dest);
+    public bool CanInput()
+    {
+        return !Game.Instance.IsMoving && !Game.Instance.holdingUndo;
     }
 }

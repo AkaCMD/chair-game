@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cwp3w3o0wh4gn" path="res://entities/player/Player.cs" id="1_abrql"]
 [ext_resource type="Texture2D" uid="uid://b3ix1fgerhyff" path="res://sokoban_tilesheet.png" id="1_symyc"]
 
-[node name="Player" type="Node2D" groups=["movers"]]
+[node name="Player" type="Node2D" groups=["movers", "player"]]
 script = ExtResource("1_abrql")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

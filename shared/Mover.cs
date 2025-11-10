@@ -7,7 +7,23 @@ using Godot;
 public partial class Mover : Node2D
 {
     private TileMapLayer _map;
-    public Vector2I GridPosition { get; private set; }
+    private Vector2I _gridPosition;
+
+    public bool IsPlayer => IsInGroup("player");
+    
+    // During a movement cycle, what's the next move (as a difference
+    // from its current position) that this Mover will try to make?
+    private Vector2I _plannedMove;
+
+    public Vector2I GridPosition
+    {
+        get => _gridPosition;
+        set
+        {
+            Position = _map.MapToLocal(value);
+            _gridPosition = value;
+        }
+    }
 
     protected Tween Tween;
 
@@ -18,32 +34,86 @@ public partial class Mover : Node2D
         AddToGroup("movers");
     }
 
-    public void MoveTo(Vector2I pos)
+    public void Stop()
     {
-        GridPosition = pos;
-        if (Tween != null)
-        {
-            Tween.Kill();
-        }
-
-        Tween = CreateTween();
-        Tween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Sine);
-        Tween.TweenProperty(this, "position", _map.MapToLocal(pos), 0.2f);
+        _plannedMove = Vector2I.Zero;
     }
 
-    protected void Bump(Vector2I pos)
+    // Try to plan a move in the indicated direction, if that move is valid.
+    public bool TryPlanMove(Vector2I dir)
     {
-        if (Tween != null)
+        if (!CanMoveToward(dir))
         {
-            Tween.Kill();
+            return false;
         }
+
+        PlanMove(dir);
+        return true;
+    }
+
+    private void PlanMove(Vector2I dir)
+    {
+        if (_plannedMove == dir) return;
+
+        _plannedMove = dir;
+        PlanPushes(dir);
+    }
+
+    public bool HasPlannedMove()
+    {
+        return _plannedMove != Vector2I.Zero;
+    }
+    
+    // If there are other movers in the given direction,
+    // push them in the same direction.
+    private void PlanPushes(Vector2I dir)
+    {
+        // TODO: 如果该mover包含多格，需要单独检查每个tile的方向
+        Vector2I posToCheck = GridPosition + dir;
+        Mover m = GetMover(posToCheck);
+        if (m == null || m == this) return;
+        m.PlanMove(dir);
+    }
+    
+    // Perform the currently planned move (if any).
+    public bool ExecuteLogicalMove()
+    {
+        if (_plannedMove == Vector2I.Zero)
+        {
+            return false;
+        }
+
+        _gridPosition += _plannedMove;
+        _plannedMove = Vector2I.Zero;
+        return true;
+    }
+
+    public virtual bool CanMoveToward(Vector2I dir)
+    {
+        // TODO: 如果该mover包含多格，需要单独检查每个tile的方向
+        Vector2I posToCheck = GridPosition + dir;
+        if (IsWall(posToCheck))
+        {
+            return false;
+        }
+        Mover m = GetMover(posToCheck);
         
-        Tween = CreateTween();
-        Tween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Sine);
-        Tween.TweenProperty(this, "position", (_map.MapToLocal(pos) + Position) / 2, 0.1f);
-        Tween.TweenProperty(this, "position", _map.MapToLocal(GridPosition), 0.1f);
-    }
+        // Movers don't block themselves.
+        if (m != null && m != this)
+        {
+            if (!IsPlayer && !Game.isPolyban)
+            {
+                return false;
+            }
+            if (!m.CanMoveToward(dir))
+            {
+                return false;
+            }
+        }
 
+        return true;
+    }
+    
     protected bool IsWall(Vector2I pos)
     {
         TileData data = _map.GetCellTileData(pos);
@@ -66,15 +136,20 @@ public partial class Mover : Node2D
         return data.GetCustomData("is_target").AsBool();
     }
 
-    protected Box GetBox(Vector2I pos)
+    protected Mover GetMover(Vector2I pos)
     {
-        foreach (var box in GetTree().GetNodesInGroup("boxes").Cast<Box>())
+        foreach (var mover in GetTree().GetNodesInGroup("movers").Cast<Mover>())
         {
-            if (box.GridPosition == pos)
+            if (mover.GridPosition == pos)
             {
-                return box;
+                return mover;
             }
         }
         return null;
+    }
+
+    public Vector2 GetPosition()
+    {
+        return _map.MapToLocal(GridPosition);
     }
 }
