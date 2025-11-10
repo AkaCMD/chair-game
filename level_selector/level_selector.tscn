@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://g2as385a7me"]
+
+[ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
+[ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7fs3"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 50
+shadow_color = Color(0.19607843, 0.8666667, 0.5568628, 1)
+shadow_size = 1
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera")]
+script = ExtResource("1_hfeca")
+_camera = NodePath("Camera2D")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+top_level = true
+z_index = -1
+offset_right = 4126.0
+offset_bottom = 657.0
+color = Color(0.10980392, 0.13333334, 0.1882353, 1)
+
+[node name="LevelNode" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(150, 287)
+LevelID = "LD-1"
+LevelName = "Go away"
+LevelNodes = [NodePath("../LevelNode2")]
+
+[node name="LevelNode2" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(424, 458)
+LevelID = "LD-2"
+LevelName = "Crush Chair"
+LevelNodes = [NodePath("../LevelNode3"), NodePath("../LevelNode4")]
+
+[node name="LevelNode3" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(736, 225)
+LevelID = "LD-3"
+LevelName = "11037"
+LevelNodes = [NodePath("../LevelNode5")]
+
+[node name="LevelNode4" parent="." instance=ExtResource("1_g7fs3")]
+position = Vector2(831, 555)
+LevelID = "EX-1"
+LevelName = "OMG"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+limit_left = 0
+limit_smoothed = true
+
+[node name="LevelNode5" parent="." instance=ExtResource("1_g7fs3")]
+position = Vector2(1210, 143)
+LevelID = "LD-4"
+LevelName = "HR"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_right = 313.0
+offset_bottom = 86.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7fs3")
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 313.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.10980392, 0.13333334, 0.1882353, 1)
+theme_override_font_sizes/font_size = 40
+text = "Level Selector"
+horizontal_alignment = 1
+vertical_alignment = 1
