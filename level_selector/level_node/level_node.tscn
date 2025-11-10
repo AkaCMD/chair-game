@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://8avx0w8kptco"]
+
+[ext_resource type="Script" uid="uid://dicu6s7jdcq3v" path="res://level_selector/level_node/LevelNode.cs" id="1_2hhiy"]
+[ext_resource type="Texture2D" uid="uid://dgt2g1hq60h87" path="res://level_selector/textures/button.png" id="2_0axd4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tuw2l"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0axd4"]
+radius = 32.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0axd4"]
+bg_color = Color(0.9411765, 0.87058824, 0.5411765, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0.2509804, 0.6901961, 0.49019608, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[node name="LevelNode" type="Node2D" node_paths=PackedStringArray("_area", "_sprite", "_numberUI", "_nameUI", "_panelUI", "_hoverUI", "LevelNodes")]
+script = ExtResource("1_2hhiy")
+_area = NodePath("Area2D")
+_sprite = NodePath("Sprite2D")
+_numberUI = NodePath("Panel/Number")
+_nameUI = NodePath("Panel/Name")
+_panelUI = NodePath("Panel")
+_hoverUI = NodePath("Hover")
+LevelID = "1-1"
+LevelName = "Name"
+LevelNodes = []
+
+[node name="Hover" type="Panel" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 304.0
+offset_bottom = 20.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tuw2l")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0axd4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_0axd4")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 55.0
+offset_top = -24.0
+offset_right = 247.0
+offset_bottom = 20.0
+grow_vertical = 0
+pivot_offset = Vector2(-1, 23)
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0axd4")
+
+[node name="Number" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -68.0
+offset_right = 192.0
+offset_bottom = -23.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "1-1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Name" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -22.0
+offset_right = 193.0
+offset_bottom = 22.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.10980392, 0.13333334, 0.1882353, 1)
+theme_override_font_sizes/font_size = 30
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
