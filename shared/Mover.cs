@@ -7,7 +7,7 @@ using Godot;
 public partial class Mover : Node2D
 {
     private TileMapLayer _map;
-    protected Vector2I GridPosition { get; private set; }
+    public Vector2I GridPosition { get; private set; }
 
     protected Tween Tween;
 
@@ -15,6 +15,7 @@ public partial class Mover : Node2D
     {
         _map = GetParent<TileMapLayer>();
         GridPosition = _map.LocalToMap(Position);
+        AddToGroup("movers");
     }
 
     public void MoveTo(Vector2I pos)
