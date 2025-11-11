@@ -53,12 +53,6 @@ public partial class Game : Node
     private void InitAfterFrame()
     {
         SetReferences();
-        State.Init();
-        foreach (var mover in Movers)
-        {
-            State.AddMover(mover);
-        }
-        State.AddToUndoStack();
         CommandManager.Init();
     }
 
@@ -104,7 +98,7 @@ public partial class Game : Node
 
     void DoReset()
     {
-        State.DoReset();
+        CommandManager.ResetAll();
         Refresh();
         Events.OnReset?.Invoke();
     }
@@ -116,6 +110,7 @@ public partial class Game : Node
             CompleteMove();
         }
         CommandManager.UndoCommand();
+        
         Refresh();
         Events.OnUndo?.Invoke();
     }
@@ -217,7 +212,6 @@ public partial class Game : Node
 
     public void CompleteMove()
     {
-        State.OnMoveComplete();
         Events.OnMoveComplete?.Invoke();
     }
 }

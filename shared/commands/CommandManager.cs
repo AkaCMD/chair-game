@@ -51,4 +51,20 @@ public partial class CommandManager : Node
             action.UndoCommand();
         }
     }
+    
+    public static void ResetAll()
+    {
+        while (CommandsStack.Count > 0)
+        {
+            var turn = CommandsStack.Pop();
+
+            while (turn.Count > 0)
+            {
+                var action = turn.Pop();
+                action.UndoCommand();
+            }
+        }
+
+        AddNewTurn();
+    }
 }
