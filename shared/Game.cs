@@ -198,7 +198,7 @@ public partial class Game : Node
             _movingCount++;
             var targetPos = move.Pos;
             Tween tween = CreateTween();
-            tween.TweenProperty(move.m, "position", move.m.GetPosition(), duration)
+            tween.TweenProperty(move.m, "position", move.m.Map.MapToLocal(targetPos), duration)
                 .SetTrans(Tween.TransitionType.Sine);
 
             tween.Finished += () =>

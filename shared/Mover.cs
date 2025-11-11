@@ -6,7 +6,7 @@ using Godot;
 [GlobalClass]
 public partial class Mover : Node2D
 {
-    private TileMapLayer _map;
+    public TileMapLayer Map;
     private Vector2I _gridPosition;
 
     public bool IsPlayer => IsInGroup("player");
@@ -20,7 +20,7 @@ public partial class Mover : Node2D
         get => _gridPosition;
         set
         {
-            Position = _map.MapToLocal(value);
+            Position = Map.MapToLocal(value);
             _gridPosition = value;
         }
     }
@@ -29,8 +29,8 @@ public partial class Mover : Node2D
 
     public override void _Ready()
     {
-        _map = GetParent<TileMapLayer>();
-        GridPosition = _map.LocalToMap(Position);
+        Map = GetParent<TileMapLayer>();
+        GridPosition = Map.LocalToMap(Position);
         AddToGroup("movers");
     }
 
@@ -116,7 +116,7 @@ public partial class Mover : Node2D
     
     protected bool IsWall(Vector2I pos)
     {
-        TileData data = _map.GetCellTileData(pos);
+        TileData data = Map.GetCellTileData(pos);
         if (data == null)
         {
             return false;
@@ -127,7 +127,7 @@ public partial class Mover : Node2D
 
     protected bool IsTarget(Vector2I pos)
     {
-        TileData data = _map.GetCellTileData(pos);
+        TileData data = Map.GetCellTileData(pos);
         if (data == null)
         {
             return false;
@@ -146,10 +146,5 @@ public partial class Mover : Node2D
             }
         }
         return null;
-    }
-
-    public Vector2 GetPosition()
-    {
-        return _map.MapToLocal(GridPosition);
     }
 }
