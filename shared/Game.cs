@@ -148,6 +148,7 @@ public partial class Game : Node
     {
         // For each movement 'cycle', we store the positions of all movers.
         PlannedMoves.Clear();
+        Events.OnMoveStart?.Invoke(Player.instance.Direction);
 
         for (int i = 0; i < 999 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {

@@ -40,7 +40,7 @@ public partial class Mover : Node2D
     }
 
     // Try to plan a move in the indicated direction, if that move is valid.
-    public bool TryPlanMove(Vector2I dir)
+    public virtual bool TryPlanMove(Vector2I dir)
     {
         Vector2I target = GridPosition + dir;
         if (!CanMoveToward(dir))

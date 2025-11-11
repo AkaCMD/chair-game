@@ -7,7 +7,7 @@ using Godot;
 public partial class Player : Mover
 {
     public static Player instance { get; private set; }
-    Vector2I direction = Vector2I.Zero;
+    public Vector2I Direction = Vector2I.Zero;
 
     private int prevHorInput = 0;
     private int prevVerInput = 0;
@@ -42,7 +42,7 @@ public partial class Player : Mover
         InputBuffer.Clear();
         prevHorInput = 0;
         prevVerInput = 0;
-        direction = Vector2I.Zero;
+        Direction = Vector2I.Zero;
     }
 
     public void BufferInput()
@@ -64,7 +64,7 @@ public partial class Player : Mover
         {
             if (shouldBufferInput || CanInput())
             {
-                dir = CalculateNewDirFromInput(direction);
+                dir = CalculateNewDirFromInput(Direction);
             }
         }
         else
@@ -91,10 +91,10 @@ public partial class Player : Mover
             return;
         }
 
-        direction = InputBuffer.First();
+        Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
         
-        if (TryPlanMove(direction))
+        if (TryPlanMove(Direction))
         {
             Game.Instance.MoveStart();
         }
