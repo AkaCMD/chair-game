@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://b3ix1fgerhyff" path="res://sokoban_tilesheet.png" id="1_ywh3n"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
 [ext_resource type="PackedScene" uid="uid://bytjsm567mmes" path="res://entities/player/player.tscn" id="3_av3ks"]
+[ext_resource type="PackedScene" uid="uid://khr6ks5btrf7" path="res://entities/chair/chair.tscn" id="4_av3ks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8wwmp"]
 texture = ExtResource("1_ywh3n")
@@ -115,6 +116,7 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0x4yw"]
 scenes/1/scene = ExtResource("2_mrsv0")
 scenes/2/scene = ExtResource("3_av3ks")
+scenes/3/scene = ExtResource("4_av3ks")
 
 [resource]
 tile_size = Vector2i(64, 64)

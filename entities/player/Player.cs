@@ -6,12 +6,32 @@ using Godot;
 
 public partial class Player : Mover
 {
+    [Export]
+    private Sprite2D _sprite;
+    [Export]
+    private Texture2D _texturePlayerLeft;
+    [Export]
+    private Texture2D _texturePlayerRight;
+    [Export]
+    private Texture2D _texturePlayerUp;
+    [Export]
+    private Texture2D _texturePlayerDown;
+    [Export]
+    private Texture2D _textureLeft;
+    [Export]
+    private Texture2D _textureRight;
+    [Export]
+    private Texture2D _textureUp;
+    [Export]
+    private Texture2D _textureDown;
     public static Player instance { get; private set; }
     public Vector2I Direction = Vector2I.Zero;
 
     private int prevHorInput = 0;
     private int prevVerInput = 0;
-    
+
+    public bool IsSit { get; set; } = false;
+
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
     public override void _EnterTree()
@@ -30,6 +50,21 @@ public partial class Player : Mover
         {
             CheckBufferedInput();
         }
+
+        if (IsSit)
+        {
+            _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ? _textureRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Up ? _textureUp : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Down ? _textureDown : _sprite.Texture;
+        }
+        else
+        {
+            _sprite.Texture = Direction == Vector2I.Left ? _texturePlayerLeft : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ? _texturePlayerRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Up ? _texturePlayerUp : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Down ? _texturePlayerDown : _sprite.Texture;
+        }
     }
 
     public bool CanInput()
@@ -47,17 +82,17 @@ public partial class Player : Mover
 
     public void BufferInput()
     {
-        Vector2I newDir =  (Vector2I)Input.GetVector("move_left", 
-                "move_right", 
-                "move_up", 
+        Vector2I newDir = (Vector2I)Input.GetVector("move_left",
+                "move_right",
+                "move_up",
                 "move_down")
             .Round();
         int newHor = newDir.X;
         int newVer = newDir.Y;
-        bool shouldBufferInput = 
+        bool shouldBufferInput =
             (newHor != prevHorInput || newVer != prevVerInput) && // input is different from last time it was checked
             !((newHor == 0 && newVer == prevVerInput) || (newVer == 0 && newHor == prevHorInput)); // the change isn't just due to releasing a key
-        
+
         Vector2I dir = Vector2I.Zero;
 
         if (InputBuffer.Count == 0)
@@ -79,7 +114,7 @@ public partial class Player : Mover
         {
             InputBuffer.Add(dir);
         }
-        
+
         prevHorInput = newHor;
         prevVerInput = newVer;
     }
@@ -93,7 +128,7 @@ public partial class Player : Mover
 
         Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
-        
+
         if (TryPlanMove(Direction))
         {
             Game.Instance.MoveStart();
@@ -102,9 +137,9 @@ public partial class Player : Mover
 
     public Vector2I CalculateNewDirFromInput(Vector2I currentDir)
     {
-        Vector2I dir = (Vector2I)Input.GetVector("move_left", 
-                "move_right", 
-                "move_up", 
+        Vector2I dir = (Vector2I)Input.GetVector("move_left",
+                "move_right",
+                "move_up",
                 "move_down")
             .Round();
         if (dir == Vector2I.Zero)
@@ -126,7 +161,7 @@ public partial class Player : Mover
                 ver = 0;
             }
         }
-        
+
         if (hor == 1)
         {
             return Vector2I.Right;

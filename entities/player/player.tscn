@@ -1,12 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bytjsm567mmes"]
+[gd_scene load_steps=10 format=3 uid="uid://bytjsm567mmes"]
 
 [ext_resource type="Script" uid="uid://cwp3w3o0wh4gn" path="res://entities/player/Player.cs" id="1_abrql"]
-[ext_resource type="Texture2D" uid="uid://b3ix1fgerhyff" path="res://sokoban_tilesheet.png" id="1_symyc"]
+[ext_resource type="Texture2D" uid="uid://db6ancxkfsiqe" path="res://entities/player/ChairsSit3.png" id="2_8fjmc"]
+[ext_resource type="Texture2D" uid="uid://ds00qdts1of4w" path="res://entities/chair/Chairs3.png" id="2_wvtmh"]
+[ext_resource type="Texture2D" uid="uid://bint83chdyklt" path="res://entities/chair/Chairs4.png" id="3_7thud"]
+[ext_resource type="Texture2D" uid="uid://cr13b6gy3j3a3" path="res://entities/player/ChairsSit4.png" id="3_qiwj3"]
+[ext_resource type="Texture2D" uid="uid://d30hswuwfpyxp" path="res://entities/player/ChairsSit2.png" id="4_26q78"]
+[ext_resource type="Texture2D" uid="uid://dnlxf4on5c68s" path="res://entities/chair/Chairs2.png" id="4_a1qjk"]
+[ext_resource type="Texture2D" uid="uid://deruluoin6c33" path="res://entities/player/ChairsSit1.png" id="5_bectd"]
+[ext_resource type="Texture2D" uid="uid://dvdeseq1wn0tq" path="res://entities/chair/Chairs1.png" id="5_j3ovn"]
 
-[node name="Player" type="Node2D" groups=["movers", "player"]]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite") groups=["movers", "player"]]
 script = ExtResource("1_abrql")
+_sprite = NodePath("Sprite2D")
+_texturePlayerLeft = ExtResource("2_wvtmh")
+_texturePlayerRight = ExtResource("3_7thud")
+_texturePlayerUp = ExtResource("4_a1qjk")
+_texturePlayerDown = ExtResource("5_j3ovn")
+_textureLeft = ExtResource("3_qiwj3")
+_textureRight = ExtResource("2_8fjmc")
+_textureUp = ExtResource("5_bectd")
+_textureDown = ExtResource("4_26q78")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_symyc")
-region_enabled = true
+texture = ExtResource("5_j3ovn")
 region_rect = Rect2(0, 320, 64, 64)
