@@ -15,6 +15,10 @@ run/main_scene="uid://bhm2yij11uwce"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CommandManager="*res://shared/commands/CommandManager.cs"
+
 [dotnet]
 
 project/assembly_name="chair_game"

@@ -59,6 +59,7 @@ public partial class Game : Node
             State.AddMover(mover);
         }
         State.AddToUndoStack();
+        CommandManager.Init();
     }
 
     private void SetReferences()
@@ -110,16 +111,11 @@ public partial class Game : Node
 
     void DoUndo()
     {
-        if (State.undoIndex <= 0)
-        {
-            return;
-        }
-
         if (IsMoving)
         {
             CompleteMove();
         }
-        State.DoUndo();
+        CommandManager.UndoCommand();
         Refresh();
         Events.OnUndo?.Invoke();
     }

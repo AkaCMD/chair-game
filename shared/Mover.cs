@@ -85,9 +85,14 @@ public partial class Mover : Node2D
             return false;
         }
 
+        CommandManager.ExecuteCommand(new MoveCommand(this));
+        return true;
+    }
+
+    public void MoveIt()
+    {
         _gridPosition += _plannedMove;
         _plannedMove = Vector2I.Zero;
-        return true;
     }
 
     public virtual bool CanMoveToward(Vector2I dir)
