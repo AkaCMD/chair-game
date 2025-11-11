@@ -42,8 +42,10 @@ public partial class Mover : Node2D
     // Try to plan a move in the indicated direction, if that move is valid.
     public bool TryPlanMove(Vector2I dir)
     {
+        Vector2I target = GridPosition + dir;
         if (!CanMoveToward(dir))
         {
+            Bump(target);
             return false;
         }
 
@@ -147,4 +149,22 @@ public partial class Mover : Node2D
         }
         return null;
     }
+    
+    public void Bump(Vector2I targetGridPos)
+    {
+        Tween?.Kill();
+    
+        Vector2 currentPos = Map.MapToLocal(GridPosition);
+        Vector2 targetPos = Map.MapToLocal(targetGridPos);
+        
+        Vector2 bumpPos = currentPos.Lerp(targetPos, 0.25f);
+
+        Tween = CreateTween();
+        Tween.SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+
+        Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime/2);
+        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime/2);
+    }
+
 }

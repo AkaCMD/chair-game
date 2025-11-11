@@ -10,7 +10,7 @@ public partial class Game : Node
 
     public static List<Mover> Movers = new();
 
-    public float MoveTime = 0.18f;  // time it takes to move 1 unit
+    public float MoveTime = 0.1f;  // time it takes to move 1 unit
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
 
     private int _movingCount = 0;
@@ -189,7 +189,7 @@ public partial class Game : Node
         var moves = PlannedMoves[0];
         PlannedMoves.RemoveAt(0);
 
-        float duration = MoveTime;
+        float duration = MoveTime / (Player.instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
         foreach (var move in moves)
         {
             if (move.Pos == move.m.GridPosition)
