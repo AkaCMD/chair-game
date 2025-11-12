@@ -6,8 +6,9 @@
 [node name="Test2" type="Node2D"]
 position = Vector2(0, 1)
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_k2k1l")
+ObjectsTileMapLayer = NodePath("Objects")
 
 [node name="Background" type="TileMapLayer" parent="World"]
 tile_map_data = PackedByteArray("AAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAACAAIAAAABAAAAAAACAAMAAAABAAEAAAADAAIAAAAAAAAAAAADAAMAAAAAAAEAAAAEAAIAAAABAAAAAAAEAAMAAAABAAEAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAEAAAAGAAIAAAABAAAAAAAGAAMAAAABAAEAAAABAAQAAAAAAAAAAAACAAQAAAABAAAAAAADAAQAAAAAAAAAAAAEAAQAAAABAAAAAAA=")

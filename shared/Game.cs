@@ -31,6 +31,9 @@ public partial class Game : Node
     public static bool isPolyban = true;
     public bool blockInput = false;
 
+    [Export]
+    public TileMapLayer ObjectsTileMapLayer;
+
     public override void _EnterTree()
     {
         if (Instance == null)
@@ -140,7 +143,7 @@ public partial class Game : Node
     {
         // For each movement 'cycle', we store the positions of all movers.
         PlannedMoves.Clear();
-        Events.OnMoveStart?.Invoke(Player.instance.Direction);
+        Events.OnMoveStart?.Invoke(Player.Instance.Direction);
 
         for (int i = 0; i < 99 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
@@ -152,59 +155,69 @@ public partial class Game : Node
             foreach (var mover in Movers)
             {
                 // Sit
-                if (Player.instance.IsSit)
+
+                if (Player.Instance.IsSit)
                 {
-                    if (Player.instance.PreviousDirection == Player.instance.Direction)
+                    if (Player.Instance.PreviousDirection == Player.Instance.Direction)
                     {
-                        for (int j = 0; j < 50; j++)
+                        if (!mover.IsPlayer) isPushing = true;
+                        moved = true;
+                        // Sit
+                        if (Player.Instance.IsSit)
                         {
-                            if (!Player.instance.TryPlanMove(Player.instance.Direction * j))
+                            if (Player.Instance.PreviousDirection != Player.Instance.Direction * -1)
                             {
-                                Player.instance.TryPlanMove(Player.instance.Direction * (j - 1));
-                                break;
+                                for (int j = 0; j < 50; j++)
+                                {
+                                    if (!Player.Instance.TryPlanMove(Player.Instance.Direction * j))
+                                    {
+                                        Player.Instance.TryPlanMove(Player.Instance.Direction * (j - 1));
+                                        break;
+                                    }
+                                }
                             }
+                            if (mover.ExecuteLogicalMove())
+                            {
+                                if (!mover.IsPlayer) isPushing = true;
+                                moved = true;
+                            }
+
                         }
+                        else if (Player.Instance.PreviousDirection == Player.Instance.Direction * -1 && Player.Instance.IsPreviousSit)
+                        {
+                            CommandManager.ExecuteCommand(new LeaveChairCommand(Player.Instance.GridPosition));
+                            if (!mover.IsPlayer) isPushing = true;
+                            moved = true;
+                        }
+                        Player.Instance.IsPreviousSit = Player.Instance.IsSit;
+                        Player.Instance.PreviousDirection = Player.Instance.Direction;
+                    }
+                    else
+                    {
                         if (mover.ExecuteLogicalMove())
                         {
                             if (!mover.IsPlayer) isPushing = true;
                             moved = true;
                         }
+                    }
+                    Player.Instance.PreviousDirection = Player.Instance.Direction;
+                    Player.Instance.IsPreviousSit = Player.Instance.IsSit;
+                }
 
-                    }
-                    else if (Player.instance.PreviousDirection == Player.instance.Direction * -1 && Player.instance.IsPreviousSit)
-                    {
-                        CommandManager.ExecuteCommand(new LeaveChairCommand(Player.instance.GridPosition));
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                    }
-                    Player.instance.PreviousDirection = Player.instance.Direction;
-                    Player.instance.IsPreviousSit = Player.instance.IsSit;
-                }
-                else
+                if (moved)
                 {
-                    if (mover.ExecuteLogicalMove())
+                    if (isPushing)
                     {
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
+                        Events.OnPush?.Invoke();
                     }
                 }
-                Player.instance.PreviousDirection = Player.instance.Direction;
-                Player.instance.IsPreviousSit = Player.instance.IsSit;
             }
 
-            if (moved)
-            {
-                if (isPushing)
-                {
-                    Events.OnPush?.Invoke();
-                }
-            }
+            PlannedMoves.Add(GetMoverPositions());
+            // Finally, start animating the moves we just calculated.
+            StartMoveCycle();
+            // After they're all done or cancelled, we'll run CompleteMove().
         }
-
-        PlannedMoves.Add(GetMoverPositions());
-        // Finally, start animating the moves we just calculated.
-        StartMoveCycle();
-        // After they're all done or cancelled, we'll run CompleteMove().
     }
 
     private void StartMoveCycle()
@@ -218,7 +231,7 @@ public partial class Game : Node
         var moves = PlannedMoves[0];
         PlannedMoves.RemoveAt(0);
 
-        float duration = MoveTime / (Player.instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+        float duration = MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
         foreach (var move in moves)
         {
             if (move.Pos == move.m.GridPosition)

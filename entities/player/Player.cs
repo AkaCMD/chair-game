@@ -25,7 +25,6 @@ public partial class Player : Mover
     [Export]
     private Texture2D _textureDown;
     public Chair ChairInstance;
-    public static Player instance { get; private set; }
     public Vector2I Direction = Vector2I.Zero;
     public Vector2I PreviousDirection = Vector2I.Zero;
     private int prevHorInput = 0;
@@ -33,12 +32,25 @@ public partial class Player : Mover
 
     public bool IsSit { get; set; } = false;
     public bool IsPreviousSit { get; set; } = false;
+    
+    [Export] private Texture2D _texturePlayerWithBoxLeft;
+    [Export] private Texture2D _texturePlayerWithBoxRight;
+    [Export] private Texture2D _texturePlayerWithBoxUp;
+    [Export] private Texture2D _texturePlayerWithBoxDown;
+    
+    public static Player Instance { get; private set; }
+
+    private int _prevHorInput = 0;
+    private int _prevVerInput = 0;
+
+    // public bool IsSit { get; set; } = false;
+    public bool HasBox { get; set; } = false;
 
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
     public override void _EnterTree()
     {
-        instance = this;
+        Instance = this;
     }
 
     public override void _Process(double delta)
@@ -50,7 +62,18 @@ public partial class Player : Mover
 
         if (CanInput())
         {
+            // check movement input
             CheckBufferedInput();
+            
+            // interact
+            if (Input.IsActionJustPressed("interact"))
+            {
+                var mover = GetMover(GridPosition + Direction);
+                if (mover != null && mover.IsInGroup("boxes"))
+                {
+                    CommandManager.ExecuteCommand(new GrabBoxCommand((Box) mover));
+                }
+            }
         }
 
         if (IsSit)
@@ -59,6 +82,13 @@ public partial class Player : Mover
             _sprite.Texture = Direction == Vector2I.Right ? _textureRight : _sprite.Texture;
             _sprite.Texture = Direction == Vector2I.Up ? _textureUp : _sprite.Texture;
             _sprite.Texture = Direction == Vector2I.Down ? _textureDown : _sprite.Texture;
+        }
+        else if (HasBox)
+        {
+            _sprite.Texture = Direction == Vector2I.Left ? _texturePlayerWithBoxLeft : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ?  _texturePlayerWithBoxRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Up ? _texturePlayerWithBoxUp : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Down ? _texturePlayerWithBoxDown : _sprite.Texture;
         }
         else
         {
@@ -77,8 +107,8 @@ public partial class Player : Mover
     public void ClearInputBuffer()
     {
         InputBuffer.Clear();
-        prevHorInput = 0;
-        prevVerInput = 0;
+        _prevHorInput = 0;
+        _prevVerInput = 0;
         Direction = Vector2I.Zero;
     }
 
@@ -92,8 +122,8 @@ public partial class Player : Mover
         int newHor = newDir.X;
         int newVer = newDir.Y;
         bool shouldBufferInput =
-            (newHor != prevHorInput || newVer != prevVerInput) && // input is different from last time it was checked
-            !((newHor == 0 && newVer == prevVerInput) || (newVer == 0 && newHor == prevHorInput)); // the change isn't just due to releasing a key
+            (newHor != _prevHorInput || newVer != _prevVerInput) && // input is different from last time it was checked
+            !((newHor == 0 && newVer == _prevVerInput) || (newVer == 0 && newHor == _prevHorInput)); // the change isn't just due to releasing a key
 
         Vector2I dir = Vector2I.Zero;
 
@@ -117,8 +147,8 @@ public partial class Player : Mover
             InputBuffer.Add(dir);
         }
 
-        prevHorInput = newHor;
-        prevVerInput = newVer;
+        _prevHorInput = newHor;
+        _prevVerInput = newVer;
     }
 
     public void CheckBufferedInput()
