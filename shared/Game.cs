@@ -142,7 +142,7 @@ public partial class Game : Node
         PlannedMoves.Clear();
         Events.OnMoveStart?.Invoke(Player.instance.Direction);
 
-        for (int i = 0; i < 999 && Movers.Any(m => m.HasPlannedMove()); ++i)
+        for (int i = 0; i < 99 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
             PlannedMoves.Add(GetMoverPositions());
             bool isPushing = false;
@@ -151,21 +151,45 @@ public partial class Game : Node
             var moved = false;
             foreach (var mover in Movers)
             {
-                if (mover.ExecuteLogicalMove())
+                // Sit
+                if (Player.instance.IsSit)
                 {
-                    if (!mover.IsPlayer) isPushing = true;
-                    moved = true;
-                    // Sit
-                    if (Player.instance.IsSit)
+                    if (Player.instance.PreviousDirection == Player.instance.Direction)
                     {
-                        if (Player.instance.PreviousDirection != Player.instance.Direction * -1)
+                        for (int j = 0; j < 50; j++)
                         {
-                            moved = false;
-                            GD.Print("false false false");
+                            if (!Player.instance.TryPlanMove(Player.instance.Direction * j))
+                            {
+                                Player.instance.TryPlanMove(Player.instance.Direction * (j - 1));
+                                break;
+                            }
                         }
+                        if (mover.ExecuteLogicalMove())
+                        {
+                            if (!mover.IsPlayer) isPushing = true;
+                            moved = true;
+                        }
+
+                    }
+                    else if (Player.instance.PreviousDirection == Player.instance.Direction * -1 && Player.instance.IsPreviousSit)
+                    {
+                        CommandManager.ExecuteCommand(new LeaveChairCommand(Player.instance.GridPosition));
+                        if (!mover.IsPlayer) isPushing = true;
+                        moved = true;
                     }
                     Player.instance.PreviousDirection = Player.instance.Direction;
+                    Player.instance.IsPreviousSit = Player.instance.IsSit;
                 }
+                else
+                {
+                    if (mover.ExecuteLogicalMove())
+                    {
+                        if (!mover.IsPlayer) isPushing = true;
+                        moved = true;
+                    }
+                }
+                Player.instance.PreviousDirection = Player.instance.Direction;
+                Player.instance.IsPreviousSit = Player.instance.IsSit;
             }
 
             if (moved)

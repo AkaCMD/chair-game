@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_ponhg"]
 
 [node name="Test2" type="Node2D"]
+position = Vector2(0, 1)
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1_k2k1l")
@@ -13,11 +14,8 @@ tile_map_data = PackedByteArray("AAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAACAAIAAAABAAA
 tile_set = ExtResource("2_ponhg")
 
 [node name="Objects" type="TileMapLayer" parent="World"]
-tile_map_data = PackedByteArray("AAADAAAAAAACAAAAAAADAAEAAAACAAEAAAABAAEAAAADAAAAAAABAAIAAAADAAEAAAAGAAIAAAAAAAIAAAABAAQAAAABAAMAAAACAAQAAAACAAMAAAABAAMAAAABAAIAAAAEAAMAAAADAAIAAAAEAAQAAAADAAMAAAACAAMAAgAAAAAAAgAEAAIAAgAAAAAAAwA=")
-tile_set = ExtResource("2_ponhg")
-
-[node name="Box" type="TileMapLayer" parent="World"]
-tile_map_data = PackedByteArray("AAAEAAMAAgAAAAAABAA=")
+position = Vector2(0, -2)
+tile_map_data = PackedByteArray("AAADAAAAAAACAAAAAAADAAEAAAACAAEAAAABAAEAAAADAAAAAAABAAIAAAADAAEAAAAGAAIAAAAAAAIAAAABAAQAAAABAAMAAAACAAQAAAACAAMAAAABAAMAAAABAAIAAAAEAAMAAAADAAIAAAAEAAQAAAADAAMAAAACAAMAAgAAAAAAAgAEAAIAAgAAAAAAAwAAAAMAAAAAAAIAAAACAAEAAAAAAAIAAAAFAAEAAAAAAAIAAAAHAAMAAAAAAAIAAAAGAAQAAAAAAAIAAAAFAAQAAAAAAAIAAAADAAUAAAAAAAIAAAA=")
 tile_set = ExtResource("2_ponhg")
 
 [node name="GUI" type="Control" parent="."]
