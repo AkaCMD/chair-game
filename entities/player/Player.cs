@@ -26,6 +26,7 @@ public partial class Player : Mover
     private Texture2D _textureDown;
     public static Player instance { get; private set; }
     public Vector2I Direction = Vector2I.Zero;
+    public Vector2I PreviousDirection = Vector2I.Zero;
 
     private int prevHorInput = 0;
     private int prevVerInput = 0;

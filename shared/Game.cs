@@ -61,21 +61,22 @@ public partial class Game : Node
         Movers.Clear();
 
         Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().ToList();
-        
+
         GD.Print($"Find {Movers.Count} Movers: ");
         foreach (var mover in Movers)
         {
             GD.Print($"- {mover.Name} Pos: {mover.GridPosition}");
         }
     }
-    
+
     public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("undo"))
         {
             holdingUndo = true;
             DoUndo();
-        } else if (Input.IsActionJustPressed("reset"))
+        }
+        else if (Input.IsActionJustPressed("reset"))
         {
             DoReset();
         }
@@ -110,13 +111,13 @@ public partial class Game : Node
             CompleteMove();
         }
         CommandManager.UndoCommand();
-        
+
         Refresh();
         Events.OnUndo?.Invoke();
     }
-    
+
     /////////////////////////////////////////////////////////////////// MOVE
-    
+
     // Build a list of positions for each mover.
     private List<MoverPos> GetMoverPositions()
     {
@@ -132,7 +133,7 @@ public partial class Game : Node
         return lerps;
     }
 
-    
+
     // MoveStart calculates the 'logical' effects of a player action,
     // building up a list of movements. Those are executed visually afterward.
     public void MoveStart()
@@ -145,13 +146,25 @@ public partial class Game : Node
         {
             PlannedMoves.Add(GetMoverPositions());
             bool isPushing = false;
-            
+
             // Execute planned moves.
             var moved = false;
-            foreach (var mover in Movers) {
-                if (mover.ExecuteLogicalMove()) {
+            foreach (var mover in Movers)
+            {
+                if (mover.ExecuteLogicalMove())
+                {
                     if (!mover.IsPlayer) isPushing = true;
                     moved = true;
+                    // Sit
+                    if (Player.instance.IsSit)
+                    {
+                        if (Player.instance.PreviousDirection != Player.instance.Direction * -1)
+                        {
+                            moved = false;
+                            GD.Print("false false false");
+                        }
+                    }
+                    Player.instance.PreviousDirection = Player.instance.Direction;
                 }
             }
 
@@ -163,7 +176,7 @@ public partial class Game : Node
                 }
             }
         }
-        
+
         PlannedMoves.Add(GetMoverPositions());
         // Finally, start animating the moves we just calculated.
         StartMoveCycle();

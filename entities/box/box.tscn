@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0hnp46ekplmk"]
 
-[ext_resource type="Texture2D" uid="uid://b3ix1fgerhyff" path="res://sokoban_tilesheet.png" id="1_josro"]
 [ext_resource type="Script" uid="uid://dg8r1km8fbmaj" path="res://entities/box/Box.cs" id="1_pihpk"]
+[ext_resource type="Texture2D" uid="uid://c6lg28uh2cwsr" path="res://assets/world/box.png" id="2_pihpk"]
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -59,8 +59,8 @@ _data = {
 script = ExtResource("1_pihpk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_josro")
-region_enabled = true
+position = Vector2(0, -30)
+texture = ExtResource("2_pihpk")
 region_rect = Rect2(64, 0, 64, 64)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

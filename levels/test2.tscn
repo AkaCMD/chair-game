@@ -16,6 +16,10 @@ tile_set = ExtResource("2_ponhg")
 tile_map_data = PackedByteArray("AAADAAAAAAACAAAAAAADAAEAAAACAAEAAAABAAEAAAADAAAAAAABAAIAAAADAAEAAAAGAAIAAAAAAAIAAAABAAQAAAABAAMAAAACAAQAAAACAAMAAAABAAMAAAABAAIAAAAEAAMAAAADAAIAAAAEAAQAAAADAAMAAAACAAMAAgAAAAAAAgAEAAIAAgAAAAAAAwA=")
 tile_set = ExtResource("2_ponhg")
 
+[node name="Box" type="TileMapLayer" parent="World"]
+tile_map_data = PackedByteArray("AAAEAAMAAgAAAAAABAA=")
+tile_set = ExtResource("2_ponhg")
+
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

@@ -35,8 +35,7 @@ public partial class Chair : Mover
         // Sit Chair
         if (dir * -1 == Direction)
         {
-            Player.instance.IsSit = true;
-            QueueFree();
+            CommandManager.ExecuteCommand(new SitChairCommand(this));
         }
         return Direction == dir;
     }
