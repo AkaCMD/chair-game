@@ -15,6 +15,6 @@ public partial class RotateChairCommand : IAction
     
     public void UndoCommand()
     {
-        Player.instance.Direction = _previousDirection;
+        Player.Instance.Direction = _previousDirection;
     }
 }

@@ -11,15 +11,15 @@ public partial class LeaveChairCommand : IAction
     public LeaveChairCommand(Vector2I pos)
     {
         _chairPosition = pos;
-        _playerDirection = Player.instance.Direction;
-        _playerPreviousDirection = Player.instance.PreviousDirection;
+        _playerDirection = Player.Instance.Direction;
+        _playerPreviousDirection = Player.Instance.PreviousDirection;
     }
     public void ExecuteCommand()
     {
-        _chair = Player.instance.ChairInstance;
+        _chair = Player.Instance.ChairInstance;
         _chair.GridPosition = _chairPosition;
-        _chair.Direction = Player.instance.Direction;
-        Player.instance.IsSit = false;
+        _chair.Direction = Player.Instance.Direction;
+        Player.Instance.IsSit = false;
         _direction = _chair.Direction;
     }
     
@@ -27,9 +27,9 @@ public partial class LeaveChairCommand : IAction
     {
         _chair.GridPosition = new Vector2I(999, 999);
         _chair.Direction = _direction;
-        Player.instance.ChairInstance = _chair;
-        Player.instance.IsSit = true;
-        Player.instance.Direction = _playerDirection;
-        Player.instance.PreviousDirection = _playerPreviousDirection;
+        Player.Instance.ChairInstance = _chair;
+        Player.Instance.IsSit = true;
+        Player.Instance.Direction = _playerDirection;
+        Player.Instance.PreviousDirection = _playerPreviousDirection;
     }
 }
