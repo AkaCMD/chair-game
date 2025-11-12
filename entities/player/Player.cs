@@ -66,7 +66,7 @@ public partial class Player : Mover
             CheckBufferedInput();
             
             // interact
-            if (Input.IsActionJustPressed("interact"))
+            if (Input.IsActionJustPressed("interact") && !HasBox)
             {
                 var mover = GetMover(GridPosition + Direction);
                 if (mover != null && mover.IsInGroup("boxes"))

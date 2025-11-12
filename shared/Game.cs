@@ -155,16 +155,10 @@ public partial class Game : Node
             foreach (var mover in Movers)
             {
                 // Sit
-
                 if (Player.Instance.IsSit)
                 {
                     if (Player.Instance.PreviousDirection == Player.Instance.Direction)
                     {
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                        // Sit
-                        if (Player.Instance.IsSit)
-                        {
                             if (Player.Instance.PreviousDirection != Player.Instance.Direction * -1)
                             {
                                 for (int j = 0; j < 50; j++)
@@ -218,7 +212,7 @@ public partial class Game : Node
             StartMoveCycle();
             // After they're all done or cancelled, we'll run CompleteMove().
         }
-    }
+    
 
     private void StartMoveCycle()
     {
