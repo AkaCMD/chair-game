@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bytjsm567mmes"]
+[gd_scene load_steps=14 format=3 uid="uid://bytjsm567mmes"]
 
 [ext_resource type="Script" uid="uid://cwp3w3o0wh4gn" path="res://entities/player/Player.cs" id="1_abrql"]
 [ext_resource type="Texture2D" uid="uid://nru6km223bl3" path="res://assets/world/character/character_left.png" id="2_bectd"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c7jabof6sgiyg" path="res://assets/world/character_chair/chair__character__left.png" id="7_afbqv"]
 [ext_resource type="Texture2D" uid="uid://djup5q40pvorn" path="res://assets/world/character_chair/chair_character_front.png" id="8_gx6sm"]
 [ext_resource type="Texture2D" uid="uid://qypqs8d2dnip" path="res://assets/world/character_chair/chair_character_back.png" id="9_yqrof"]
-[ext_resource type="PackedScene" uid="uid://khr6ks5btrf7" path="res://entities/chair/chair.tscn" id="10_wvtmh"]
+[ext_resource type="Texture2D" uid="uid://dcd0rd28i6trl" path="res://assets/world/character_box/character_box_left.png" id="10_j3ovn"]
+[ext_resource type="Texture2D" uid="uid://dr72k5d67nhvs" path="res://assets/world/character_box/character_box_right.png" id="11_afbqv"]
+[ext_resource type="Texture2D" uid="uid://cbb376ilvpjte" path="res://assets/world/character_box/character_box_back.png" id="12_gx6sm"]
+[ext_resource type="Texture2D" uid="uid://dm351eaitr3co" path="res://assets/world/character_box/character_box_front.png" id="13_yqrof"]
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite") groups=["movers", "player"]]
 script = ExtResource("1_abrql")
@@ -22,7 +25,10 @@ _textureLeft = ExtResource("6_j3ovn")
 _textureRight = ExtResource("7_afbqv")
 _textureUp = ExtResource("8_gx6sm")
 _textureDown = ExtResource("9_yqrof")
-PackedChair = ExtResource("10_wvtmh")
+_texturePlayerWithBoxLeft = ExtResource("10_j3ovn")
+_texturePlayerWithBoxRight = ExtResource("11_afbqv")
+_texturePlayerWithBoxUp = ExtResource("12_gx6sm")
+_texturePlayerWithBoxDown = ExtResource("13_yqrof")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -59)

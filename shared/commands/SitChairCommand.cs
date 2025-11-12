@@ -1,7 +1,6 @@
 using Godot;
-using System;
 
-public partial class SitChairCommand : IAction
+public class SitChairCommand : IAction
 {
     private Chair _chair;
     private Vector2I _originalPosition;
@@ -13,13 +12,13 @@ public partial class SitChairCommand : IAction
     }
     public void ExecuteCommand()
     {
-        Player.instance.IsSit = true;
+        Player.Instance.IsSit = true;
         _chair.GridPosition = new Vector2I(999, 999);
     }
 
     public void UndoCommand()
     {
         _chair.GridPosition = _originalPosition;
-        Player.instance.IsSit = false;
+        Player.Instance.IsSit = false;
     }
 }

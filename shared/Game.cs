@@ -31,6 +31,9 @@ public partial class Game : Node
     public static bool isPolyban = true;
     public bool blockInput = false;
 
+    [Export]
+    public TileMapLayer ObjectsTileMapLayer;
+
     public override void _EnterTree()
     {
         if (Instance == null)
@@ -140,7 +143,7 @@ public partial class Game : Node
     {
         // For each movement 'cycle', we store the positions of all movers.
         PlannedMoves.Clear();
-        Events.OnMoveStart?.Invoke(Player.instance.Direction);
+        Events.OnMoveStart?.Invoke(Player.Instance.Direction);
 
         for (int i = 0; i < 999 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
@@ -156,15 +159,15 @@ public partial class Game : Node
                     if (!mover.IsPlayer) isPushing = true;
                     moved = true;
                     // Sit
-                    if (Player.instance.IsSit)
+                    if (Player.Instance.IsSit)
                     {
-                        if (Player.instance.PreviousDirection != Player.instance.Direction * -1)
+                        if (Player.Instance.PreviousDirection != Player.Instance.Direction * -1)
                         {
                             moved = false;
                             GD.Print("false false false");
                         }
                     }
-                    Player.instance.PreviousDirection = Player.instance.Direction;
+                    Player.Instance.PreviousDirection = Player.Instance.Direction;
                 }
             }
 
@@ -194,7 +197,7 @@ public partial class Game : Node
         var moves = PlannedMoves[0];
         PlannedMoves.RemoveAt(0);
 
-        float duration = MoveTime / (Player.instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+        float duration = MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
         foreach (var move in moves)
         {
             if (move.Pos == move.m.GridPosition)
