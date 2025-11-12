@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="chair_game"
-run/main_scene="uid://bhm2yij11uwce"
+run/main_scene="uid://c6n8x7lmxwf8b"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 CommandManager="*res://shared/commands/CommandManager.cs"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [dotnet]
 

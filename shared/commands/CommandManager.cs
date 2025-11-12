@@ -43,7 +43,11 @@ public partial class CommandManager : Node
             CommandsStack.Pop();
         }
 
-        if (CommandsStack.Count == 0) return;
+        if (CommandsStack.Count == 0)
+        {
+            AddNewTurn();
+            return;
+        }
         
         while (CommandsStack.Peek().Count != 0)
         {

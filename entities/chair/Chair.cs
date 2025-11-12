@@ -26,7 +26,7 @@ public partial class Chair : Mover
 
     public override bool CanMoveToward(Vector2I dir)
     {
-        GD.Print($"Can Move Toward, {dir.X}, {dir.Y}");
+        GD.Print($"Can Move Toward: {dir.X}, {dir.Y}");
         // return base.CanMoveToward(dir);
         if (IsWall(GridPosition + dir))
         {
