@@ -10,15 +10,16 @@ shadow_color = Color(0.19607843, 0.8666667, 0.5568628, 1)
 shadow_size = 1
 shadow_offset = Vector2(5, 5)
 
-[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera")]
+[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect")]
 script = ExtResource("1_hfeca")
 _camera = NodePath("Camera2D")
+_screenColorRect = NodePath("CanvasLayer/ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 top_level = true
 z_index = -1
 offset_right = 4126.0
-offset_bottom = 657.0
+offset_bottom = 733.0
 color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 
 [node name="LevelNode" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
@@ -26,12 +27,14 @@ position = Vector2(150, 287)
 LevelID = "LD-1"
 LevelName = "Go away"
 LevelNodes = [NodePath("../LevelNode2")]
+LevelPath = "res://levels/test.tscn"
 
 [node name="LevelNode2" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(424, 458)
 LevelID = "LD-2"
 LevelName = "Crush Chair"
 LevelNodes = [NodePath("../LevelNode3"), NodePath("../LevelNode4")]
+LevelPath = "res://levels/test2.tscn"
 
 [node name="LevelNode3" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(736, 225)
@@ -72,3 +75,6 @@ theme_override_font_sizes/font_size = 40
 text = "Level Selector"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_bottom = 736.0

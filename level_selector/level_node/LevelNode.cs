@@ -22,6 +22,9 @@ public partial class LevelNode : Node2D
     public string LevelName;
     [Export]
     public LevelNode[] LevelNodes;
+    [Export]
+    public string LevelPath;
+    private bool _isHover = false;
 
     public override void _Ready()
     {
@@ -36,6 +39,7 @@ public partial class LevelNode : Node2D
             var tween2 = GetTree().CreateTween();
             tween.TweenProperty(_sprite, "scale", Vector2.One, .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
             tween2.TweenProperty(_hoverUI, "scale", Vector2.One, .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+            _isHover = true;
         };
         _area.MouseExited += () =>
         {
@@ -43,9 +47,18 @@ public partial class LevelNode : Node2D
             var tween2 = GetTree().CreateTween();
             tween.TweenProperty(_sprite, "scale", new Vector2(.6f, .6f), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
             tween2.TweenProperty(_hoverUI, "scale", new Vector2(0, 1), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-
+            _isHover = false;
         };
     }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton inputEventMouseButton && _isHover)
+        {
+            LevelSelector.OnLevelEnter.Invoke(LevelPath);
+        }
+    }
+
 
     public override void _Draw()
     {
