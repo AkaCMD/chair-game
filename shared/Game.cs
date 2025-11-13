@@ -76,17 +76,18 @@ public partial class Game : Node
     {
         if (Input.IsActionJustPressed("undo"))
         {
-            holdingUndo = true;
             DoUndo();
+            UndoRepeat();
         }
-        else if (Input.IsActionJustPressed("reset"))
-        {
-            DoReset();
-        }
-
+        
         if (Input.IsActionJustReleased("undo"))
         {
-            holdingUndo = false;
+            StopUndoing();
+        }
+        
+        if (Input.IsActionJustPressed("reset"))
+        {
+            DoReset();
         }
     }
 
@@ -117,6 +118,23 @@ public partial class Game : Node
 
         Refresh();
         Events.OnUndo?.Invoke();
+    }
+
+    async void UndoRepeat()
+    {
+        holdingUndo = true;
+        await ToSignal(GetTree().CreateTimer(0.075f), SceneTreeTimer.SignalName.Timeout);
+        while (Input.IsActionPressed("undo") && holdingUndo)
+        {
+            DoUndo();
+            await ToSignal(GetTree().CreateTimer(0.075f), SceneTreeTimer.SignalName.Timeout);
+        }
+    }
+
+    async void StopUndoing()
+    {
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        holdingUndo = false;
     }
 
     /////////////////////////////////////////////////////////////////// MOVE
