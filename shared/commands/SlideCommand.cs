@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SlideCommand : IAction
+public class SlideCommand : IAction
 {
     private Vector2I _direction;
     private Vector2I _position;

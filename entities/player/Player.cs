@@ -75,6 +75,7 @@ public partial class Player : Mover
                     if (mover == null && !IsWall(GridPosition + Direction))
                     {
                         CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
+                        CommandManager.AddNewTurn();
                     }
                 }
                 else
@@ -83,6 +84,7 @@ public partial class Player : Mover
                     if (mover != null && mover.IsInGroup("boxes"))
                     {
                         CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover));
+                        CommandManager.AddNewTurn();
                     }
                 }
             }

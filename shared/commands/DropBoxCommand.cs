@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class DropBoxCommand : IAction
+public class DropBoxCommand : IAction
 {
     private Box _box;
     private Vector2I _position;

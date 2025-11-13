@@ -53,6 +53,7 @@ public partial class Chair : Mover
         if (dir * -1 == Direction)
         {
             CommandManager.ExecuteCommand(new SitChairCommand(this));
+            CommandManager.AddNewTurn();
         }
         if (IsWall(GridPosition + dir))
         {

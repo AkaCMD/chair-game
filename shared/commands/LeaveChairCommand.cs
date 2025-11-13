@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class LeaveChairCommand : IAction
+public class LeaveChairCommand : IAction
 {
     private Vector2I _chairPosition;
     private Chair _chair;
