@@ -25,7 +25,7 @@ _textureLeft = ExtResource("6_j3ovn")
 _textureRight = ExtResource("7_afbqv")
 _textureUp = ExtResource("8_gx6sm")
 _textureDown = ExtResource("9_yqrof")
-_label = NodePath("Label")
+_label = NodePath("")
 _texturePlayerWithBoxLeft = ExtResource("10_j3ovn")
 _texturePlayerWithBoxRight = ExtResource("11_afbqv")
 _texturePlayerWithBoxUp = ExtResource("12_gx6sm")
@@ -35,10 +35,3 @@ _texturePlayerWithBoxDown = ExtResource("13_yqrof")
 position = Vector2(0, -59)
 texture = ExtResource("5_a1qjk")
 region_rect = Rect2(0, 320, 64, 64)
-
-[node name="Label" type="Label" parent="."]
-offset_left = -78.0
-offset_top = -179.0
-offset_right = 72.0
-offset_bottom = -120.0
-text = "111"

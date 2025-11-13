@@ -14,33 +14,51 @@ public partial class Chair : Mover
     [Export]
     private Texture2D _textureDown;
     [Export]
+    private Texture2D _textureBoxLeft;
+    [Export]
+    private Texture2D _textureBoxRight;
+    [Export]
+    private Texture2D _textureBoxUp;
+    [Export]
+    private Texture2D _textureBoxDown;
+    [Export]
     public Vector2I Direction { get; set; } = new Vector2I(0, 1);
+    public bool HasBox { get; set; } = false;
 
 
     public override void _Process(double delta)
     {
-        _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
-        _sprite.Texture = Direction == Vector2I.Right ? _textureRight : _sprite.Texture;
-        _sprite.Texture = Direction == Vector2I.Up ? _textureUp : _sprite.Texture;
-        _sprite.Texture = Direction == Vector2I.Down ? _textureDown : _sprite.Texture;
+        if (HasBox)
+        {
+            _sprite.Texture = Direction == Vector2I.Left ? _textureBoxLeft : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ? _textureBoxRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Up ? _textureBoxUp : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Down ? _textureBoxDown : _sprite.Texture;
+        }
+        else
+        {
+            _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ? _textureRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Up ? _textureUp : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Down ? _textureDown : _sprite.Texture;
+        }
     }
 
     public override bool CanMoveToward(Vector2I dir)
     {
-        // GD.Print($"Can Move Toward: {dir.X}, {dir.Y}");
-        // return base.CanMoveToward(dir);
-         // Sit Chair
-        GD.Print($"dir: {dir.X}, {dir.Y}\nDirection: {Direction.X}, {Direction.Y}");
+        if (Player.Instance.HasBox)
+        {
+            return false;
+        }
         if (dir * -1 == Direction)
         {
-            GD.Print("222");
             CommandManager.ExecuteCommand(new SitChairCommand(this));
         }
         if (IsWall(GridPosition + dir))
         {
             return false;
         }
-       
+
         return Direction == dir;
     }
 

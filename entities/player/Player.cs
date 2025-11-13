@@ -24,8 +24,6 @@ public partial class Player : Mover
     private Texture2D _textureUp;
     [Export]
     private Texture2D _textureDown;
-    [Export]
-    private Label _label;
     public Chair ChairInstance;
     public Vector2I Direction = Vector2I.Zero;
     public Vector2I PreviousDirection = Vector2I.Zero;
@@ -34,12 +32,12 @@ public partial class Player : Mover
 
     public bool IsSit { get; set; } = false;
     public bool IsPreviousSit { get; set; } = false;
-    
+
     [Export] private Texture2D _texturePlayerWithBoxLeft;
     [Export] private Texture2D _texturePlayerWithBoxRight;
     [Export] private Texture2D _texturePlayerWithBoxUp;
     [Export] private Texture2D _texturePlayerWithBoxDown;
-    
+
     public static Player Instance { get; private set; }
 
     private int _prevHorInput = 0;
@@ -47,6 +45,7 @@ public partial class Player : Mover
 
     // public bool IsSit { get; set; } = false;
     public bool HasBox { get; set; } = false;
+    public Box BoxInstance { get; set; } = null;
 
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
@@ -57,7 +56,6 @@ public partial class Player : Mover
 
     public override void _Process(double delta)
     {
-        _label.Text = $"Direction = {Direction}\nPrevious: {PreviousDirection}";
         if (!Game.Instance.holdingUndo)
         {
             BufferInput();
@@ -67,14 +65,25 @@ public partial class Player : Mover
         {
             // check movement input
             CheckBufferedInput();
-            
+
             // interact
-            if (Input.IsActionJustPressed("interact") && !HasBox)
+            if (Input.IsActionJustPressed("interact") && !IsSit)
             {
-                var mover = GetMover(GridPosition + Direction);
-                if (mover != null && mover.IsInGroup("boxes"))
+                if (HasBox)
                 {
-                    CommandManager.ExecuteCommand(new GrabBoxCommand((Box) mover));
+                    var mover = GetMover(GridPosition + Direction);
+                    if (mover == null && !IsWall(GridPosition + Direction))
+                    {
+                        CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
+                    }
+                }
+                else
+                {
+                    var mover = GetMover(GridPosition + Direction);
+                    if (mover != null && mover.IsInGroup("boxes"))
+                    {
+                        CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover));
+                    }
                 }
             }
         }
@@ -89,7 +98,7 @@ public partial class Player : Mover
         else if (HasBox)
         {
             _sprite.Texture = Direction == Vector2I.Left ? _texturePlayerWithBoxLeft : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Right ?  _texturePlayerWithBoxRight : _sprite.Texture;
+            _sprite.Texture = Direction == Vector2I.Right ? _texturePlayerWithBoxRight : _sprite.Texture;
             _sprite.Texture = Direction == Vector2I.Up ? _texturePlayerWithBoxUp : _sprite.Texture;
             _sprite.Texture = Direction == Vector2I.Down ? _texturePlayerWithBoxDown : _sprite.Texture;
         }

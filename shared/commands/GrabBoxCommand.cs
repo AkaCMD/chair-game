@@ -17,6 +17,7 @@ public class GrabBoxCommand : IAction
     {
         Player.Instance.HasBox = true;
         _box.GridPosition = new Vector2I(999, 999);
+        Player.Instance.BoxInstance = _box;
     }
     
     public void UndoCommand()
