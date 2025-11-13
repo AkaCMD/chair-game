@@ -5,7 +5,6 @@ public class MoveCommand : IAction
     private Vector2I _originGridPosition;
     private Mover _toMoveObject;
     private Vector2I _direction;
-    private Vector2I _previousDirection;
     
     public MoveCommand(Mover toMoveObject)
     {
@@ -13,8 +12,7 @@ public class MoveCommand : IAction
         this._originGridPosition = toMoveObject.GridPosition;
         if (toMoveObject is Player player)
         {
-            _direction = player.Direction;
-            _previousDirection = player.PreviousDirection;
+            _direction = player.PreviousDirection;
         }
     }
 
@@ -29,7 +27,6 @@ public class MoveCommand : IAction
         if (_toMoveObject is Player player)
         {
             player.Direction = _direction;
-            player.PreviousDirection = _previousDirection;
         }
     }
 }

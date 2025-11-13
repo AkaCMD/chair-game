@@ -24,6 +24,8 @@ public partial class Player : Mover
     private Texture2D _textureUp;
     [Export]
     private Texture2D _textureDown;
+    [Export]
+    private Label _label;
     public Chair ChairInstance;
     public Vector2I Direction = Vector2I.Zero;
     public Vector2I PreviousDirection = Vector2I.Zero;
@@ -55,6 +57,7 @@ public partial class Player : Mover
 
     public override void _Process(double delta)
     {
+        _label.Text = $"Direction = {Direction}\nPrevious: {PreviousDirection}";
         if (!Game.Instance.holdingUndo)
         {
             BufferInput();
@@ -157,13 +160,16 @@ public partial class Player : Mover
         {
             return;
         }
-
         Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
 
         if (TryPlanMove(Direction))
         {
             Game.Instance.MoveStart();
+        }
+        else
+        {
+            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
         }
     }
 

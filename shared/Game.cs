@@ -79,12 +79,12 @@ public partial class Game : Node
             DoUndo();
             UndoRepeat();
         }
-        
+
         if (Input.IsActionJustReleased("undo"))
         {
             StopUndoing();
         }
-        
+
         if (Input.IsActionJustPressed("reset"))
         {
             DoReset();
@@ -123,11 +123,11 @@ public partial class Game : Node
     async void UndoRepeat()
     {
         holdingUndo = true;
-        await ToSignal(GetTree().CreateTimer(0.075f), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
         while (Input.IsActionPressed("undo") && holdingUndo)
         {
             DoUndo();
-            await ToSignal(GetTree().CreateTimer(0.075f), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
         }
     }
 
@@ -163,7 +163,7 @@ public partial class Game : Node
         PlannedMoves.Clear();
         Events.OnMoveStart?.Invoke(Player.Instance.Direction);
 
-        for (int i = 0; i < 99 && Movers.Any(m => m.HasPlannedMove()); ++i)
+        for (int i = 0; i < 30 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
             PlannedMoves.Add(GetMoverPositions());
             bool isPushing = false;
@@ -185,12 +185,12 @@ public partial class Game : Node
                             PlanSlideDistance();
                         }
                         if (mover.ExecuteLogicalMove())
-                        { 
+                        {
                             if (!mover.IsPlayer) isPushing = true;
                             moved = true;
                         }
                     }
-                    else if (oppositeDirection && Player.Instance.IsPreviousSit)
+                    else if (oppositeDirection)
                     {
                         CommandManager.ExecuteCommand(new LeaveChairCommand(Player.Instance.GridPosition));
                         if (!mover.IsPlayer) isPushing = true;
@@ -206,9 +206,8 @@ public partial class Game : Node
                     }
                 }
             }
-            
-            Player.Instance.IsPreviousSit = Player.Instance.IsSit;
-            Player.Instance.PreviousDirection = Player.Instance.Direction;
+
+
 
             if (moved)
             {
@@ -219,24 +218,21 @@ public partial class Game : Node
             }
         }
 
+        Player.Instance.IsPreviousSit = Player.Instance.IsSit;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
+
         PlannedMoves.Add(GetMoverPositions());
         // Finally, start animating the moves we just calculated.
         StartMoveCycle();
         // After they're all done or cancelled, we'll run CompleteMove().
+
     }
-    
+
     private void PlanSlideDistance()
     {
-        for (int j = 0; j < 50; j++)
-        {
-            if (!Player.Instance.TryPlanMove(Player.Instance.Direction * j))
-            {
-                Player.Instance.TryPlanMove(Player.Instance.Direction * (j - 1));
-                break;
-            }
-        }
+        CommandManager.ExecuteCommand(new SlideCommand());
     }
-    
+
 
     private void StartMoveCycle()
     {

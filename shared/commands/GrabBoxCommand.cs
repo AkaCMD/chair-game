@@ -5,14 +5,12 @@ public class GrabBoxCommand : IAction
     private Box _box;
     private Vector2I _boxPos;
     private Vector2I _direction;
-    private Vector2I _previousDirection;
     
     public GrabBoxCommand(Box boxToGrab)
     {
         _box = boxToGrab;
         _boxPos = boxToGrab.GridPosition;
-        _direction = Player.Instance.Direction;
-        _previousDirection = Player.Instance.PreviousDirection;
+        _direction = Player.Instance.PreviousDirection;
     }
 
     public void ExecuteCommand()
@@ -26,6 +24,5 @@ public class GrabBoxCommand : IAction
         Player.Instance.HasBox = false;
         _box.GridPosition = _boxPos;
         Player.Instance.Direction = _direction;
-        Player.Instance.PreviousDirection = _previousDirection;
     }
 }
