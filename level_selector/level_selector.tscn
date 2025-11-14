@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=12 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
 [ext_resource type="Shader" uid="uid://be17m3s4ya5fc" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
+[ext_resource type="PackedScene" uid="uid://bhm2yij11uwce" path="res://levels/test.tscn" id="4_cxlhq"]
+[ext_resource type="Shader" uid="uid://bifjabecg6vvn" path="res://level_selector/cover.gdshader" id="5_28gom"]
+[ext_resource type="PackedScene" uid="uid://c6n8x7lmxwf8b" path="res://levels/test2.tscn" id="5_o0sms"]
+[ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rcln"]
 shader = ExtResource("2_bqtf1")
@@ -15,55 +19,67 @@ shadow_color = Color(0.19607843, 0.8666667, 0.5568628, 1)
 shadow_size = 1
 shadow_offset = Vector2(5, 5)
 
-[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect")]
-script = ExtResource("1_hfeca")
-_camera = NodePath("Camera2D")
-_screenColorRect = NodePath("CanvasLayer/ColorRect")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hggau"]
+shader = ExtResource("5_28gom")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect", "_hint", "_canvasLayer", "_levelSelectorTitle", "_nodes")]
+script = ExtResource("1_hfeca")
+_camera = NodePath("Nodes/Camera2D")
+_screenColorRect = NodePath("CanvasLayer/ColorRect")
+_hint = NodePath("CanvasLayer/Hint")
+_canvasLayer = NodePath("CanvasLayer")
+_levelSelectorTitle = NodePath("CanvasLayer/Panel")
+_nodes = NodePath("Nodes")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
 top_level = true
-z_index = -1
+z_index = -10
 material = SubResource("ShaderMaterial_8rcln")
 offset_right = 4126.0
-offset_bottom = 764.0
+offset_bottom = 725.0
 color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 
-[node name="LevelNode" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="LevelNode" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(150, 287)
 LevelID = "LD-1"
 LevelName = "Go away"
 LevelNodes = [NodePath("../LevelNode2")]
-LevelPath = "res://levels/test.tscn"
+PackedLevel = ExtResource("4_cxlhq")
 
-[node name="LevelNode2" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(424, 458)
 LevelID = "LD-2"
 LevelName = "Crush Chair"
 LevelNodes = [NodePath("../LevelNode3"), NodePath("../LevelNode4")]
-LevelPath = "res://levels/test2.tscn"
+PackedLevel = ExtResource("5_o0sms")
 
-[node name="LevelNode3" parent="." node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="LevelNode3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(736, 225)
 LevelID = "LD-3"
 LevelName = "11037"
 LevelNodes = [NodePath("../LevelNode5")]
 
-[node name="LevelNode4" parent="." instance=ExtResource("1_g7fs3")]
+[node name="LevelNode4" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(831, 555)
 LevelID = "EX-1"
 LevelName = "OMG"
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Nodes"]
 anchor_mode = 0
 limit_left = 0
 limit_smoothed = true
 
-[node name="LevelNode5" parent="." instance=ExtResource("1_g7fs3")]
+[node name="LevelNode5" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(1210, 143)
 LevelID = "LD-4"
 LevelName = "HR"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hint" parent="CanvasLayer" instance=ExtResource("6_hggau")]
+visible = false
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 offset_right = 338.0
@@ -84,4 +100,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_bottom = 736.0
+z_index = 10
+material = SubResource("ShaderMaterial_hggau")
+offset_bottom = 721.0

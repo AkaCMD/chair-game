@@ -5,10 +5,13 @@ void vertex() {
 }
 
 void fragment() {
-	vec2 uv = vec2(floor(UV.x*1280.)/1280., floor(UV.y*720.)/720.);
-	vec3 color = vec3(mod(uv.x*200. + TIME/8. + sin(uv.y*20.), 2.));
-	color = step(.2, color);
-	COLOR = vec4(color.r==1.?vec3(28./255., 34./255., 48./255.):vec3(106./255., 55./255., 49./255.), .8);
+	vec2 uv = UV;
+	uv = vec2(round(uv.x*40.)/40., round(uv.y*40.)/40.);
+	vec3 color = vec3(28./255.,34./255.,48./255.);
+	vec3 alpha = 1. - vec3(pow(distance(uv, vec2(.5)),1));
+	alpha = step(.5, alpha);
+	COLOR.rgb = color;
+	COLOR.a = alpha.r;
 }
 
 //void light() {

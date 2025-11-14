@@ -23,7 +23,7 @@ public partial class LevelNode : Node2D
     [Export]
     public LevelNode[] LevelNodes;
     [Export]
-    public string LevelPath;
+    public PackedScene PackedLevel;
     private bool _isHover = false;
 
     public override void _Ready()
@@ -55,7 +55,7 @@ public partial class LevelNode : Node2D
     {
         if (@event is InputEventMouseButton inputEventMouseButton && _isHover)
         {
-            LevelSelector.OnLevelEnter.Invoke(LevelPath);
+            LevelSelector.OnLevelEnter.Invoke(PackedLevel);
         }
     }
 

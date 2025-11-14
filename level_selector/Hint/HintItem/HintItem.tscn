@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv5ot5r5wi6et"]
+
+[ext_resource type="Script" uid="uid://csk8xhb7xrws2" path="res://level_selector/Hint/HintItem/HintItem.cs" id="1_bp3l6"]
+[ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="2_bp3l6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dw05h"]
+bg_color = Color(0.10980392, 0.13333334, 0.1882353, 1)
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0.6117647, 0.21176471, 0.06666667, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 2)
+
+[node name="HintItem" type="Control" node_paths=PackedStringArray("_label")]
+layout_mode = 3
+anchor_right = 0.179
+anchor_bottom = 0.051000003
+offset_right = -0.120010376
+offset_bottom = 0.27999878
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bp3l6")
+_label = NodePath("Panel/Label")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 225.0
+offset_bottom = 33.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dw05h")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 13.0
+offset_right = 228.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("2_bp3l6")
+theme_override_font_sizes/font_size = 38
+text = "11037"
+vertical_alignment = 1
