@@ -207,8 +207,6 @@ public partial class Game : Node
                 }
             }
 
-
-
             if (moved)
             {
                 if (isPushing)
