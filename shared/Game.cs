@@ -163,6 +163,16 @@ public partial class Game : Node
         PlannedMoves.Clear();
         Events.OnMoveStart?.Invoke(Player.Instance.Direction);
 
+        bool sameDirection = Player.Instance.PreviousDirection == Player.Instance.Direction;
+        bool oppositeDirection = Player.Instance.PreviousDirection == Player.Instance.Direction * -1;
+        if (Player.Instance.IsSit)
+        {
+            if (sameDirection && Player.Instance.IsObstacle(Player.Instance.GridPosition+Player.Instance.Direction))
+            {
+                CommandManager.ExecuteCommand(new SlideCommand());
+            }
+        }
+
         for (int i = 0; i < 30 && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
             PlannedMoves.Add(GetMoverPositions());
@@ -172,42 +182,21 @@ public partial class Game : Node
             var moved = false;
             foreach (var mover in Movers)
             {
-                // Sit
-                bool playerIsSitting = mover.IsPlayer && Player.Instance.IsSit;
-                if (playerIsSitting)
-                {
-                    bool sameDirection = Player.Instance.PreviousDirection == Player.Instance.Direction;
-                    bool oppositeDirection = Player.Instance.PreviousDirection == Player.Instance.Direction * -1;
-                    if (sameDirection)
-                    {
-                        if (!oppositeDirection)
-                        {
-                            PlanSlideDistance();
-                        }
-                        if (mover.ExecuteLogicalMove())
-                        {
-                            if (!mover.IsPlayer) isPushing = true;
-                            moved = true;
-                        }
-                    }
-                    else if (oppositeDirection)
-                    {
-                        CommandManager.ExecuteCommand(new LeaveChairCommand(Player.Instance.GridPosition));
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                    }
-                }
-                else
-                {
-                    if (mover.ExecuteLogicalMove())
-                    {
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                    }
-                }
+                 if (mover.IsPlayer && Player.Instance.IsSit && sameDirection && 
+                     !mover.IsObstacle(mover.GridPosition+Player.Instance.Direction))
+                 {
+                     CommandManager.ExecuteCommand(new LeaveChairCommand(Player.Instance.GridPosition));
+                     moved = true;
+                 }
+                 else
+                 {
+                     if (mover.ExecuteLogicalMove())
+                     {
+                         if (!mover.IsPlayer) isPushing = true;
+                         moved = true;
+                     }
+                 }
             }
-
-
 
             if (moved)
             {
@@ -225,12 +214,6 @@ public partial class Game : Node
         // Finally, start animating the moves we just calculated.
         StartMoveCycle();
         // After they're all done or cancelled, we'll run CompleteMove().
-
-    }
-
-    private void PlanSlideDistance()
-    {
-        CommandManager.ExecuteCommand(new SlideCommand());
     }
 
 
@@ -245,7 +228,7 @@ public partial class Game : Node
         var moves = PlannedMoves[0];
         PlannedMoves.RemoveAt(0);
 
-        float duration = MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+        float duration = MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1); 
         foreach (var move in moves)
         {
             if (move.Pos == move.m.GridPosition)

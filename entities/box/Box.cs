@@ -6,5 +6,4 @@ public partial class Box : Mover
     {
         return false;
     }
-
 }
