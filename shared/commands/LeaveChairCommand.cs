@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class LeaveChairCommand : IAction
+public class LeaveChairCommand : IAction
 {
     private Vector2I _chairPosition;
     private Chair _chair;
@@ -10,7 +10,7 @@ public partial class LeaveChairCommand : IAction
     public LeaveChairCommand(Vector2I pos)
     {
         _chairPosition = pos;
-        _playerDirection = Player.Instance.PreviousDirection;
+        _playerDirection = Player.Instance.Direction;
     }
     public void ExecuteCommand()
     {

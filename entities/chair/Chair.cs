@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Chair : Mover
 {
@@ -53,6 +52,7 @@ public partial class Chair : Mover
         if (dir * -1 == Direction)
         {
             CommandManager.ExecuteCommand(new SitChairCommand(this));
+            CommandManager.AddNewTurn();
         }
         if (IsWall(GridPosition + dir))
         {
@@ -61,8 +61,4 @@ public partial class Chair : Mover
 
         return Direction == dir;
     }
-
-
-
-
 }

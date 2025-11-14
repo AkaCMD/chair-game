@@ -1,20 +1,23 @@
 using Godot;
-using System;
 
-public partial class RotateChairCommand : IAction
+public class RotateChairCommand : IAction
 {
-    private Vector2I _previousDirection;
+    private Vector2I _dir;
+    private Vector2I _prevDir;
     public RotateChairCommand(Vector2I dir)
     {
-        _previousDirection = dir;
+        _prevDir = Player.Instance.Direction;
+        _dir = dir;
     }
     public void ExecuteCommand()
     {
-        Player.Instance.PreviousDirection = _previousDirection;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
+        Player.Instance.Direction = _dir;
     }
     
     public void UndoCommand()
     {
-        Player.Instance.Direction = _previousDirection;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
+        Player.Instance.Direction = _prevDir;
     }
 }

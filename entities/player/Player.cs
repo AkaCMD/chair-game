@@ -75,6 +75,7 @@ public partial class Player : Mover
                     if (mover == null && !IsWall(GridPosition + Direction))
                     {
                         CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
+                        CommandManager.AddNewTurn();
                     }
                 }
                 else
@@ -83,6 +84,7 @@ public partial class Player : Mover
                     if (mover != null && mover.IsInGroup("boxes"))
                     {
                         CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover));
+                        CommandManager.AddNewTurn();
                     }
                 }
             }
@@ -172,13 +174,13 @@ public partial class Player : Mover
         Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
 
-        if (TryPlanMove(Direction))
-        {
-            Game.Instance.MoveStart();
-        }
-        else
+        if (IsSit && Direction != PreviousDirection)
         {
             CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
+        }
+        else if (TryPlanMove(Direction))
+        {
+            Game.Instance.MoveStart();
         }
     }
 
