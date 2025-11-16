@@ -10,7 +10,7 @@ public class LeaveChairCommand : IAction
     public LeaveChairCommand(Vector2I pos)
     {
         _chairPosition = pos;
-        _playerDirection = Player.Instance.Direction;
+        _playerDirection = Player.Instance.PreviousDirection;
     }
     public void ExecuteCommand()
     {

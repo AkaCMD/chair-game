@@ -174,13 +174,13 @@ public partial class Player : Mover
         Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
 
-        if (IsSit && Direction != PreviousDirection)
-        {
-            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
-        }
-        else if (TryPlanMove(Direction))
+        if (TryPlanMove(Direction))
         {
             Game.Instance.MoveStart();
+        }
+        else
+        {
+            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
         }
     }
 

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class Chair : Mover
 {
@@ -61,4 +62,8 @@ public partial class Chair : Mover
 
         return Direction == dir;
     }
+
+
+
+
 }
