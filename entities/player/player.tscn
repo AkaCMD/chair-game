@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cbb376ilvpjte" path="res://assets/world/character_box/character_box_back.png" id="12_gx6sm"]
 [ext_resource type="Texture2D" uid="uid://dm351eaitr3co" path="res://assets/world/character_box/character_box_front.png" id="13_yqrof"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "_label") groups=["movers", "player"]]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite") groups=["movers", "player"]]
 script = ExtResource("1_abrql")
 _sprite = NodePath("Sprite2D")
 _texturePlayerLeft = ExtResource("2_bectd")
@@ -25,7 +25,6 @@ _textureLeft = ExtResource("6_j3ovn")
 _textureRight = ExtResource("7_afbqv")
 _textureUp = ExtResource("8_gx6sm")
 _textureDown = ExtResource("9_yqrof")
-_label = NodePath("")
 _texturePlayerWithBoxLeft = ExtResource("10_j3ovn")
 _texturePlayerWithBoxRight = ExtResource("11_afbqv")
 _texturePlayerWithBoxUp = ExtResource("12_gx6sm")

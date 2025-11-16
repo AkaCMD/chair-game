@@ -143,6 +143,18 @@ public partial class Mover : Node2D
         return data.GetCustomData("is_target").AsBool();
     }
 
+    public bool IsChair(Vector2I pos, out Chair chair)
+    {
+        if (GetMover(pos).GetType() == typeof(Chair))
+        {
+            chair = (Chair)GetMover(pos);
+            return true;
+        }
+
+        chair = null;
+        return false;
+    }
+
     protected Mover GetMover(Vector2I pos)
     {
         foreach (var mover in GetTree().GetNodesInGroup("movers").Cast<Mover>())
