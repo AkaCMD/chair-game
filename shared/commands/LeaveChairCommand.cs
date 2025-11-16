@@ -18,6 +18,7 @@ public class LeaveChairCommand : IAction
         _chair.GridPosition = _chairPosition;
         _chair.Direction = Player.Instance.Direction;
         Player.Instance.IsSit = false;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
         _direction = _chair.Direction;
     }
     
