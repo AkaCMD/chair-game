@@ -3,11 +3,11 @@ using System;
 
 public class SlideCommand : IAction
 {
-    private Vector2I _direction;
+    private Vector2I _previousDirection;
     private Vector2I _position;
     public SlideCommand()
     {
-        _direction = Player.Instance.Direction;
+        _previousDirection = Player.Instance.PreviousDirection;
         _position = Player.Instance.GridPosition;
     }
     public void ExecuteCommand()
@@ -20,12 +20,14 @@ public class SlideCommand : IAction
                 break;
             }
         }
-        Player.Instance.PreviousDirection = _direction;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
     }
     
     public void UndoCommand()
     {
-        Player.Instance.Direction = _direction;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
+        Player.Instance.Direction = _previousDirection;
+        Player.Instance.PreviousDirection = _previousDirection;
         Player.Instance.GridPosition = _position;
     }
 }

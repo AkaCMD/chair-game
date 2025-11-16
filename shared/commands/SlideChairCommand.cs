@@ -6,11 +6,15 @@ public class SlideChairCommand : IAction
     private Chair _chair;
     private Vector2I _direction;
     private Vector2I _position;
+    private Vector2I _playerPreviousDirection;
+    private Vector2I _playerPreviousPreviousDirection;
     public SlideChairCommand(Chair chair)
     {
         _chair = chair;
         _direction = chair.Direction;
         _position = chair.GridPosition;
+        _playerPreviousPreviousDirection = Player.Instance.PreviousPreviousDirection;
+        _playerPreviousDirection = Player.Instance.PreviousDirection;
     }
     public void ExecuteCommand()
     {
@@ -29,5 +33,7 @@ public class SlideChairCommand : IAction
     {
         _chair.Direction = _direction;
         _chair.GridPosition = _position;
+        Player.Instance.PreviousDirection = _playerPreviousPreviousDirection;
+        Player.Instance.Direction = _playerPreviousDirection;
     }
 }

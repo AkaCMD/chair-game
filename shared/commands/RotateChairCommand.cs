@@ -4,17 +4,21 @@ using System;
 public class RotateChairCommand : IAction
 {
     private Vector2I _previousDirection;
-    public RotateChairCommand(Vector2I dir)
+    private Vector2I _previousPreviousDirection;
+    public RotateChairCommand()
     {
-        _previousDirection = dir;
+        _previousPreviousDirection = Player.Instance.PreviousPreviousDirection;
+        _previousDirection = Player.Instance.PreviousDirection;
     }
     public void ExecuteCommand()
     {
-        Player.Instance.PreviousDirection = _previousDirection;
+        Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
+        Player.Instance.PreviousDirection = Player.Instance.Direction;
     }
-    
+
     public void UndoCommand()
     {
+        Player.Instance.PreviousDirection = _previousPreviousDirection;
         Player.Instance.Direction = _previousDirection;
     }
 }

@@ -224,6 +224,7 @@ public partial class Game : Node
         }
 
         Player.Instance.IsPreviousSit = Player.Instance.IsSit;
+        Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
 
         PlannedMoves.Add(GetMoverPositions());

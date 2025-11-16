@@ -25,8 +25,9 @@ public partial class Player : Mover
     [Export]
     private Texture2D _textureDown;
     public Chair ChairInstance;
-    public Vector2I Direction = Vector2I.Zero;
-    public Vector2I PreviousDirection = Vector2I.Zero;
+    public Vector2I Direction = Vector2I.Right;
+    public Vector2I PreviousDirection = Vector2I.Right;
+    public Vector2I PreviousPreviousDirection = Vector2I.Right;
     private int prevHorInput = 0;
     private int prevVerInput = 0;
 
@@ -49,6 +50,8 @@ public partial class Player : Mover
 
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
+    public bool IsWaiting = false;
+
     public override void _EnterTree()
     {
         Instance = this;
@@ -56,6 +59,10 @@ public partial class Player : Mover
 
     public override void _Process(double delta)
     {
+        if (IsWaiting)
+        {
+            return;
+        }
         // Back to level selector without beat the level
         if (Input.IsActionJustPressed("escape"))
         {
@@ -93,12 +100,12 @@ public partial class Player : Mover
                         CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover, null));
                         CommandManager.AddNewTurn();
                     }
-                    else if (IsChair(targetPos, out Chair chair)) 
+                    else if (IsChair(targetPos, out Chair chair))
                     {
-                        bool canGrabFromChair = chair!= null && chair.HasBox && (Direction == -chair.Direction);
+                        bool canGrabFromChair = chair != null && chair.HasBox && (Direction == -chair.Direction);
                         if (canGrabFromChair)
                         {
-                            Box boxOnChair = chair.BoxOnChair; 
+                            Box boxOnChair = chair.BoxOnChair;
 
                             if (boxOnChair != null)
                             {
@@ -201,7 +208,7 @@ public partial class Player : Mover
         }
         else
         {
-            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
+            CommandManager.ExecuteCommand(new RotateChairCommand());
         }
     }
 

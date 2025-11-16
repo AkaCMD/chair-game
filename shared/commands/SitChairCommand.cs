@@ -5,16 +5,18 @@ public class SitChairCommand : IAction
     private Chair _chair;
     private Vector2I _originalPosition;
     private Vector2I _direction;
-    private Vector2I _playerDirection;
-
+    private Vector2I _playerPreviousDirection;
+    private Vector2I _playerPreviousPreviousDirection;
     public SitChairCommand(Chair chair)
     {
         _chair = chair;
         _originalPosition = _chair.GridPosition;
-        _playerDirection = Player.Instance.PreviousDirection;
+        _playerPreviousPreviousDirection = Player.Instance.PreviousPreviousDirection;
+        _playerPreviousDirection = Player.Instance.PreviousDirection;
     }
     public void ExecuteCommand()
     {
+        Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
         Player.Instance.IsSit = true;
         Player.Instance.ChairInstance = _chair;
@@ -36,6 +38,7 @@ public class SitChairCommand : IAction
         _chair.GridPosition = _originalPosition;
         _chair.Direction = _direction;
         Player.Instance.IsSit = false;
-        Player.Instance.Direction = _playerDirection;
+        Player.Instance.PreviousDirection = _playerPreviousPreviousDirection;
+        Player.Instance.Direction = _playerPreviousDirection;
     }
 }
