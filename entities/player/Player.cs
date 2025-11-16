@@ -72,7 +72,7 @@ public partial class Player : Mover
                 if (HasBox)
                 {
                     var mover = GetMover(GridPosition + Direction);
-                    if (mover == null && !IsWall(GridPosition + Direction))
+                    if ((mover == null && !IsWall(GridPosition + Direction)) || mover?.GetType() == typeof(Chair))
                     {
                         CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
                         CommandManager.AddNewTurn();
@@ -80,11 +80,27 @@ public partial class Player : Mover
                 }
                 else
                 {
-                    var mover = GetMover(GridPosition + Direction);
+                    var targetPos = GridPosition + Direction;
+                    var mover = GetMover(targetPos);
+
                     if (mover != null && mover.IsInGroup("boxes"))
                     {
-                        CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover));
+                        CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover, null));
                         CommandManager.AddNewTurn();
+                    }
+                    else if (IsChair(targetPos, out Chair chair)) 
+                    {
+                        bool canGrabFromChair = chair!= null && chair.HasBox && (Direction == -chair.Direction);
+                        if (canGrabFromChair)
+                        {
+                            Box boxOnChair = chair.BoxOnChair; 
+
+                            if (boxOnChair != null)
+                            {
+                                CommandManager.ExecuteCommand(new GrabBoxCommand(boxOnChair, chair));
+                                CommandManager.AddNewTurn();
+                            }
+                        }
                     }
                 }
             }
@@ -174,13 +190,13 @@ public partial class Player : Mover
         Direction = InputBuffer.First();
         InputBuffer.RemoveAt(0);
 
-        if (IsSit && Direction != PreviousDirection)
-        {
-            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
-        }
-        else if (TryPlanMove(Direction))
+        if (TryPlanMove(Direction))
         {
             Game.Instance.MoveStart();
+        }
+        else
+        {
+            CommandManager.ExecuteCommand(new RotateChairCommand(Direction));
         }
     }
 

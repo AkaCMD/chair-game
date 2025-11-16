@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://8njujq2xqliw"]
+
+[ext_resource type="Script" uid="uid://ccao4t51ctqb1" path="res://dialog/DialogController.cs" id="1_j2njv"]
+[ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
+
+[node name="DialogController" type="Node2D"]
+script = ExtResource("1_j2njv")
+_packedDialogText = ExtResource("2_m0y87")
+Text = "This is a simple text."

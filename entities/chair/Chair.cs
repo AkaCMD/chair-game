@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class Chair : Mover
 {
@@ -23,6 +24,7 @@ public partial class Chair : Mover
     [Export]
     public Vector2I Direction { get; set; } = new Vector2I(0, 1);
     public bool HasBox { get; set; } = false;
+    public Box BoxOnChair { get; set; }
 
 
     public override void _Process(double delta)
@@ -49,7 +51,7 @@ public partial class Chair : Mover
         {
             return false;
         }
-        if (dir * -1 == Direction)
+        if (dir * -1 == Direction && !HasBox)
         {
             CommandManager.ExecuteCommand(new SitChairCommand(this));
             CommandManager.AddNewTurn();
@@ -61,4 +63,8 @@ public partial class Chair : Mover
 
         return Direction == dir;
     }
+
+
+
+
 }

@@ -4,20 +4,19 @@ using System;
 public class SlideCommand : IAction
 {
     private Vector2I _direction;
-    private Vector2I _startPosition;
+    private Vector2I _position;
     public SlideCommand()
     {
-        _direction = -Player.Instance.Direction;
-        _startPosition = Player.Instance.GridPosition;
+        _direction = Player.Instance.Direction;
+        _position = Player.Instance.GridPosition;
     }
     public void ExecuteCommand()
     {
-        var maxSlide = 30;
-        for (int i = 1; i <= maxSlide; i++)
+        for (int j = 0; j < 30; j++)
         {
-            var dir = _direction * i;
-            if (!Player.Instance.TryPlanMove(dir))
+            if (!Player.Instance.TryPlanMove(Player.Instance.Direction * j))
             {
+                Player.Instance.TryPlanMove(Player.Instance.Direction * (j - 1));
                 break;
             }
         }
@@ -27,6 +26,6 @@ public class SlideCommand : IAction
     public void UndoCommand()
     {
         Player.Instance.Direction = _direction;
-        Player.Instance.GridPosition = _startPosition;
+        Player.Instance.GridPosition = _position;
     }
 }

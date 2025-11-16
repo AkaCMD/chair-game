@@ -16,6 +16,7 @@ texture_region_size = Vector2i(128, 128)
 1:1/0 = 0
 2:1/0 = 0
 2:1/0/custom_data_0 = true
+2:1/0/custom_data_1 = true
 3:1/0 = 0
 3:1/0/custom_data_0 = true
 0:2/0 = 0

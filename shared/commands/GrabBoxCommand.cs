@@ -3,27 +3,46 @@
 public class GrabBoxCommand : IAction
 {
     private Box _box;
-    private Vector2I _boxPos;
-    private Vector2I _direction;
+    private Vector2I _originalBoxPos;
+    private Vector2I _originalPlayerDirection;
     
-    public GrabBoxCommand(Box boxToGrab)
+    private Chair _sourceChair;
+    private bool _wasGrabbedFromChair;
+    
+    public GrabBoxCommand(Box boxToGrab, Chair sourceChair)
     {
         _box = boxToGrab;
-        _boxPos = boxToGrab.GridPosition;
-        _direction = Player.Instance.PreviousDirection;
+        
+        _originalPlayerDirection = Player.Instance.PreviousDirection;
+        _originalBoxPos = boxToGrab.GridPosition;
+        
+        _sourceChair = sourceChair;
+        _wasGrabbedFromChair = (_sourceChair != null);
     }
 
     public void ExecuteCommand()
     {
         Player.Instance.HasBox = true;
-        _box.GridPosition = new Vector2I(999, 999);
         Player.Instance.BoxInstance = _box;
+        _box.GridPosition = new Vector2I(999, 999);
+        
+        if (_wasGrabbedFromChair)
+        {
+            _sourceChair.HasBox = false;
+        }
     }
     
     public void UndoCommand()
     {
         Player.Instance.HasBox = false;
-        _box.GridPosition = _boxPos;
-        Player.Instance.Direction = _direction;
+        Player.Instance.BoxInstance = null;
+        Player.Instance.Direction = _originalPlayerDirection;
+        
+        _box.GridPosition = _originalBoxPos;
+        
+        if (_wasGrabbedFromChair)
+        {
+            _sourceChair.HasBox = true;
+        }
     }
 }

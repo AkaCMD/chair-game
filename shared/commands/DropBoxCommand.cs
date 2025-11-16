@@ -1,26 +1,58 @@
 using Godot;
-using System;
 
 public class DropBoxCommand : IAction
 {
     private Box _box;
-    private Vector2I _position;
+    private bool _wasPlacedOnChair;
+    private Chair _targetChair;
+
     public DropBoxCommand(Box box)
     {
         _box = box;
+        _wasPlacedOnChair = false;
+        _targetChair = null;
     }
 
     public void ExecuteCommand()
     {
-        _position = _box.GridPosition;
-        _box.GridPosition = Player.Instance.GridPosition + Player.Instance.Direction;
+        _wasPlacedOnChair = false;
+        _targetChair = null;
+        
+        var placePos = Player.Instance.GridPosition + Player.Instance.Direction;
+        bool canPlaceBoxOnChair = Player.Instance.IsChair(placePos, out var chair) &&
+                                  (Player.Instance.Direction == -chair.Direction);
+        
+        if (canPlaceBoxOnChair)
+        {
+            chair.HasBox = true;
+            chair.BoxOnChair = _box;
+            _box.GridPosition = new Vector2I(999, 999);
+            
+            _wasPlacedOnChair = true;
+            _targetChair = chair;
+        }
+        else
+        {
+            _box.GridPosition = placePos;
+            _wasPlacedOnChair = false;
+        }
+        
         Player.Instance.HasBox = false;
     }
 
     public void UndoCommand()
     {
-        _box.GridPosition = new Vector2I(999, 999);
-        Player.Instance.BoxInstance = _box;
         Player.Instance.HasBox = true;
+        Player.Instance.BoxInstance = _box;
+        _box.GridPosition = new Vector2I(999, 999); 
+        
+        if (_wasPlacedOnChair)
+        {
+            if (_targetChair != null)
+            {
+                _targetChair.HasBox = false;
+                _targetChair.BoxOnChair = null;
+            }
+        }
     }
 }

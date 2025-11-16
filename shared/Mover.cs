@@ -45,15 +45,7 @@ public partial class Mover : Node2D
         Vector2I target = GridPosition + dir;
         if (!CanMoveToward(dir))
         {
-            if (dir == Player.Instance.PreviousDirection && Player.Instance.IsSit)
-            {
-                Bump(target);
-                Game.Instance.MoveStart();
-            }
-            else
-            {
-                Bump(target);
-            }
+            Bump(target);
             return false;
         }
 
@@ -140,11 +132,6 @@ public partial class Mover : Node2D
         return data.GetCustomData("is_wall").AsBool();
     }
 
-    public bool IsObstacle(Vector2I pos)
-    {
-        return IsWall(pos) || (GetMover(pos) != null);
-    }
-
     protected bool IsTarget(Vector2I pos)
     {
         TileData data = Map.GetCellTileData(pos);
@@ -154,6 +141,18 @@ public partial class Mover : Node2D
         }
         
         return data.GetCustomData("is_target").AsBool();
+    }
+
+    public bool IsChair(Vector2I pos, out Chair chair)
+    {
+        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Chair))
+        {
+            chair = (Chair)GetMover(pos);
+            return true;
+        }
+
+        chair = null;
+        return false;
     }
 
     protected Mover GetMover(Vector2I pos)
@@ -182,7 +181,7 @@ public partial class Mover : Node2D
             .SetEase(Tween.EaseType.InOut);
 
         Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime/2);
-        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime / 2);
+        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime/2);
     }
 
 }
