@@ -80,6 +80,7 @@ LevelName = "HR"
 
 [node name="Hint" parent="CanvasLayer" instance=ExtResource("6_hggau")]
 visible = false
+z_index = 5
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 offset_right = 338.0

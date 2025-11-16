@@ -56,6 +56,11 @@ public partial class Player : Mover
 
     public override void _Process(double delta)
     {
+        // Back to level selector without beat the level
+        if (Input.IsActionJustPressed("escape"))
+        {
+            LevelSelector.OnLevelExit(false);
+        }
         if (!Game.Instance.holdingUndo)
         {
             BufferInput();

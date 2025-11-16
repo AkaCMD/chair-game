@@ -37,6 +37,11 @@ public partial class Chair : Mover
                 for (int j = 0; j < 20; j++)
                 {
                     CommandManager.ExecuteCommand(new SlideChairCommand(this));
+                    if (IsTarget(GridPosition + Direction))
+                    {
+                        GD.Print("BREAK");
+                        LevelSelector.OnLevelExit.Invoke(true);
+                    }
                 }
             }
         };
@@ -63,16 +68,20 @@ public partial class Chair : Mover
 
     public override bool CanMoveToward(Vector2I dir)
     {
-        Mover m = GetMover(GridPosition + dir);
-
-        // Movers don't block themselves.
-        if (m != null && m != this)
+        if (HasBox)
         {
-            if (!m.CanMoveToward(dir))
+            Mover m = GetMover(GridPosition + dir);
+
+            // Movers don't block themselves.
+            if (m != null && m != this)
             {
-                return false;
+                if (!m.CanMoveToward(dir))
+                {
+                    return false;
+                }
             }
         }
+
         if (Player.Instance.HasBox)
         {
             return false;

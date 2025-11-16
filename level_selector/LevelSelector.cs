@@ -7,6 +7,7 @@ public partial class LevelSelector : Node2D
     private Camera2D _camera;
     private bool _isHover = false;
     public static Action<PackedScene> OnLevelEnter;
+    public static Action<bool> OnLevelExit;
     [Export]
     private ColorRect _screenColorRect;
     [Export]
@@ -18,6 +19,7 @@ public partial class LevelSelector : Node2D
     private Panel _levelSelectorTitle;
     [Export]
     private Node2D _nodes;
+    private Node _currentLevel;
 
     public override void _Ready()
     {
@@ -35,8 +37,31 @@ public partial class LevelSelector : Node2D
                     {
                         _nodes.Visible = false;
                         _levelSelectorTitle.Visible = false;
-                        _canvasLayer.AddChild(packedLevel.Instantiate());
+                        _currentLevel = packedLevel.Instantiate();
+                        _canvasLayer.AddChild(_currentLevel);
                         _hint.Visible = true;
+                        var tween = GetTree().CreateTween();
+                        tween.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
+                    };
+                };
+            }
+        };
+        OnLevelExit += (isPass) =>
+        {
+            if (_isOnLevel)
+            {
+                _isOnLevel = false;
+                var tween = GetTree().CreateTween();
+                tween.TweenProperty(_screenColorRect, "size", new Vector2(1280, 720), 1f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+                tween.Finished += () =>
+                {
+                    var timer = GetTree().CreateTimer(1);
+                    timer.Timeout += () =>
+                    {
+                        _currentLevel.QueueFree();
+                        _nodes.Visible = true;
+                        _levelSelectorTitle.Visible = true;
+                        _hint.Visible = false;
                         var tween = GetTree().CreateTween();
                         tween.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
                     };
