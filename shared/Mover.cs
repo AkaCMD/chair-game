@@ -145,7 +145,7 @@ public partial class Mover : Node2D
 
     public bool IsChair(Vector2I pos, out Chair chair)
     {
-        if (GetMover(pos).GetType() == typeof(Chair))
+        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Chair))
         {
             chair = (Chair)GetMover(pos);
             return true;

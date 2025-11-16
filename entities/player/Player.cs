@@ -90,7 +90,7 @@ public partial class Player : Mover
                     }
                     else if (IsChair(targetPos, out Chair chair)) 
                     {
-                        bool canGrabFromChair = chair.HasBox && (Direction == -chair.Direction);
+                        bool canGrabFromChair = chair!= null && chair.HasBox && (Direction == -chair.Direction);
                         if (canGrabFromChair)
                         {
                             Box boxOnChair = chair.BoxOnChair; 

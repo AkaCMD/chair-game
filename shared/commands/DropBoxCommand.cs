@@ -19,7 +19,7 @@ public class DropBoxCommand : IAction
         _targetChair = null;
         
         var placePos = Player.Instance.GridPosition + Player.Instance.Direction;
-        bool canPlaceBoxOnChair = Player.Instance.IsChair(placePos, out Chair chair) &&
+        bool canPlaceBoxOnChair = Player.Instance.IsChair(placePos, out var chair) &&
                                   (Player.Instance.Direction == -chair.Direction);
         
         if (canPlaceBoxOnChair)
