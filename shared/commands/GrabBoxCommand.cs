@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public class GrabBoxCommand : IAction
 {
@@ -22,6 +23,9 @@ public class GrabBoxCommand : IAction
 
     public void ExecuteCommand()
     {
+        Player.Instance.SoundTakeBox.Stop();
+        Player.Instance.SoundTakeBox.Play();
+        Player.Instance.SoundTakeBox.PitchScale = new Random().Next(-2, 2)/10f + 1;
         Player.Instance.HasBox = true;
         Player.Instance.BoxInstance = _box;
         _box.GridPosition = new Vector2I(999, 999);

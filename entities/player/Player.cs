@@ -1,5 +1,6 @@
 // Derives from Mover, handles character movement input.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -51,6 +52,15 @@ public partial class Player : Mover
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
     public bool IsWaiting = false;
+    [Export] public AudioStreamPlayer SoundUndo;
+    [Export] public AudioStreamPlayer SoundWalk;
+    [Export] public AudioStreamPlayer SoundTakeBox;
+    [Export] public AudioStreamPlayer SoundSlide;
+    [Export] public AudioStreamPlayer SoundLeaveChair;
+    [Export] public AudioStreamPlayer SoundDropBox;
+    [Export] public AudioStreamPlayer SoundCrush;
+    [Export] public AudioStreamPlayer SoundCollide;
+    [Export] public AudioStreamPlayer SoundBreak;
 
     public override void _EnterTree()
     {
@@ -208,6 +218,9 @@ public partial class Player : Mover
         }
         else
         {
+            // SoundCollide.Stop();
+            SoundCollide.Play();
+            SoundCollide.PitchScale = new Random().Next(-2, 2)/10f + 1;
             CommandManager.ExecuteCommand(new RotateChairCommand());
         }
     }

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://by8yr2xkcystk"]
+[gd_scene load_steps=4 format=4 uid="uid://by8yr2xkcystk"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_tlvj4"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_oxfnx"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_oxfnx"]
 
 [node name="2" type="Node2D"]
 
@@ -36,3 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
+
+[node name="DialogController" parent="." instance=ExtResource("3_oxfnx")]
+position = Vector2(82, 65)
+Text = "Play love2d."

@@ -1,6 +1,7 @@
 // Manage Movers, walls and undo/reset input
 
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,6 +52,15 @@ public partial class Game : Node
         blockInput = true;
         CallDeferred("InitAfterFrame");
         blockInput = false;
+        LevelSelector.OnLevelExit += (isBool) =>
+        {
+            blockInput = true;
+            CallDeferred("InitAfterFrame");
+            blockInput = false;
+            Instance = null;
+            QueueFree();
+            GetTree().CallGroup("movers", "RemoveFromGroup", "movers");
+        };
     }
 
     private void InitAfterFrame()
@@ -110,6 +120,9 @@ public partial class Game : Node
 
     void DoUndo()
     {
+        // Player.Instance.SoundUndo.Stop();
+        Player.Instance.SoundUndo.Play();
+        Player.Instance.SoundUndo.PitchScale = new Random().Next(-2, 2) / 50f + 1;
         if (IsMoving)
         {
             CompleteMove();
@@ -126,7 +139,7 @@ public partial class Game : Node
         await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
         while (Input.IsActionPressed("undo") && holdingUndo)
         {
-            DoUndo();
+            // DoUndo();
             await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
         }
     }
@@ -199,16 +212,13 @@ public partial class Game : Node
                 }
                 else
                 {
-                    // Chair has box push slide
-                    if (mover is Chair chair)
-                    {
-                        
-                    }
-
                     if (mover.ExecuteLogicalMove())
                     {
                         if (!mover.IsPlayer) isPushing = true;
                         moved = true;
+                        Player.Instance.SoundWalk.Stop();
+                        Player.Instance.SoundWalk.Play();
+                        Player.Instance.SoundWalk.PitchScale = new Random().Next(-2, 2) / 10f + 1;
                     }
 
                 }

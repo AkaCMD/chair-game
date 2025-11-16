@@ -39,8 +39,11 @@ public partial class Chair : Mover
                     CommandManager.ExecuteCommand(new SlideChairCommand(this));
                     if (IsTarget(GridPosition + Direction))
                     {
-                        var timer = GetTree().CreateTimer(5);
+                        var timer = GetTree().CreateTimer(3);
+                        Player.Instance.SoundCrush.Play();
+                        Player.Instance.SoundBreak.Play();
                         Player.Instance.IsWaiting = true;
+                        LevelSelector.Instance.Break();
                         timer.Timeout += () =>
                         {
                             LevelSelector.OnLevelExit.Invoke(true);

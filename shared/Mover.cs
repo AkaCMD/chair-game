@@ -3,7 +3,6 @@
 using System.Linq;
 using Godot;
 
-[GlobalClass]
 public partial class Mover : Node2D
 {
     public TileMapLayer Map;
@@ -32,7 +31,17 @@ public partial class Mover : Node2D
         Map = GetParent<TileMapLayer>();
         GridPosition = Map.LocalToMap(Position);
         AddToGroup("movers");
+        LevelSelector.OnLevelExit += (isBool) =>
+        {
+            RemoveFromGroup("movers");
+        };
     }
+
+    public override void _ExitTree()
+    {
+        RemoveFromGroup("movers");
+    }
+
 
     public void Stop()
     {

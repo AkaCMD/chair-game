@@ -19,7 +19,17 @@ public partial class LevelSelector : Node2D
     private Panel _levelSelectorTitle;
     [Export]
     private Node2D _nodes;
-    private Node _currentLevel;
+    [Export]
+    private Sprite2D _breakSprite;
+    private Node2D _currentLevel;
+    public static LevelSelector Instance { get; private set; }
+    [Export]
+    private AudioStreamPlayer _soundLevelStart;
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
 
     public override void _Ready()
     {
@@ -27,17 +37,21 @@ public partial class LevelSelector : Node2D
         {
             if (!_isOnLevel)
             {
+                _soundLevelStart.PitchScale = 1;
+                _soundLevelStart.Play();
                 _isOnLevel = true;
                 var tween = GetTree().CreateTween();
                 tween.TweenProperty(_screenColorRect, "size", new Vector2(1280, 720), 1f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
                 tween.Finished += () =>
                 {
+                    _soundLevelStart.PitchScale = .8f;
+                    _soundLevelStart.Play();
                     var timer = GetTree().CreateTimer(1);
                     timer.Timeout += () =>
                     {
                         _nodes.Visible = false;
                         _levelSelectorTitle.Visible = false;
-                        _currentLevel = packedLevel.Instantiate();
+                        _currentLevel = (Node2D)packedLevel.Instantiate();
                         _canvasLayer.AddChild(_currentLevel);
                         _hint.Visible = true;
                         var tween = GetTree().CreateTween();
@@ -50,11 +64,15 @@ public partial class LevelSelector : Node2D
         {
             if (_isOnLevel)
             {
+                _soundLevelStart.PitchScale = 1;
+                _soundLevelStart.Play();
                 _isOnLevel = false;
                 var tween = GetTree().CreateTween();
                 tween.TweenProperty(_screenColorRect, "size", new Vector2(1280, 720), 1f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
                 tween.Finished += () =>
                 {
+                    _soundLevelStart.PitchScale = .8f;
+                    _soundLevelStart.Play();
                     var timer = GetTree().CreateTimer(1);
                     timer.Timeout += () =>
                     {
@@ -85,5 +103,17 @@ public partial class LevelSelector : Node2D
         }
     }
 
-
+    public void Break()
+    {
+        var timer = GetTree().CreateTimer(4);
+        timer.Timeout += () =>
+        {
+            _breakSprite.Scale = new Vector2(2, 2);
+            _breakSprite.Modulate = new Color(1, 1, 1, 0);
+        };
+        var tween = GetTree().CreateTween();
+        tween.TweenProperty(_breakSprite, "scale", new Vector2(1.181f, 1.181f), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+        var tween2 = GetTree().CreateTween();
+        tween2.TweenProperty(_breakSprite, "modulate", new Color(1, 1, 1, 1), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+    }
 }

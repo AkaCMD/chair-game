@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public class SitChairCommand : IAction
@@ -16,6 +17,9 @@ public class SitChairCommand : IAction
     }
     public void ExecuteCommand()
     {
+        Player.Instance.SoundSlide.Stop();
+        Player.Instance.SoundSlide.Play();
+        Player.Instance.SoundSlide.PitchScale = new Random().Next(-2, 2)/10f + 1;
         Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
         Player.Instance.IsSit = true;

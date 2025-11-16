@@ -7,6 +7,8 @@ public partial class DialogController : Node2D
     private PackedScene _packedDialogText;
     [Export]
     public string Text;
+    [Export]
+    private AudioStreamPlayer _soundTalk;
     private double _timer;
     private int _index;
     public override void _Process(double delta)
@@ -20,6 +22,8 @@ public partial class DialogController : Node2D
             AddChild(word);
             _index++;
             _timer = 0;
+            _soundTalk.Play();
+            _soundTalk.PitchScale = new Random().Next(-2, 2)/10f + 1;
         }
     }
 

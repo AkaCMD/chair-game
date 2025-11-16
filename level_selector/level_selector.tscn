@@ -1,13 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=18 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
 [ext_resource type="Shader" uid="uid://be17m3s4ya5fc" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
-[ext_resource type="PackedScene" uid="uid://bhm2yij11uwce" path="res://levels/test.tscn" id="4_cxlhq"]
+[ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
 [ext_resource type="Shader" uid="uid://bifjabecg6vvn" path="res://level_selector/cover.gdshader" id="5_28gom"]
 [ext_resource type="PackedScene" uid="uid://c6n8x7lmxwf8b" path="res://levels/test2.tscn" id="5_o0sms"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
+[ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/1.tscn" id="6_ukbrm"]
+[ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/2.tscn" id="7_j677p"]
+[ext_resource type="PackedScene" uid="uid://cak3pjjtxihs" path="res://levels/3.tscn" id="8_fytug"]
+[ext_resource type="Texture2D" uid="uid://bu43m80kbae0g" path="res://assets/ui/BreakUI.png" id="12_j677p"]
+[ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
+[ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rcln"]
 shader = ExtResource("2_bqtf1")
@@ -22,7 +28,7 @@ shadow_offset = Vector2(5, 5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hggau"]
 shader = ExtResource("5_28gom")
 
-[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect", "_hint", "_canvasLayer", "_levelSelectorTitle", "_nodes")]
+[node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect", "_hint", "_canvasLayer", "_levelSelectorTitle", "_nodes", "_breakSprite", "_soundLevelStart")]
 script = ExtResource("1_hfeca")
 _camera = NodePath("Nodes/Camera2D")
 _screenColorRect = NodePath("CanvasLayer/ColorRect")
@@ -30,6 +36,8 @@ _hint = NodePath("CanvasLayer/Hint")
 _canvasLayer = NodePath("CanvasLayer")
 _levelSelectorTitle = NodePath("CanvasLayer/Panel")
 _nodes = NodePath("Nodes")
+_breakSprite = NodePath("CanvasLayer/Break")
+_soundLevelStart = NodePath("LevelStart")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 top_level = true
@@ -42,11 +50,11 @@ color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="LevelNode" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(150, 287)
-LevelID = "LD-1"
-LevelName = "Go away"
+position = Vector2(151, 287)
+LevelID = "TUTO-1"
+LevelName = "Break"
 LevelNodes = [NodePath("../LevelNode2")]
-PackedLevel = ExtResource("4_cxlhq")
+PackedLevel = ExtResource("4_v1hyg")
 
 [node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(424, 458)
@@ -60,11 +68,13 @@ position = Vector2(736, 225)
 LevelID = "LD-3"
 LevelName = "11037"
 LevelNodes = [NodePath("../LevelNode5")]
+PackedLevel = ExtResource("6_ukbrm")
 
 [node name="LevelNode4" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(831, 555)
 LevelID = "EX-1"
 LevelName = "OMG"
+PackedLevel = ExtResource("7_j677p")
 
 [node name="Camera2D" type="Camera2D" parent="Nodes"]
 anchor_mode = 0
@@ -75,8 +85,16 @@ limit_smoothed = true
 position = Vector2(1210, 143)
 LevelID = "LD-4"
 LevelName = "HR"
+PackedLevel = ExtResource("8_fytug")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Break" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 8
+position = Vector2(630, 363.75)
+scale = Vector2(2, 2)
+texture = ExtResource("12_j677p")
 
 [node name="Hint" parent="CanvasLayer" instance=ExtResource("6_hggau")]
 visible = false
@@ -104,3 +122,11 @@ vertical_alignment = 1
 z_index = 10
 material = SubResource("ShaderMaterial_hggau")
 offset_bottom = 721.0
+
+[node name="LevelStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_fytug")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_v1hyg")
+volume_db = 0.7
+autoplay = true

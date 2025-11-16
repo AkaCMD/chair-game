@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://8njujq2xqliw"]
+[gd_scene load_steps=4 format=3 uid="uid://8njujq2xqliw"]
 
 [ext_resource type="Script" uid="uid://ccao4t51ctqb1" path="res://dialog/DialogController.cs" id="1_j2njv"]
 [ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
+[ext_resource type="AudioStream" uid="uid://72a51eykusug" path="res://audios/talk.wav" id="3_lo7ct"]
 
-[node name="DialogController" type="Node2D"]
+[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_soundTalk")]
 script = ExtResource("1_j2njv")
 _packedDialogText = ExtResource("2_m0y87")
 Text = "This is a simple text."
+_soundTalk = NodePath("Talk")
+
+[node name="Talk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lo7ct")

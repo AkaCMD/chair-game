@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bytjsm567mmes"]
+[gd_scene load_steps=23 format=3 uid="uid://bytjsm567mmes"]
 
 [ext_resource type="Script" uid="uid://cwp3w3o0wh4gn" path="res://entities/player/Player.cs" id="1_abrql"]
 [ext_resource type="Texture2D" uid="uid://nru6km223bl3" path="res://assets/world/character/character_left.png" id="2_bectd"]
@@ -13,8 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://dr72k5d67nhvs" path="res://assets/world/character_box/character_box_right.png" id="11_afbqv"]
 [ext_resource type="Texture2D" uid="uid://cbb376ilvpjte" path="res://assets/world/character_box/character_box_back.png" id="12_gx6sm"]
 [ext_resource type="Texture2D" uid="uid://dm351eaitr3co" path="res://assets/world/character_box/character_box_front.png" id="13_yqrof"]
+[ext_resource type="AudioStream" uid="uid://drlkgpx3us3ej" path="res://audios/undo.wav" id="14_afbqv"]
+[ext_resource type="AudioStream" uid="uid://oxxub1pg6obi" path="res://audios/walk.wav" id="15_gx6sm"]
+[ext_resource type="AudioStream" uid="uid://qqqw5x72gdoe" path="res://audios/takeBox.wav" id="16_yqrof"]
+[ext_resource type="AudioStream" uid="uid://dyvolqs3d4oy4" path="res://audios/slide.wav" id="17_3wlsy"]
+[ext_resource type="AudioStream" uid="uid://blo315t00oyvp" path="res://audios/leave chair.wav" id="18_we0b7"]
+[ext_resource type="AudioStream" uid="uid://vkco75liko7i" path="res://audios/dropBox.wav" id="19_mtric"]
+[ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="20_mtric"]
+[ext_resource type="AudioStream" uid="uid://clxrjbnvpxle0" path="res://audios/collide.wav" id="21_eyb6c"]
+[ext_resource type="AudioStream" uid="uid://byum3yrvpcbgb" path="res://audios/break.wav" id="22_221hk"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite") groups=["movers", "player"]]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundUndo", "SoundWalk", "SoundTakeBox", "SoundSlide", "SoundLeaveChair", "SoundDropBox", "SoundCrush", "SoundCollide", "SoundBreak") groups=["movers", "player"]]
 script = ExtResource("1_abrql")
 _sprite = NodePath("Sprite2D")
 _texturePlayerLeft = ExtResource("2_bectd")
@@ -29,8 +38,45 @@ _texturePlayerWithBoxLeft = ExtResource("10_j3ovn")
 _texturePlayerWithBoxRight = ExtResource("11_afbqv")
 _texturePlayerWithBoxUp = ExtResource("12_gx6sm")
 _texturePlayerWithBoxDown = ExtResource("13_yqrof")
+SoundUndo = NodePath("Undo")
+SoundWalk = NodePath("Walk")
+SoundTakeBox = NodePath("TakeBox")
+SoundSlide = NodePath("Slide")
+SoundLeaveChair = NodePath("LeaveChair")
+SoundDropBox = NodePath("DropBox")
+SoundCrush = NodePath("Crush")
+SoundCollide = NodePath("Collide")
+SoundBreak = NodePath("Break")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -59)
 texture = ExtResource("5_a1qjk")
 region_rect = Rect2(0, 320, 64, 64)
+
+[node name="Undo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_afbqv")
+volume_db = -5.0
+
+[node name="Walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_gx6sm")
+
+[node name="TakeBox" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_yqrof")
+
+[node name="Slide" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_3wlsy")
+
+[node name="LeaveChair" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_we0b7")
+
+[node name="DropBox" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_mtric")
+
+[node name="Crush" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_mtric")
+
+[node name="Collide" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_eyb6c")
+
+[node name="Break" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_221hk")

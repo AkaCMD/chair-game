@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=4 uid="uid://c6n8x7lmxwf8b"]
+[gd_scene load_steps=4 format=4 uid="uid://c6n8x7lmxwf8b"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_k2k1l"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_ponhg"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_ponhg"]
 
 [node name="Test2" type="Node2D"]
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_k2k1l")
+ObjectsTileMapLayer = NodePath("Objects")
 
 [node name="Background" type="TileMapLayer" parent="World"]
 scale = Vector2(0.65, 0.65)
@@ -25,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
@@ -36,3 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
+
+[node name="DialogController" parent="." instance=ExtResource("3_ponhg")]
+position = Vector2(135, 108)
+Text = "A space room."

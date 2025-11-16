@@ -12,6 +12,9 @@ public class SlideCommand : IAction
     }
     public void ExecuteCommand()
     {
+        Player.Instance.SoundSlide.Stop();
+        Player.Instance.SoundSlide.Play();
+        Player.Instance.SoundSlide.PitchScale = new Random().Next(-2, 2)/10f + 1;
         for (int j = 0; j < 30; j++)
         {
             if (!Player.Instance.TryPlanMove(Player.Instance.Direction * j))

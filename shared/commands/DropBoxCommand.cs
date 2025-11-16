@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public class DropBoxCommand : IAction
@@ -15,6 +16,9 @@ public class DropBoxCommand : IAction
 
     public void ExecuteCommand()
     {
+        Player.Instance.SoundDropBox.Stop();
+        Player.Instance.SoundDropBox.Play();
+        Player.Instance.SoundDropBox.PitchScale = new Random().Next(-2, 2)/10f + 1;
         _wasPlacedOnChair = false;
         _targetChair = null;
         
