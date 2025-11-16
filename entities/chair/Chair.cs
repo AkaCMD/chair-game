@@ -39,8 +39,12 @@ public partial class Chair : Mover
                     CommandManager.ExecuteCommand(new SlideChairCommand(this));
                     if (IsTarget(GridPosition + Direction))
                     {
-                        GD.Print("BREAK");
-                        LevelSelector.OnLevelExit.Invoke(true);
+                        var timer = GetTree().CreateTimer(5);
+                        Player.Instance.IsWaiting = true;
+                        timer.Timeout += () =>
+                        {
+                            LevelSelector.OnLevelExit.Invoke(true);
+                        };
                     }
                 }
             }
