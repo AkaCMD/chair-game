@@ -199,15 +199,20 @@ public partial class Game : Node
                 }
                 else
                 {
+                    // Chair has box push slide
+                    if (mover is Chair chair)
+                    {
+                        
+                    }
+
                     if (mover.ExecuteLogicalMove())
                     {
                         if (!mover.IsPlayer) isPushing = true;
                         moved = true;
                     }
+
                 }
             }
-
-
 
             if (moved)
             {

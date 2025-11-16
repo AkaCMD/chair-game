@@ -27,6 +27,22 @@ public partial class Chair : Mover
     public Box BoxOnChair { get; set; }
 
 
+    public override void _Ready()
+    {
+        base._Ready();
+        Events.OnPush += () =>
+        {
+            if (HasBox && Direction == Player.Instance.Direction)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    CommandManager.ExecuteCommand(new SlideChairCommand(this));
+                }
+            }
+        };
+    }
+
+
     public override void _Process(double delta)
     {
         if (HasBox)
@@ -47,6 +63,16 @@ public partial class Chair : Mover
 
     public override bool CanMoveToward(Vector2I dir)
     {
+        Mover m = GetMover(GridPosition + dir);
+
+        // Movers don't block themselves.
+        if (m != null && m != this)
+        {
+            if (!m.CanMoveToward(dir))
+            {
+                return false;
+            }
+        }
         if (Player.Instance.HasBox)
         {
             return false;
@@ -60,6 +86,8 @@ public partial class Chair : Mover
         {
             return false;
         }
+
+
 
         return Direction == dir;
     }
