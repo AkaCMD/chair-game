@@ -1,0 +1,28 @@
+[gd_scene load_steps=10 format=3 uid="uid://bj0eekijn4fa2"]
+
+[ext_resource type="Script" uid="uid://d2hi4mkq444o6" path="res://entities/chair/Chair.cs" id="1_urqt2"]
+[ext_resource type="Texture2D" uid="uid://cja6pjinw58kt" path="res://assets/world/chair/chair_left.png" id="2_84qy2"]
+[ext_resource type="Texture2D" uid="uid://cc6xmkaedlrgy" path="res://assets/world/chair/chair_right.png" id="3_wh38y"]
+[ext_resource type="Texture2D" uid="uid://47qgl1f53k1h" path="res://assets/world/chair/chair_back.png" id="4_l62iu"]
+[ext_resource type="Texture2D" uid="uid://bofev2wfpf1dj" path="res://assets/world/chair/chair_front.png" id="5_2u848"]
+[ext_resource type="Texture2D" uid="uid://bi4cdmebnrycu" path="res://assets/world/chair_box/chair_box_left.png" id="6_hx25n"]
+[ext_resource type="Texture2D" uid="uid://cu02uiia5atxn" path="res://assets/world/chair_box/chair_box_right.png" id="7_2ethk"]
+[ext_resource type="Texture2D" uid="uid://cnby02dskub2v" path="res://assets/world/chair_box/chair_box_back.png" id="8_vgvh0"]
+[ext_resource type="Texture2D" uid="uid://bkl0376uv6jee" path="res://assets/world/chair_box/chair_box_front.png" id="9_j38bt"]
+
+[node name="Chair" type="Node2D" node_paths=PackedStringArray("_sprite")]
+script = ExtResource("1_urqt2")
+_sprite = NodePath("Sprite2D")
+_textureLeft = ExtResource("2_84qy2")
+_textureRight = ExtResource("3_wh38y")
+_textureUp = ExtResource("4_l62iu")
+_textureDown = ExtResource("5_2u848")
+_textureBoxLeft = ExtResource("6_hx25n")
+_textureBoxRight = ExtResource("7_2ethk")
+_textureBoxUp = ExtResource("8_vgvh0")
+_textureBoxDown = ExtResource("9_j38bt")
+Direction = Vector2i(0, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -52)
+texture = ExtResource("5_2u848")
