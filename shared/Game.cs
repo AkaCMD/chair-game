@@ -9,7 +9,7 @@ public partial class Game : Node
 {
     public static Game Instance { get; private set; }
 
-    public static List<Mover> Movers = new();
+    public List<Mover> Movers = new();
 
     public float MoveTime = 0.1f;  // time it takes to move 1 unit
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
@@ -61,6 +61,7 @@ public partial class Game : Node
             QueueFree();
             GetTree().CallGroup("movers", "RemoveFromGroup", "movers");
         };
+        Events.OnMoveComplete += SetReferences;
     }
 
     private void InitAfterFrame()

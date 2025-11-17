@@ -103,12 +103,6 @@ public partial class Chair : Mover
             return false;
         }
 
-
-
         return Direction == dir;
     }
-
-
-
-
 }
