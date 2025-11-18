@@ -72,6 +72,11 @@ public partial class Game : Node
 
     private void SetReferences()
     {
+        if (!IsInstanceValid(this))
+        {
+            return;
+        }
+        
         Movers.Clear();
 
         Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().ToList();
