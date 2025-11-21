@@ -94,7 +94,8 @@ public partial class Player : Mover
                 if (HasBox)
                 {
                     var mover = GetMover(GridPosition + Direction);
-                    if ((mover == null && !IsWall(GridPosition + Direction)) || mover?.GetType() == typeof(Chair))
+                    if ((mover == null && !IsWall(GridPosition + Direction)) || 
+                        (mover is Chair chair && Direction == -chair.Direction))
                     {
                         CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
                         CommandManager.AddNewTurn();
