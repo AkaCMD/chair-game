@@ -80,12 +80,6 @@ public partial class Game : Node
         Movers.Clear();
 
         Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().ToList();
-
-        GD.Print($"Find {Movers.Count} Movers: ");
-        foreach (var mover in Movers)
-        {
-            GD.Print($"- {mover.Name} Pos: {mover.GridPosition}");
-        }
     }
 
     public override void _Process(double delta)

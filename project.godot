@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CommandManager="*res://shared/commands/CommandManager.cs"
+ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 
 [display]
 
@@ -27,6 +28,10 @@ window/size/viewport_height=720
 [dotnet]
 
 project/assembly_name="chair_game"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
 [input]
 

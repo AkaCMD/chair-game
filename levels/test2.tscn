@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=4 uid="uid://c6n8x7lmxwf8b"]
+[gd_scene load_steps=5 format=4 uid="uid://c6n8x7lmxwf8b"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_k2k1l"]
+[ext_resource type="Script" uid="uid://b258i3baneqsd" path="res://shared/Debug.cs" id="1_yg3sr"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_ponhg"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_ponhg"]
 
 [node name="Test2" type="Node2D"]
+script = ExtResource("1_yg3sr")
 
 [node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_k2k1l")
