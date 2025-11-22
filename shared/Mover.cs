@@ -1,5 +1,6 @@
 // Things that can move that should be tracked for the undo system
 
+using System;
 using System.Linq;
 using Godot;
 
@@ -9,10 +10,13 @@ public partial class Mover : Node2D
     private Vector2I _gridPosition;
 
     public bool IsPlayer => IsInGroup("player");
+    public bool IsSliding = false;
     
     // During a movement cycle, what's the next move (as a difference
     // from its current position) that this Mover will try to make?
     private Vector2I _plannedMove;
+
+    private Vector2I prevMoveDir;
 
     public Vector2I GridPosition
     {
@@ -31,6 +35,7 @@ public partial class Mover : Node2D
         Map = GetParent<TileMapLayer>();
         GridPosition = Map.LocalToMap(Position);
         AddToGroup("movers");
+        Events.OnMoveComplete += TrySlide;
     }
 
     public void Stop()
@@ -39,7 +44,7 @@ public partial class Mover : Node2D
     }
 
     // Try to plan a move in the indicated direction, if that move is valid.
-    public virtual bool TryPlanMove(Vector2I dir)
+    public bool TryPlanMove(Vector2I dir)
     {
         Vector2I target = GridPosition + dir;
         if (!CanMoveToward(dir))
@@ -91,6 +96,7 @@ public partial class Mover : Node2D
     public void MoveIt()
     {
         _gridPosition += _plannedMove;
+        prevMoveDir = _plannedMove;
         _plannedMove = Vector2I.Zero;
     }
 
@@ -166,7 +172,7 @@ public partial class Mover : Node2D
         return null;
     }
     
-    public void Bump(Vector2I targetGridPos)
+    public void Bump(Vector2I targetGridPos, bool shouldMove = false)
     {
         Tween?.Kill();
     
@@ -181,6 +187,32 @@ public partial class Mover : Node2D
 
         Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime/2);
         Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime/2);
+
+        if (shouldMove)
+        {
+            Tween.Finished += () =>
+            {
+                Game.Instance.MoveStart();
+            };
+        }
     }
 
+    private void TrySlide()
+    {
+        if (IsSliding)
+        {
+            IsSliding = TryPlanMove(prevMoveDir);
+            if (IsSliding)
+            {
+                Player.Instance.SoundSlide.Stop();
+                Player.Instance.SoundSlide.Play();
+                Player.Instance.SoundSlide.PitchScale = new Random().Next(-2, 2)/10f + 1;
+                Game.Instance.MoveStart();
+            }
+            else
+            {
+                CommandManager.AddNewTurn();
+            }
+        }
+    }
 }

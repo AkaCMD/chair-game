@@ -93,11 +93,7 @@ public partial class Chair : Mover
         {
             return false;
         }
-        if (dir * -1 == Direction && !HasBox)
-        {
-            CommandManager.ExecuteCommand(new SitChairCommand(this));
-            CommandManager.AddNewTurn();
-        }
+        
         if (IsWall(GridPosition + dir))
         {
             return false;

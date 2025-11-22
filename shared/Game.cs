@@ -86,8 +86,11 @@ public partial class Game : Node
     {
         if (Input.IsActionJustPressed("undo"))
         {
-            DoUndo();
-            UndoRepeat();
+            if (!HasMoverSliding())
+            {
+                DoUndo();
+                UndoRepeat();   
+            }
         }
 
         if (Input.IsActionJustReleased("undo"))
@@ -185,27 +188,11 @@ public partial class Game : Node
             var moved = false;
             foreach (var mover in Movers)
             {
-                // Sit
                 bool playerIsSitting = mover.IsPlayer && Player.Instance.IsSit;
                 if (playerIsSitting)
                 {
-                    bool sameDirection = Player.Instance.PreviousDirection == Player.Instance.Direction;
-                    bool oppositeDirection = Player.Instance.PreviousDirection == Player.Instance.Direction * -1;
-                    if (sameDirection)
+                    if (mover.ExecuteLogicalMove())
                     {
-                        if (!oppositeDirection)
-                        {
-                            PlanSlideDistance();
-                        }
-                        if (mover.ExecuteLogicalMove())
-                        {
-                            if (!mover.IsPlayer) isPushing = true;
-                            moved = true;
-                        }
-                    }
-                    else if (oppositeDirection)
-                    {
-                        CommandManager.ExecuteCommand(new LeaveChairCommand(Player.Instance.GridPosition));
                         if (!mover.IsPlayer) isPushing = true;
                         moved = true;
                     }
@@ -244,11 +231,6 @@ public partial class Game : Node
 
     }
 
-    private void PlanSlideDistance()
-    {
-        CommandManager.ExecuteCommand(new SlideCommand());
-    }
-
 
     private void StartMoveCycle()
     {
@@ -271,7 +253,7 @@ public partial class Game : Node
             var targetPos = move.Pos;
             Tween tween = CreateTween();
             tween.TweenProperty(move.m, "position", move.m.Map.MapToLocal(targetPos), duration)
-                .SetTrans(Tween.TransitionType.Sine);
+                .SetTrans(Tween.TransitionType.Linear);
 
             tween.Finished += () =>
             {
@@ -293,5 +275,16 @@ public partial class Game : Node
     public void CompleteMove()
     {
         Events.OnMoveComplete?.Invoke();
+    }
+
+    public bool HasMoverSliding()
+    {
+        foreach (var mover in Movers)
+        {
+            if (mover.IsSliding)
+                return true;
+        }
+
+        return false;
     }
 }

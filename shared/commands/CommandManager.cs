@@ -28,12 +28,19 @@ public partial class CommandManager : Node
     public static void ExecuteCommand(IAction action)
     {
         action.ExecuteCommand();
+        if (CommandsStack.Count == 0)
+        {
+            AddNewTurn();
+        }
         CommandsStack.Peek().Push(action);
     }
 
     public static void AddNewTurn()
     {
-        CommandsStack.Push(new Stack<IAction>());
+        if (!Game.Instance.HasMoverSliding())
+        {
+            CommandsStack.Push(new Stack<IAction>());   
+        }
     }
 
     public static void UndoCommand()

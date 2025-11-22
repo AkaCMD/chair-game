@@ -5,6 +5,7 @@ public class SitChairCommand : IAction
 {
     private Chair _chair;
     private Vector2I _originalPosition;
+    private Vector2I _playerOriginalGridPosition;
     private Vector2I _direction;
     private Vector2I _playerPreviousDirection;
     private Vector2I _playerPreviousPreviousDirection;
@@ -14,27 +15,21 @@ public class SitChairCommand : IAction
         _originalPosition = _chair.GridPosition;
         _playerPreviousPreviousDirection = Player.Instance.PreviousPreviousDirection;
         _playerPreviousDirection = Player.Instance.PreviousDirection;
+        _playerOriginalGridPosition = Player.Instance.GridPosition;
     }
     public void ExecuteCommand()
     {
         Player.Instance.SoundSlide.Stop();
         Player.Instance.SoundSlide.Play();
         Player.Instance.SoundSlide.PitchScale = new Random().Next(-2, 2)/10f + 1;
+        
         Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
         Player.Instance.IsSit = true;
         Player.Instance.ChairInstance = _chair;
         _chair.GridPosition = new Vector2I(999, 999);
         _direction = _chair.Direction;
-        for (int j = 0; j < 50; j++)
-        {
-            if (!Player.Instance.TryPlanMove(Player.Instance.Direction * j))
-            {
-                Player.Instance.TryPlanMove(Player.Instance.Direction * (j - 1));
-                break;
-            }
-        }
-        CommandManager.ExecuteCommand(new MoveCommand(Player.Instance));
+        Player.Instance.GridPosition += Player.Instance.Direction;
     }
 
     public void UndoCommand()
@@ -44,5 +39,6 @@ public class SitChairCommand : IAction
         Player.Instance.IsSit = false;
         Player.Instance.PreviousDirection = _playerPreviousPreviousDirection;
         Player.Instance.Direction = _playerPreviousDirection;
+        Player.Instance.GridPosition = _playerOriginalGridPosition;
     }
 }

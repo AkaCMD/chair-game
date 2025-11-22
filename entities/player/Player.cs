@@ -52,6 +52,9 @@ public partial class Player : Mover
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
     public bool IsWaiting = false;
+    
+    private bool _waitForInputRelease = false;
+    
     [Export] public AudioStreamPlayer SoundUndo;
     [Export] public AudioStreamPlayer SoundWalk;
     [Export] public AudioStreamPlayer SoundTakeBox;
@@ -86,7 +89,7 @@ public partial class Player : Mover
         if (CanInput())
         {
             // check movement input
-            CheckBufferedInput();
+             CheckBufferedInput();
 
             // interact
             if (Input.IsActionJustPressed("interact") && !IsSit)
@@ -172,6 +175,21 @@ public partial class Player : Mover
                 "move_up",
                 "move_down")
             .Round();
+        
+        if (_waitForInputRelease)
+        {
+            if (newDir == Vector2I.Zero)
+            {
+                _waitForInputRelease = false;
+            }
+            else
+            {
+                _prevHorInput = newDir.X;
+                _prevVerInput = newDir.Y;
+                return; 
+            }
+        }
+        
         int newHor = newDir.X;
         int newVer = newDir.Y;
         bool shouldBufferInput =
@@ -210,19 +228,64 @@ public partial class Player : Mover
         {
             return;
         }
-        Direction = InputBuffer.First();
+        Vector2I newDirection = InputBuffer.First();
         InputBuffer.RemoveAt(0);
 
-        if (TryPlanMove(Direction))
+        if (IsSit)
         {
-            Game.Instance.MoveStart();
+            bool isSameDirection = (newDirection == Direction);
+            if (isSameDirection)
+            {
+                Vector2I checkPos = GridPosition + Direction;
+                bool hasObstacle = IsWall(checkPos) || GetMover(checkPos) != null;
+                if (hasObstacle)
+                {
+                    IsSliding = true;
+                    if (TryPlanMove(-Direction))
+                    {
+                        Bump(checkPos, true);
+                    }
+                }
+                else
+                {
+                    CommandManager.ExecuteCommand(new LeaveChairCommand(GridPosition));
+                }
+            }
+            else
+            {
+                Direction = newDirection;
+                SoundCollide.Play();
+                SoundCollide.PitchScale = new Random().Next(-2, 2) / 10f + 1;
+                CommandManager.ExecuteCommand(new RotateChairCommand());
+            }
         }
         else
         {
-            // SoundCollide.Stop();
-            SoundCollide.Play();
-            SoundCollide.PitchScale = new Random().Next(-2, 2)/10f + 1;
-            CommandManager.ExecuteCommand(new RotateChairCommand());
+            Direction = newDirection;
+            Vector2I checkPos = GridPosition + Direction;
+            Mover mover = GetMover(checkPos);
+            
+            if (mover is Chair chair)
+            {
+                if (Direction == -chair.Direction && !chair.HasBox && !HasBox)
+                {
+                    CommandManager.ExecuteCommand(new SitChairCommand(chair));
+                    CommandManager.AddNewTurn();
+                    InputBuffer.Clear();
+                    _waitForInputRelease = true;
+                    return;
+                }
+            }
+            
+            if (TryPlanMove(Direction))
+            {
+                Game.Instance.MoveStart();
+            }
+            else
+            {
+                SoundCollide.Play();
+                SoundCollide.PitchScale = new Random().Next(-2, 2) / 10f + 1;
+            }
         }
     }
 
