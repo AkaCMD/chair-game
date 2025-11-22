@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://dpidn1r2ryt3o"]
+[gd_scene load_steps=5 format=4 uid="uid://dpidn1r2ryt3o"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_s3oku"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_a47pm"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_a47pm"]
+[ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="4_frab7"]
 
 [node name="1" type="Node2D"]
 
@@ -41,3 +42,5 @@ color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 [node name="DialogController" parent="." instance=ExtResource("3_a47pm")]
 position = Vector2(119, 97)
 Text = "This is a simple room."
+
+[node name="LittleTiledShooking" parent="." instance=ExtResource("4_frab7")]

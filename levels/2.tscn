@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=4 uid="uid://by8yr2xkcystk"]
+[gd_scene load_steps=6 format=4 uid="uid://by8yr2xkcystk"]
 
+[ext_resource type="Script" uid="uid://b258i3baneqsd" path="res://shared/Debug.cs" id="1_5u8o6"]
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_tlvj4"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_oxfnx"]
+[ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="2_qlf6b"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_oxfnx"]
 
 [node name="2" type="Node2D"]
+script = ExtResource("1_5u8o6")
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1_tlvj4")
@@ -41,3 +44,5 @@ color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 [node name="DialogController" parent="." instance=ExtResource("3_oxfnx")]
 position = Vector2(82, 65)
 Text = "Play love2d."
+
+[node name="LittleTiledShooking" parent="." instance=ExtResource("2_qlf6b")]
