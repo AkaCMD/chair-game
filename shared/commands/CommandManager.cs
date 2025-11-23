@@ -36,7 +36,7 @@ public partial class CommandManager : Node
 
         if (CommandsStack.Count == 0)
         {
-            AddNewTurn();
+            CommandsStack.Push(new Stack<IAction>());
         }
 
         CommandsStack.Peek().Push(action);
@@ -56,7 +56,7 @@ public partial class CommandManager : Node
 
         if (CommandsStack.Count == 0)
         {
-            AddNewTurn();
+            CommandsStack.Push(new Stack<IAction>());
             return;
         }
 

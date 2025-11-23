@@ -132,10 +132,23 @@ public partial class Chair : Mover
         {
             return false;
         }
-
-        if (HasBox)
+        
+        Mover adjacentMover = GetMover(GridPosition + direction);
+        if (adjacentMover != null && adjacentMover != this)
         {
-            return CanMoveWithBox(direction);
+            Vector2I targetPos = adjacentMover.GridPosition + direction;
+            
+            if (IsWall(targetPos))
+            {
+                return false;
+            }
+            
+            Mover targetMover = GetMover(targetPos);
+            if (targetMover != null && targetMover != adjacentMover)
+            {
+                return false;
+            }
+            return adjacentMover.CanMoveToward(direction);
         }
 
         return true;
@@ -154,17 +167,5 @@ public partial class Chair : Mover
         }
 
         return Direction != -direction;
-    }
-
-    private bool CanMoveWithBox(Vector2I direction)
-    {
-        Mover adjacentMover = GetMover(GridPosition + direction);
-
-        if (adjacentMover != null && adjacentMover != this)
-        {
-            return adjacentMover.CanMoveToward(direction);
-        }
-
-        return true;
     }
 }
