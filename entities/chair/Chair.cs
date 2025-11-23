@@ -3,102 +3,168 @@ using System;
 
 public partial class Chair : Mover
 {
-    [Export]
-    private Sprite2D _sprite;
-    [Export]
-    private Texture2D _textureLeft;
-    [Export]
-    private Texture2D _textureRight;
-    [Export]
-    private Texture2D _textureUp;
-    [Export]
-    private Texture2D _textureDown;
-    [Export]
-    private Texture2D _textureBoxLeft;
-    [Export]
-    private Texture2D _textureBoxRight;
-    [Export]
-    private Texture2D _textureBoxUp;
-    [Export]
-    private Texture2D _textureBoxDown;
-    [Export]
-    public Vector2I Direction { get; set; } = new Vector2I(0, 1);
+    [Export] private Sprite2D _sprite;
+
+    // Chair textures
+    [Export] private Texture2D _textureLeft;
+    [Export] private Texture2D _textureRight;
+    [Export] private Texture2D _textureUp;
+    [Export] private Texture2D _textureDown;
+
+    // Chair with box textures
+    [Export] private Texture2D _textureBoxLeft;
+    [Export] private Texture2D _textureBoxRight;
+    [Export] private Texture2D _textureBoxUp;
+    [Export] private Texture2D _textureBoxDown;
+
+    [Export] public Vector2I Direction { get; set; } = Vector2I.Down;
     public bool HasBox { get; set; } = false;
     public Box BoxOnChair { get; set; }
 
+    private const int MaxSlideAttempts = 20;
+    private const float LevelExitDelay = 3.0f;
 
     public override void _Ready()
     {
         base._Ready();
-        Events.OnPush += () =>
-        {
-            if (HasBox && Direction == Player.Instance.Direction)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    CommandManager.ExecuteCommand(new SlideChairCommand(this));
-                    if (IsTarget(GridPosition + Direction))
-                    {
-                        var timer = GetTree().CreateTimer(3);
-                        Player.Instance.SoundCrush.Play();
-                        Player.Instance.SoundBreak.Play();
-                        Player.Instance.IsWaiting = true;
-                        LevelSelector.Instance.Break();
-                        timer.Timeout += () =>
-                        {
-                            LevelSelector.OnLevelExit.Invoke(true);
-                        };
-                    }
-                }
-            }
-        };
+        Events.OnPush += OnPushEvent;
     }
 
+    private void OnPushEvent()
+    {
+        if (HasBox && Direction == Player.Instance.Direction)
+        {
+            HandleBoxSlide();
+        }
+    }
+
+    private void HandleBoxSlide()
+    {
+        for (int slideAttempt = 0; slideAttempt < MaxSlideAttempts; slideAttempt++)
+        {
+            CommandManager.ExecuteCommand(new SlideChairCommand(this));
+
+            if (IsTarget(GridPosition + Direction))
+            {
+                HandleTargetReached();
+                break;
+            }
+        }
+    }
+
+    private void HandleTargetReached()
+    {
+        var exitTimer = GetTree().CreateTimer(LevelExitDelay);
+
+        Player.Instance.SoundCrush.Play();
+        Player.Instance.SoundBreak.Play();
+        Player.Instance.IsWaiting = true;
+        LevelSelector.Instance.Break();
+
+        exitTimer.Timeout += OnLevelExitTimerComplete;
+    }
+
+    private void OnLevelExitTimerComplete()
+    {
+        LevelSelector.OnLevelExit.Invoke(true);
+    }
 
     public override void _Process(double delta)
     {
-        if (HasBox)
-        {
-            _sprite.Texture = Direction == Vector2I.Left ? _textureBoxLeft : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Right ? _textureBoxRight : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Up ? _textureBoxUp : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Down ? _textureBoxDown : _sprite.Texture;
-        }
-        else
-        {
-            _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Right ? _textureRight : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Up ? _textureUp : _sprite.Texture;
-            _sprite.Texture = Direction == Vector2I.Down ? _textureDown : _sprite.Texture;
-        }
+        UpdateChairTexture();
     }
 
-    public override bool CanMoveToward(Vector2I dir)
+    private void UpdateChairTexture()
     {
         if (HasBox)
         {
-            Mover m = GetMover(GridPosition + dir);
+            SetBoxCarryingTexture();
+        }
+        else
+        {
+            SetNormalTexture();
+        }
+    }
 
-            // Movers don't block themselves.
-            if (m != null && m != this)
-            {
-                if (!m.CanMoveToward(dir))
-                {
-                    return false;
-                }
-            }
+    private void SetBoxCarryingTexture()
+    {
+        if (Direction == Vector2I.Left)
+        {
+            _sprite.Texture = _textureBoxLeft;
+        }
+        else if (Direction == Vector2I.Right)
+        {
+            _sprite.Texture = _textureBoxRight;
+        }
+        else if (Direction == Vector2I.Up)
+        {
+            _sprite.Texture = _textureBoxUp;
+        }
+        else if (Direction == Vector2I.Down)
+        {
+            _sprite.Texture = _textureBoxDown;
+        }
+    }
+
+    private void SetNormalTexture()
+    {
+        if (Direction == Vector2I.Left)
+        {
+            _sprite.Texture = _textureLeft;
+        }
+        else if (Direction == Vector2I.Right)
+        {
+            _sprite.Texture = _textureRight;
+        }
+        else if (Direction == Vector2I.Up)
+        {
+            _sprite.Texture = _textureUp;
+        }
+        else if (Direction == Vector2I.Down)
+        {
+            _sprite.Texture = _textureDown;
+        }
+    }
+
+    public override bool CanMoveToward(Vector2I direction)
+    {
+        if (!CanMoveInDirection(direction))
+        {
+            return false;
         }
 
+        if (HasBox)
+        {
+            return CanMoveWithBox(direction);
+        }
+
+        return true;
+    }
+
+    private bool CanMoveInDirection(Vector2I direction)
+    {
         if (Player.Instance.HasBox)
         {
             return false;
         }
-        
-        if (IsWall(GridPosition + dir))
+
+        if (IsWall(GridPosition + direction))
         {
             return false;
         }
 
-        return Direction != -dir;
+        return Direction != -direction;
+    }
+
+    private bool CanMoveWithBox(Vector2I direction)
+    {
+        Mover adjacentMover = GetMover(GridPosition + direction);
+
+        if (adjacentMover != null && adjacentMover != this)
+        {
+            return adjacentMover.CanMoveToward(direction);
+        }
+
+        return true;
     }
 }

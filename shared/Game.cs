@@ -15,22 +15,24 @@ public partial class Game : Node
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
 
     private int _movingCount = 0;
-    private struct MoverPos
-    {
-        public Mover m;
-        public Vector2I Pos;
 
-        public MoverPos(Mover mov)
+    private struct MoverPosition
+    {
+        public Mover Mover;
+        public Vector2I Position;
+
+        public MoverPosition(Mover mover)
         {
-            m = mov;
-            Pos = m.GridPosition;
+            Mover = mover;
+            Position = mover.GridPosition;
         }
     }
-    private List<List<MoverPos>> PlannedMoves = new List<List<MoverPos>>();
 
-    public bool holdingUndo { get; private set; } = false;
-    public static bool isPolyban = true;
-    public bool blockInput = false;
+    private List<List<MoverPosition>> _plannedMoves = new List<List<MoverPosition>>();
+
+    public bool IsHoldingUndo { get; private set; } = false;
+    public static bool IsPolybanMode = true;
+    public bool IsInputBlocked = false;
 
     [Export]
     public TileMapLayer ObjectsTileMapLayer;
@@ -43,221 +45,256 @@ public partial class Game : Node
         }
         else
         {
-            GD.PushError("Multiple GameManager instances found.");
+            GD.PushError("Multiple Game instances found.");
         }
     }
 
     public override void _Ready()
     {
-        blockInput = true;
-        CallDeferred("InitAfterFrame");
-        blockInput = false;
-        LevelSelector.OnLevelExit += (isBool) =>
-        {
-            blockInput = true;
-            CallDeferred("InitAfterFrame");
-            blockInput = false;
-            Instance = null;
-            QueueFree();
-            GetTree().CallGroup("movers", "RemoveFromGroup", "movers");
-        };
+        IsInputBlocked = true;
+        CallDeferred(nameof(InitAfterFrame));
+        IsInputBlocked = false;
+
+        LevelSelector.OnLevelExit += OnLevelExit;
         Events.OnMoveComplete += SetReferences;
+    }
+
+    private void OnLevelExit(bool isBool)
+    {
+        IsInputBlocked = true;
+        CallDeferred(nameof(InitAfterFrame));
+        IsInputBlocked = false;
+        Instance = null;
+        QueueFree();
+        GetTree().CallGroup("movers", "RemoveFromGroup", "movers");
     }
 
     private void InitAfterFrame()
     {
         SetReferences();
-        CommandManager.Init();
     }
 
     private void SetReferences()
     {
-        if (!IsInstanceValid(this))
-        {
-            return;
-        }
-        
-        Movers.Clear();
+        if (!IsInstanceValid(this)) return;
 
-        Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().ToList();
+        Movers.Clear();
+        Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().Where(m => m != null).ToList();
     }
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("undo"))
+        HandleUndoInput();
+        HandleResetInput();
+    }
+
+    private void HandleUndoInput()
+    {
+        if (Input.IsActionJustPressed("undo") && !HasMoverSliding())
         {
-            if (!HasMoverSliding())
-            {
-                DoUndo();
-                UndoRepeat();   
-            }
+            ExecuteUndo();
+            StartUndoRepeat();
         }
 
         if (Input.IsActionJustReleased("undo"))
         {
-            StopUndoing();
+            StopUndoRepeat();
         }
+    }
 
+    private void HandleResetInput()
+    {
         if (Input.IsActionJustPressed("reset"))
         {
-            DoReset();
+            ExecuteReset();
         }
     }
 
     public void Refresh()
     {
         _movingCount = 0;
-        PlannedMoves.Clear();
+        _plannedMoves.Clear();
     }
 
     public bool IsMoving => _movingCount > 0;
 
     /////////////////////////////////////////////////////////////////// UNDO / RESET
 
-    void DoReset()
+    private void ExecuteReset()
     {
         CommandManager.ResetAll();
         Refresh();
         Events.OnReset?.Invoke();
     }
 
-    void DoUndo()
+    private void ExecuteUndo()
     {
         Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
+
         if (IsMoving)
         {
             CompleteMove();
         }
-        CommandManager.UndoCommand();
 
+        CommandManager.UndoCommand();
         Refresh();
         Events.OnUndo?.Invoke();
     }
 
-    async void UndoRepeat()
+    private async void StartUndoRepeat()
     {
-        holdingUndo = true;
+        IsHoldingUndo = true;
         await ToSignal(GetTree().CreateTimer(GameConstants.UndoRepeatDelay), SceneTreeTimer.SignalName.Timeout);
-        while (Input.IsActionPressed("undo") && holdingUndo)
+
+        while (Input.IsActionPressed("undo") && IsHoldingUndo)
         {
-            DoUndo();
+            ExecuteUndo();
             await ToSignal(GetTree().CreateTimer(GameConstants.UndoRepeatDelay), SceneTreeTimer.SignalName.Timeout);
         }
     }
 
-    async void StopUndoing()
+    private async void StopUndoRepeat()
     {
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        holdingUndo = false;
+        IsHoldingUndo = false;
     }
 
     /////////////////////////////////////////////////////////////////// MOVE
 
-    // Build a list of positions for each mover.
-    private List<MoverPos> GetMoverPositions()
+    private List<MoverPosition> GetCurrentMoverPositions()
     {
-        var lerps = new List<MoverPos>();
+        var positions = new List<MoverPosition>();
         foreach (var mover in Movers)
         {
             if (mover != null)
             {
-                lerps.Add(new MoverPos(mover));
+                positions.Add(new MoverPosition(mover));
             }
         }
-
-        return lerps;
+        return positions;
     }
 
-
-    // MoveStart calculates the 'logical' effects of a player action,
-    // building up a list of movements. Those are executed visually afterward.
     public void MoveStart()
     {
-        // For each movement 'cycle', we store the positions of all movers.
-        PlannedMoves.Clear();
+        InitializeMovement();
+        CalculateMovementCycles();
+        UpdatePlayerState();
+        StartMoveAnimation();
+    }
+
+    private void InitializeMovement()
+    {
+        _plannedMoves.Clear();
         Events.OnMoveStart?.Invoke(Player.Instance.Direction);
+    }
 
-        for (int i = 0; i < GameConstants.MaxMovementCycles && Movers.Any(m => m.HasPlannedMove()); ++i)
+    private void CalculateMovementCycles()
+    {
+        for (int cycle = 0; cycle < GameConstants.MaxMovementCycles && Movers.Any(m => m.HasPlannedMove()); ++cycle)
         {
-            PlannedMoves.Add(GetMoverPositions());
-            bool isPushing = false;
+            _plannedMoves.Add(GetCurrentMoverPositions());
+            ExecuteMovementCycle();
+        }
+    }
 
-            // Execute planned moves.
-            var moved = false;
-            foreach (var mover in Movers)
+    private void ExecuteMovementCycle()
+    {
+        bool isPushing = false;
+        bool moved = false;
+
+        foreach (var mover in Movers)
+        {
+            if (TryExecuteMoverMove(mover, ref isPushing))
             {
-                bool playerIsSitting = mover.IsPlayer && Player.Instance.IsSit;
-                if (playerIsSitting)
-                {
-                    if (mover.ExecuteLogicalMove())
-                    {
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                    }
-                }
-                else
-                {
-                    if (mover.ExecuteLogicalMove())
-                    {
-                        if (!mover.IsPlayer) isPushing = true;
-                        moved = true;
-                        Player.Instance.SoundWalk.Stop();
-                        Utils.PlayWithRandomPitch(Player.Instance.SoundWalk);
-                    }
-
-                }
-            }
-
-            if (moved)
-            {
-                if (isPushing)
-                {
-                    Events.OnPush?.Invoke();
-                }
+                moved = true;
             }
         }
 
+        if (moved && isPushing)
+        {
+            Events.OnPush?.Invoke();
+        }
+    }
+
+    private bool TryExecuteMoverMove(Mover mover, ref bool isPushing)
+    {
+        bool isPlayerSitting = mover.IsPlayer && Player.Instance.IsSit;
+
+        if (mover.ExecuteLogicalMove())
+        {
+            if (!mover.IsPlayer)
+                isPushing = true;
+
+            if (!isPlayerSitting)
+            {
+                Player.Instance.SoundWalk.Stop();
+                Utils.PlayWithRandomPitch(Player.Instance.SoundWalk);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void UpdatePlayerState()
+    {
         Player.Instance.IsPreviousSit = Player.Instance.IsSit;
         Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
-
-        PlannedMoves.Add(GetMoverPositions());
-        // Finally, start animating the moves we just calculated.
-        StartMoveCycle();
-        // After they're all done or cancelled, we'll run CompleteMove().
-
+        _plannedMoves.Add(GetCurrentMoverPositions());
     }
 
+    private void StartMoveAnimation()
+    {
+        StartMoveCycle();
+    }
 
     private void StartMoveCycle()
     {
-        if (PlannedMoves.Count == 0)
+        if (_plannedMoves.Count == 0)
         {
             CompleteMove();
             return;
         }
 
-        var moves = PlannedMoves[0];
-        PlannedMoves.RemoveAt(0);
+        var currentMoves = _plannedMoves[0];
+        _plannedMoves.RemoveAt(0);
 
-        float duration = MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+        float duration = CalculateMoveDuration();
+        AnimateMovers(currentMoves, duration);
+    }
+
+    private float CalculateMoveDuration()
+    {
+        return MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+    }
+
+    private void AnimateMovers(List<MoverPosition> moves, float duration)
+    {
         foreach (var move in moves)
         {
-            if (move.Pos == move.m.GridPosition)
+            if (move.Position == move.Mover.GridPosition)
                 continue;
 
-            _movingCount++;
-            var targetPos = move.Pos;
-            Tween tween = CreateTween();
-            tween.TweenProperty(move.m, "position", move.m.Map.MapToLocal(targetPos), duration)
-                .SetTrans(Tween.TransitionType.Linear);
-
-            tween.Finished += () =>
-            {
-                move.m.GridPosition = targetPos;
-                MoveEnd();
-            };
+            StartMoverAnimation(move, duration);
         }
+    }
+
+    private void StartMoverAnimation(MoverPosition move, float duration)
+    {
+        _movingCount++;
+        var targetPos = move.Position;
+
+        Tween tween = CreateTween();
+        tween.TweenProperty(move.Mover, "position", move.Mover.Map.MapToLocal(targetPos), duration)
+            .SetTrans(Tween.TransitionType.Linear);
+
+        tween.Finished += () => OnMoverAnimationComplete(move.Mover, targetPos);
+    }
+
+    private void OnMoverAnimationComplete(Mover mover, Vector2I targetPosition)
+    {
+        mover.GridPosition = targetPosition;
+        MoveEnd();
     }
 
     public void MoveEnd()
@@ -276,12 +313,6 @@ public partial class Game : Node
 
     public bool HasMoverSliding()
     {
-        foreach (var mover in Movers)
-        {
-            if (mover.IsSliding)
-                return true;
-        }
-
-        return false;
+        return Movers.Any(mover => mover.IsSliding);
     }
 }

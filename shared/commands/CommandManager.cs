@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Godot;
 
 public partial class CommandManager : Node
 {
     public static CommandManager Instance { get; private set; }
-    public static Stack<Stack<IAction>> CommandsStack = new Stack<Stack<IAction>>();
+    public static Stack<Stack<IAction>> CommandsStack { get; private set; } = new Stack<Stack<IAction>>();
 
     public override void _EnterTree()
+    {
+        InitializeInstance();
+        Events.OnMoveComplete += AddNewTurn;
+    }
+
+    private void InitializeInstance()
     {
         if (Instance == null)
         {
@@ -16,10 +22,9 @@ public partial class CommandManager : Node
         {
             QueueFree();
         }
-        Events.OnMoveComplete += AddNewTurn;
     }
 
-    public static void Init()
+    public static void Initialize()
     {
         CommandsStack.Clear();
         AddNewTurn();
@@ -28,10 +33,12 @@ public partial class CommandManager : Node
     public static void ExecuteCommand(IAction action)
     {
         action.ExecuteCommand();
+
         if (CommandsStack.Count == 0)
         {
             AddNewTurn();
         }
+
         CommandsStack.Peek().Push(action);
     }
 
@@ -39,43 +46,58 @@ public partial class CommandManager : Node
     {
         if (!Game.Instance.HasMoverSliding())
         {
-            CommandsStack.Push(new Stack<IAction>());   
+            CommandsStack.Push(new Stack<IAction>());
         }
     }
 
     public static void UndoCommand()
     {
-        while (CommandsStack.Count != 0 && CommandsStack.Peek().Count == 0)
-        {
-            CommandsStack.Pop();
-        }
+        CleanEmptyTurns();
 
         if (CommandsStack.Count == 0)
         {
             AddNewTurn();
             return;
         }
-        
-        while (CommandsStack.Peek().Count != 0)
+
+        UndoCurrentTurn();
+    }
+
+    private static void CleanEmptyTurns()
+    {
+        while (CommandsStack.Count > 0 && CommandsStack.Peek().Count == 0)
         {
-            IAction action = CommandsStack.Peek().Pop();
+            CommandsStack.Pop();
+        }
+    }
+
+    private static void UndoCurrentTurn()
+    {
+        var currentTurn = CommandsStack.Peek();
+
+        while (currentTurn.Count > 0)
+        {
+            IAction action = currentTurn.Pop();
             action.UndoCommand();
         }
     }
-    
+
     public static void ResetAll()
     {
         while (CommandsStack.Count > 0)
         {
-            var turn = CommandsStack.Pop();
-
-            while (turn.Count > 0)
-            {
-                var action = turn.Pop();
-                action.UndoCommand();
-            }
+            UndoTurn(CommandsStack.Pop());
         }
 
         AddNewTurn();
+    }
+
+    private static void UndoTurn(Stack<IAction> turn)
+    {
+        while (turn.Count > 0)
+        {
+            IAction action = turn.Pop();
+            action.UndoCommand();
+        }
     }
 }

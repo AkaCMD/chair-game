@@ -7,24 +7,18 @@ using Godot;
 
 public partial class Player : Mover
 {
-    [Export]
-    private Sprite2D _sprite;
-    [Export]
-    private Texture2D _texturePlayerLeft;
-    [Export]
-    private Texture2D _texturePlayerRight;
-    [Export]
-    private Texture2D _texturePlayerUp;
-    [Export]
-    private Texture2D _texturePlayerDown;
-    [Export]
-    private Texture2D _textureLeft;
-    [Export]
-    private Texture2D _textureRight;
-    [Export]
-    private Texture2D _textureUp;
-    [Export]
-    private Texture2D _textureDown;
+    [Export] private Sprite2D _sprite;
+    
+    [Export] private Texture2D _texturePlayerLeft;
+    [Export] private Texture2D _texturePlayerRight;
+    [Export] private Texture2D _texturePlayerUp;
+    [Export] private Texture2D _texturePlayerDown;
+    
+    [Export] private Texture2D _textureLeft;
+    [Export] private Texture2D _textureRight;
+    [Export] private Texture2D _textureUp;
+    [Export] private Texture2D _textureDown;
+    
     public Chair ChairInstance;
     public Vector2I Direction = Vector2I.Right;
     public Vector2I PreviousDirection = Vector2I.Right;
@@ -77,7 +71,7 @@ public partial class Player : Mover
         {
             LevelSelector.OnLevelExit(false);
         }
-        if (!Game.Instance.holdingUndo)
+        if (!Game.Instance.IsHoldingUndo)
         {
             BufferInput();
         }
@@ -153,7 +147,7 @@ public partial class Player : Mover
 
     public bool CanInput()
     {
-        return !Game.Instance.IsMoving && !Game.Instance.holdingUndo;
+        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo;
     }
 
     public void ClearInputBuffer()

@@ -113,7 +113,7 @@ public partial class Mover : Node2D
         // Movers don't block themselves.
         if (m != null && m != this)
         {
-            if (!IsPlayer && !Game.isPolyban)
+            if (!IsPlayer && !Game.IsPolybanMode)
             {
                 return false;
             }
