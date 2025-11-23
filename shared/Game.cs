@@ -88,6 +88,15 @@ public partial class Game : Node
         HandleResetInput();
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        // for test
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
+        }
+    }
+
     private void HandleUndoInput()
     {
         if (Input.IsActionJustPressed("undo") && !HasMoverSliding())
