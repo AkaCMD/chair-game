@@ -205,8 +205,7 @@ public partial class Mover : Node2D
             if (IsSliding)
             {
                 Player.Instance.SoundSlide.Stop();
-                Player.Instance.SoundSlide.Play();
-                Player.Instance.SoundSlide.PitchScale = new Random().Next(-2, 2)/10f + 1;
+                Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
                 Game.Instance.MoveStart();
             }
             else

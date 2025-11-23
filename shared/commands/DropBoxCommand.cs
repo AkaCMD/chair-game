@@ -17,8 +17,7 @@ public class DropBoxCommand : IAction
     public void ExecuteCommand()
     {
         Player.Instance.SoundDropBox.Stop();
-        Player.Instance.SoundDropBox.Play();
-        Player.Instance.SoundDropBox.PitchScale = new Random().Next(-2, 2)/10f + 1;
+        Utils.PlayWithRandomPitch(Player.Instance.SoundDropBox);
         _wasPlacedOnChair = false;
         _targetChair = null;
         

@@ -22,8 +22,7 @@ public partial class DialogController : Node2D
             AddChild(word);
             _index++;
             _timer = 0;
-            _soundTalk.Play();
-            _soundTalk.PitchScale = new Random().Next(-2, 2)/10f + 1;
+            Utils.PlayWithRandomPitch(_soundTalk);
         }
     }
 

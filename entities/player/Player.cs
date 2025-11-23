@@ -29,8 +29,8 @@ public partial class Player : Mover
     public Vector2I Direction = Vector2I.Right;
     public Vector2I PreviousDirection = Vector2I.Right;
     public Vector2I PreviousPreviousDirection = Vector2I.Right;
-    private int prevHorInput = 0;
-    private int prevVerInput = 0;
+    private int _prevHorInput = 0;
+    private int _prevVerInput = 0;
 
     public bool IsSit { get; set; } = false;
     public bool IsPreviousSit { get; set; } = false;
@@ -41,11 +41,7 @@ public partial class Player : Mover
     [Export] private Texture2D _texturePlayerWithBoxDown;
 
     public static Player Instance { get; private set; }
-
-    private int _prevHorInput = 0;
-    private int _prevVerInput = 0;
-
-    // public bool IsSit { get; set; } = false;
+    
     public bool HasBox { get; set; } = false;
     public Box BoxInstance { get; set; } = null;
 
@@ -254,8 +250,7 @@ public partial class Player : Mover
             else
             {
                 Direction = newDirection;
-                SoundCollide.Play();
-                SoundCollide.PitchScale = new Random().Next(-2, 2) / 10f + 1;
+                Utils.PlayWithRandomPitch(SoundCollide);
                 CommandManager.ExecuteCommand(new RotateChairCommand());
             }
         }
@@ -283,8 +278,7 @@ public partial class Player : Mover
             }
             else
             {
-                SoundCollide.Play();
-                SoundCollide.PitchScale = new Random().Next(-2, 2) / 10f + 1;
+                Utils.PlayWithRandomPitch(SoundCollide);
             }
         }
     }

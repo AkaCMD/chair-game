@@ -123,9 +123,7 @@ public partial class Game : Node
 
     void DoUndo()
     {
-        // Player.Instance.SoundUndo.Stop();
-        Player.Instance.SoundUndo.Play();
-        Player.Instance.SoundUndo.PitchScale = new Random().Next(-2, 2) / 50f + 1;
+        Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
         if (IsMoving)
         {
             CompleteMove();
@@ -139,11 +137,11 @@ public partial class Game : Node
     async void UndoRepeat()
     {
         holdingUndo = true;
-        await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(GameConstants.UndoRepeatDelay), SceneTreeTimer.SignalName.Timeout);
         while (Input.IsActionPressed("undo") && holdingUndo)
         {
-            // DoUndo();
-            await ToSignal(GetTree().CreateTimer(0.2f), SceneTreeTimer.SignalName.Timeout);
+            DoUndo();
+            await ToSignal(GetTree().CreateTimer(GameConstants.UndoRepeatDelay), SceneTreeTimer.SignalName.Timeout);
         }
     }
 
@@ -179,7 +177,7 @@ public partial class Game : Node
         PlannedMoves.Clear();
         Events.OnMoveStart?.Invoke(Player.Instance.Direction);
 
-        for (int i = 0; i < 30 && Movers.Any(m => m.HasPlannedMove()); ++i)
+        for (int i = 0; i < GameConstants.MaxMovementCycles && Movers.Any(m => m.HasPlannedMove()); ++i)
         {
             PlannedMoves.Add(GetMoverPositions());
             bool isPushing = false;
@@ -204,8 +202,7 @@ public partial class Game : Node
                         if (!mover.IsPlayer) isPushing = true;
                         moved = true;
                         Player.Instance.SoundWalk.Stop();
-                        Player.Instance.SoundWalk.Play();
-                        Player.Instance.SoundWalk.PitchScale = new Random().Next(-2, 2) / 10f + 1;
+                        Utils.PlayWithRandomPitch(Player.Instance.SoundWalk);
                     }
 
                 }

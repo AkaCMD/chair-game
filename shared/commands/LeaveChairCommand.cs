@@ -17,8 +17,7 @@ public class LeaveChairCommand : IAction
     public void ExecuteCommand()
     {
         Player.Instance.SoundLeaveChair.Stop();
-        Player.Instance.SoundLeaveChair.Play();
-        Player.Instance.SoundLeaveChair.PitchScale = new Random().Next(-2, 2)/10f + 1;
+        Utils.PlayWithRandomPitch(Player.Instance.SoundLeaveChair);
         
         _chair = Player.Instance.ChairInstance;
         _chair.GridPosition = _chairPosition;
