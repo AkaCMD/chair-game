@@ -1,16 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=19 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
-[ext_resource type="Shader" uid="uid://be17m3s4ya5fc" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
+[ext_resource type="Shader" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
 [ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
-[ext_resource type="Shader" uid="uid://bifjabecg6vvn" path="res://level_selector/cover.gdshader" id="5_28gom"]
+[ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
 [ext_resource type="PackedScene" uid="uid://c6n8x7lmxwf8b" path="res://levels/test2.tscn" id="5_o0sms"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
-[ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/1.tscn" id="6_ukbrm"]
-[ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/2.tscn" id="7_j677p"]
-[ext_resource type="PackedScene" uid="uid://cak3pjjtxihs" path="res://levels/3.tscn" id="8_fytug"]
+[ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/corner.tscn" id="6_ukbrm"]
+[ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/love.tscn" id="7_j677p"]
+[ext_resource type="PackedScene" uid="uid://cak3pjjtxihs" path="res://levels/long_desk.tscn" id="8_fytug"]
+[ext_resource type="PackedScene" uid="uid://bk80ud8k5dwx0" path="res://levels/minimalist.tscn" id="9_6j37x"]
 [ext_resource type="Texture2D" uid="uid://bu43m80kbae0g" path="res://assets/ui/BreakUI.png" id="12_j677p"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
@@ -87,6 +88,13 @@ LevelID = "LD-4"
 LevelName = "HR"
 PackedLevel = ExtResource("8_fytug")
 
+[node name="LevelNode6" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(830, 390)
+LevelID = "EX-2"
+LevelName = "Minimalist"
+LevelNodes = [NodePath("../LevelNode2")]
+PackedLevel = ExtResource("9_6j37x")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Break" type="Sprite2D" parent="CanvasLayer"]
@@ -114,7 +122,7 @@ offset_bottom = 94.0
 theme_override_colors/font_color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 theme_override_fonts/font = ExtResource("4_8rcln")
 theme_override_font_sizes/font_size = 76
-text = "Level Selector"
+text = "Elevator"
 horizontal_alignment = 1
 vertical_alignment = 1
 
