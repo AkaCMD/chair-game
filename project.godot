@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 CommandManager="*res://shared/commands/CommandManager.cs"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+SaveManager="*res://shared/save/SaveManager.cs"
 
 [display]
 
@@ -32,6 +33,10 @@ project/assembly_name="chair_game"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
+
+[gui]
+
+theme/custom_font="uid://b6johbck0aygp"
 
 [input]
 
