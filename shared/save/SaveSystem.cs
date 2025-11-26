@@ -40,7 +40,7 @@ public class Step
 public class LevelSaveData
 {
     public bool IsCleared { get; set; }
-    public List<Step> SolutionSteps { get; set; } = new List<Step>();
+    public string SolutionString { get; set; } = "";
 }
 
 public class GameSaveData

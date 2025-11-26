@@ -84,6 +84,7 @@ public partial class Player : Mover
             // interact
             if (Input.IsActionJustPressed("interact") && !IsSit)
             {
+                Game.Instance.StepHistory.Add(Step.CreateAction());
                 if (HasBox)
                 {
                     var mover = GetMover(GridPosition + Direction);
@@ -214,6 +215,7 @@ public partial class Player : Mover
 
     public void CheckBufferedInput()
     {
+        var isValidMove = true;
         if (InputBuffer.Count == 0)
         {
             return;
@@ -234,6 +236,10 @@ public partial class Player : Mover
                     if (TryPlanMove(-Direction))
                     {
                         Bump(checkPos, true);
+                    }
+                    else
+                    {
+                        isValidMove = false;
                     }
                 }
                 else
@@ -273,7 +279,13 @@ public partial class Player : Mover
             else
             {
                 Utils.PlayWithRandomPitch(SoundCollide);
+                isValidMove = false;
             }
+        }
+
+        if (isValidMove)
+        {
+            Game.Instance.StepHistory.Add(Step.CreateMove(newDirection));
         }
     }
 

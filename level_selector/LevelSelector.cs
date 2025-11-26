@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public partial class LevelSelector : Node2D
 {
@@ -26,6 +27,8 @@ public partial class LevelSelector : Node2D
     [Export]
     private AudioStreamPlayer _soundLevelStart;
 
+    public string CurrentLevelName;
+
     public override void _EnterTree()
     {
         Instance = this;
@@ -33,8 +36,9 @@ public partial class LevelSelector : Node2D
 
     public override void _Ready()
     {
-        OnLevelEnter += (packedLevel) =>
+        OnLevelEnter += packedLevel =>
         {
+            CurrentLevelName = Path.GetFileNameWithoutExtension(packedLevel.ResourcePath);
             if (!_isOnLevel)
             {
                 _soundLevelStart.PitchScale = 1;

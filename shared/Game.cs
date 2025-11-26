@@ -15,6 +15,8 @@ public partial class Game : Node
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
 
     private int _movingCount = 0;
+    
+    public List<Step> StepHistory = new List<Step>();
 
     private struct MoverPosition
     {
@@ -57,6 +59,7 @@ public partial class Game : Node
 
         LevelSelector.OnLevelExit += OnLevelExit;
         Events.OnMoveComplete += SetReferences;
+        Events.OnLevelComplete += levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory);
     }
 
     private void OnLevelExit(bool isBool)
@@ -131,6 +134,7 @@ public partial class Game : Node
 
     private void ExecuteReset()
     {
+        StepHistory.Clear();
         CommandManager.ResetAll();
         Refresh();
         Events.OnReset?.Invoke();
@@ -138,6 +142,7 @@ public partial class Game : Node
 
     private void ExecuteUndo()
     {
+        StepHistory.RemoveAt(StepHistory.Count - 1);
         Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
 
         if (IsMoving)

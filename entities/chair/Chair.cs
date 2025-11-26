@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public partial class Chair : Mover
 {
@@ -54,6 +55,14 @@ public partial class Chair : Mover
 
     private void HandleTargetReached()
     {
+        if (LevelSelector.Instance != null)
+        {
+            Events.OnLevelComplete.Invoke(LevelSelector.Instance.CurrentLevelName);
+        }
+        else
+        {
+            Events.OnLevelComplete.Invoke(Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
+        }
         var exitTimer = GetTree().CreateTimer(LevelExitDelay);
 
         Player.Instance.SoundCrush.Play();

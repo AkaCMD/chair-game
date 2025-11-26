@@ -5,7 +5,7 @@ public class Events
 {
     public static Action<string> OnLevelStarted;
     public static Action<string> OnLevelQuit;
-    public static Action<string> OnLevelComlete;
+    public static Action<string> OnLevelComplete;
 
     public static Action<Vector2I> OnMoveStart;
     public static Action OnMoveComplete;
