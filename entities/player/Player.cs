@@ -8,17 +8,17 @@ using Godot;
 public partial class Player : Mover
 {
     [Export] private Sprite2D _sprite;
-    
+
     [Export] private Texture2D _texturePlayerLeft;
     [Export] private Texture2D _texturePlayerRight;
     [Export] private Texture2D _texturePlayerUp;
     [Export] private Texture2D _texturePlayerDown;
-    
+
     [Export] private Texture2D _textureLeft;
     [Export] private Texture2D _textureRight;
     [Export] private Texture2D _textureUp;
     [Export] private Texture2D _textureDown;
-    
+
     public Chair ChairInstance;
     public Vector2I Direction = Vector2I.Right;
     public Vector2I PreviousDirection = Vector2I.Right;
@@ -35,16 +35,16 @@ public partial class Player : Mover
     [Export] private Texture2D _texturePlayerWithBoxDown;
 
     public static Player Instance { get; private set; }
-    
+
     public bool HasBox { get; set; } = false;
     public Box BoxInstance { get; set; } = null;
 
     public List<Vector2I> InputBuffer = new List<Vector2I>();
 
     public bool IsWaiting = false;
-    
+
     private bool _waitForInputRelease = false;
-    
+
     [Export] public AudioStreamPlayer SoundUndo;
     [Export] public AudioStreamPlayer SoundWalk;
     [Export] public AudioStreamPlayer SoundTakeBox;
@@ -79,12 +79,12 @@ public partial class Player : Mover
         if (CanInput())
         {
             // check movement input
-             CheckBufferedInput();
+            CheckBufferedInput();
 
             // interact
             if (Input.IsActionJustPressed("interact"))
             {
-                HandleAction();   
+                HandleAction();
             }
         }
 
@@ -132,7 +132,7 @@ public partial class Player : Mover
                 "move_up",
                 "move_down")
             .Round();
-        
+
         if (_waitForInputRelease)
         {
             if (newDir == Vector2I.Zero)
@@ -143,10 +143,10 @@ public partial class Player : Mover
             {
                 _prevHorInput = newDir.X;
                 _prevVerInput = newDir.Y;
-                return; 
+                return;
             }
         }
-        
+
         int newHor = newDir.X;
         int newVer = newDir.Y;
         bool shouldBufferInput =
@@ -211,6 +211,7 @@ public partial class Player : Mover
                 else
                 {
                     CommandManager.ExecuteCommand(new LeaveChairCommand(GridPosition));
+                    isValidMove = false; // Don't record move step for leaving chair
                 }
             }
             else
@@ -218,6 +219,7 @@ public partial class Player : Mover
                 Direction = newDirection;
                 Utils.PlayWithRandomPitch(SoundCollide);
                 CommandManager.ExecuteCommand(new RotateChairCommand());
+                isValidMove = false; // Don't record move step for rotating chair
             }
         }
         else
@@ -225,7 +227,7 @@ public partial class Player : Mover
             Direction = newDirection;
             Vector2I checkPos = GridPosition + Direction;
             Mover mover = GetMover(checkPos);
-            
+
             if (mover is Chair chair)
             {
                 if (Direction == -chair.Direction && !chair.HasBox && !HasBox)
@@ -234,10 +236,11 @@ public partial class Player : Mover
                     CommandManager.AddNewTurn();
                     InputBuffer.Clear();
                     _waitForInputRelease = true;
+                    isValidMove = false; // Don't record move step for sitting on chair
                     return;
                 }
             }
-            
+
             if (TryPlanMove(Direction))
             {
                 Game.Instance.MoveStart();
@@ -259,6 +262,7 @@ public partial class Player : Mover
         if (isValidMove)
         {
             Game.Instance.StepHistory.Add(Step.CreateMove(newDirection));
+            PrintSolutionSequence();
         }
     }
 
@@ -324,10 +328,11 @@ public partial class Player : Mover
         if (!IsSit)
         {
             Game.Instance.StepHistory.Add(Step.CreateAction());
+            PrintSolutionSequence();
             if (HasBox)
             {
                 var mover = GetMover(GridPosition + Direction);
-                if ((mover == null && !IsWall(GridPosition + Direction)) || 
+                if ((mover == null && !IsWall(GridPosition + Direction)) ||
                     (mover is Chair chair && Direction == -chair.Direction))
                 {
                     CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
@@ -360,5 +365,40 @@ public partial class Player : Mover
                 }
             }
         }
+    }
+
+    private void PrintSolutionSequence()
+    {
+        if (Game.Instance.StepHistory.Count == 0)
+        {
+            GD.Print("当前解法序列: []");
+            return;
+        }
+
+        var sequence = new List<string>();
+        foreach (var step in Game.Instance.StepHistory)
+        {
+            switch (step.Type)
+            {
+                case StepType.Move:
+                    string direction = GetDirectionSymbol(step.DirX, step.DirY);
+                    sequence.Add(direction);
+                    break;
+                case StepType.Action:
+                    sequence.Add("A");
+                    break;
+            }
+        }
+
+        GD.Print($"当前解法序列: [{string.Join(", ", sequence)}]");
+    }
+
+    private string GetDirectionSymbol(int dirX, int dirY)
+    {
+        if (dirX == 1) return "→";
+        if (dirX == -1) return "←";
+        if (dirY == 1) return "↓";
+        if (dirY == -1) return "↑";
+        return "?";
     }
 }
