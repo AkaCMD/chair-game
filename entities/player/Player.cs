@@ -368,7 +368,7 @@ public partial class Player : Mover
         }
     }
 
-    private void PrintSolutionSequence()
+    public void PrintSolutionSequence()
     {
         if (Game.Instance.StepHistory.Count == 0)
         {

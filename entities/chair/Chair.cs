@@ -35,6 +35,8 @@ public partial class Chair : Mover
     {
         if (HasBox && Direction == Player.Instance.Direction)
         {
+            Game.Instance.StepHistory.Add(Step.CreateMove(Direction));
+            Player.Instance.PrintSolutionSequence();
             HandleBoxSlide();
         }
     }
