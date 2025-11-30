@@ -191,6 +191,7 @@ public partial class Player : Mover
 
         if (IsSit)
         {
+            if (IsSliding) return;
             bool isSameDirection = (newDirection == Direction);
             if (isSameDirection)
             {
@@ -211,7 +212,6 @@ public partial class Player : Mover
                 else
                 {
                     CommandManager.ExecuteCommand(new LeaveChairCommand(GridPosition));
-                    isValidMove = false; // Don't record move step for leaving chair
                 }
             }
             else
@@ -219,7 +219,6 @@ public partial class Player : Mover
                 Direction = newDirection;
                 Utils.PlayWithRandomPitch(SoundCollide);
                 CommandManager.ExecuteCommand(new RotateChairCommand());
-                isValidMove = false; // Don't record move step for rotating chair
             }
         }
         else
@@ -236,7 +235,9 @@ public partial class Player : Mover
                     CommandManager.AddNewTurn();
                     InputBuffer.Clear();
                     _waitForInputRelease = true;
-                    isValidMove = false; // Don't record move step for sitting on chair
+                    
+                    Game.Instance.StepHistory.Add(Step.CreateMove(newDirection));
+                    PrintSolutionSequence();
                     return;
                 }
             }
