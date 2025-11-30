@@ -82,44 +82,9 @@ public partial class Player : Mover
              CheckBufferedInput();
 
             // interact
-            if (Input.IsActionJustPressed("interact") && !IsSit)
+            if (Input.IsActionJustPressed("interact"))
             {
-                Game.Instance.StepHistory.Add(Step.CreateAction());
-                if (HasBox)
-                {
-                    var mover = GetMover(GridPosition + Direction);
-                    if ((mover == null && !IsWall(GridPosition + Direction)) || 
-                        (mover is Chair chair && Direction == -chair.Direction))
-                    {
-                        CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
-                        CommandManager.AddNewTurn();
-                    }
-                }
-                else
-                {
-                    var targetPos = GridPosition + Direction;
-                    var mover = GetMover(targetPos);
-
-                    if (mover != null && mover.IsInGroup("boxes"))
-                    {
-                        CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover, null));
-                        CommandManager.AddNewTurn();
-                    }
-                    else if (IsChair(targetPos, out Chair chair))
-                    {
-                        bool canGrabFromChair = chair != null && chair.HasBox && (Direction == -chair.Direction);
-                        if (canGrabFromChair)
-                        {
-                            Box boxOnChair = chair.BoxOnChair;
-
-                            if (boxOnChair != null)
-                            {
-                                CommandManager.ExecuteCommand(new GrabBoxCommand(boxOnChair, chair));
-                                CommandManager.AddNewTurn();
-                            }
-                        }
-                    }
-                }
+                HandleAction();   
             }
         }
 
@@ -161,6 +126,7 @@ public partial class Player : Mover
 
     public void BufferInput()
     {
+        if (Game.Instance.IsReplaying) return;
         Vector2I newDir = (Vector2I)Input.GetVector("move_left",
                 "move_right",
                 "move_up",
@@ -279,7 +245,14 @@ public partial class Player : Mover
             else
             {
                 Utils.PlayWithRandomPitch(SoundCollide);
-                isValidMove = false;
+                if (Direction == PreviousDirection)
+                {
+                    isValidMove = false;
+                }
+                else
+                {
+                    PreviousDirection = Direction;
+                }
             }
         }
 
@@ -334,5 +307,58 @@ public partial class Player : Mover
         }
 
         return Vector2I.Zero;
+    }
+
+    public void InjectMoveInput(Vector2I direction)
+    {
+        InputBuffer.Add(direction);
+    }
+
+    public void InjectActionInput()
+    {
+        HandleAction();
+    }
+
+    private void HandleAction()
+    {
+        if (!IsSit)
+        {
+            Game.Instance.StepHistory.Add(Step.CreateAction());
+            if (HasBox)
+            {
+                var mover = GetMover(GridPosition + Direction);
+                if ((mover == null && !IsWall(GridPosition + Direction)) || 
+                    (mover is Chair chair && Direction == -chair.Direction))
+                {
+                    CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));
+                    CommandManager.AddNewTurn();
+                }
+            }
+            else
+            {
+                var targetPos = GridPosition + Direction;
+                var mover = GetMover(targetPos);
+
+                if (mover != null && mover.IsInGroup("boxes"))
+                {
+                    CommandManager.ExecuteCommand(new GrabBoxCommand((Box)mover, null));
+                    CommandManager.AddNewTurn();
+                }
+                else if (IsChair(targetPos, out Chair chair))
+                {
+                    bool canGrabFromChair = chair != null && chair.HasBox && (Direction == -chair.Direction);
+                    if (canGrabFromChair)
+                    {
+                        Box boxOnChair = chair.BoxOnChair;
+
+                        if (boxOnChair != null)
+                        {
+                            CommandManager.ExecuteCommand(new GrabBoxCommand(boxOnChair, chair));
+                            CommandManager.AddNewTurn();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -35,6 +35,7 @@ public partial class Game : Node
     public bool IsHoldingUndo { get; private set; } = false;
     public static bool IsPolybanMode = true;
     public bool IsInputBlocked = false;
+    public bool IsReplaying = false;
 
     [Export]
     public TileMapLayer ObjectsTileMapLayer;
@@ -87,6 +88,7 @@ public partial class Game : Node
 
     public override void _Process(double delta)
     {
+        if (IsReplaying) return;
         HandleUndoInput();
         HandleResetInput();
     }
@@ -97,6 +99,11 @@ public partial class Game : Node
         if (@event.IsActionPressed("ui_cancel"))
         {
             GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
+        }
+
+        if (@event.IsActionPressed("test"))
+        {
+            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(LevelSelector.Instance.CurrentLevelName);
         }
     }
 
@@ -132,7 +139,7 @@ public partial class Game : Node
 
     /////////////////////////////////////////////////////////////////// UNDO / RESET
 
-    private void ExecuteReset()
+    public void ExecuteReset()
     {
         StepHistory.Clear();
         CommandManager.ResetAll();
