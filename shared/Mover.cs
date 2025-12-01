@@ -11,7 +11,7 @@ public partial class Mover : Node2D
 
     public bool IsPlayer => IsInGroup("player");
     public bool IsSliding = false;
-    
+
     // During a movement cycle, what's the next move (as a difference
     // from its current position) that this Mover will try to make?
     private Vector2I _plannedMove;
@@ -35,7 +35,7 @@ public partial class Mover : Node2D
         Map = GetParent<TileMapLayer>();
         GridPosition = Map.LocalToMap(Position);
         AddToGroup("movers");
-        Events.OnMoveComplete += TrySlide;
+        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(TrySlide));
     }
 
     public void Stop()
@@ -69,7 +69,7 @@ public partial class Mover : Node2D
     {
         return _plannedMove != Vector2I.Zero;
     }
-    
+
     // If there are other movers in the given direction,
     // push them in the same direction.
     private void PlanPushes(Vector2I dir)
@@ -80,7 +80,7 @@ public partial class Mover : Node2D
         if (m == null || m == this) return;
         m.PlanMove(dir);
     }
-    
+
     // Perform the currently planned move (if any).
     public bool ExecuteLogicalMove()
     {
@@ -109,7 +109,7 @@ public partial class Mover : Node2D
             return false;
         }
         Mover m = GetMover(posToCheck);
-        
+
         // Movers don't block themselves.
         if (m != null && m != this)
         {
@@ -125,7 +125,7 @@ public partial class Mover : Node2D
 
         return true;
     }
-    
+
     protected bool IsWall(Vector2I pos)
     {
         TileData data = Map.GetCellTileData(pos);
@@ -144,7 +144,7 @@ public partial class Mover : Node2D
         {
             return false;
         }
-        
+
         return data.GetCustomData("is_target").AsBool();
     }
 
@@ -171,14 +171,14 @@ public partial class Mover : Node2D
         }
         return null;
     }
-    
+
     public void Bump(Vector2I targetGridPos, bool shouldMove = false)
     {
         Tween?.Kill();
-    
+
         Vector2 currentPos = Map.MapToLocal(GridPosition);
         Vector2 targetPos = Map.MapToLocal(targetGridPos);
-        
+
         Vector2 bumpPos = currentPos.Lerp(targetPos, 0.25f);
 
         Tween = CreateTween();

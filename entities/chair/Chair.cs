@@ -28,7 +28,7 @@ public partial class Chair : Mover
     public override void _Ready()
     {
         base._Ready();
-        Events.OnPush += OnPushEvent;
+        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.Push, Callable.From(OnPushEvent));
     }
 
     private void OnPushEvent()
@@ -59,11 +59,11 @@ public partial class Chair : Mover
     {
         if (LevelSelector.Instance != null)
         {
-            Events.OnLevelComplete.Invoke(LevelSelector.Instance.CurrentLevelName);
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, LevelSelector.Instance.CurrentLevelName);
         }
         else
         {
-            Events.OnLevelComplete.Invoke(Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
         }
         var exitTimer = GetTree().CreateTimer(LevelExitDelay);
 
@@ -143,17 +143,17 @@ public partial class Chair : Mover
         {
             return false;
         }
-        
+
         Mover adjacentMover = GetMover(GridPosition + direction);
         if (adjacentMover != null && adjacentMover != this)
         {
             Vector2I targetPos = adjacentMover.GridPosition + direction;
-            
+
             if (IsWall(targetPos))
             {
                 return false;
             }
-            
+
             Mover targetMover = GetMover(targetPos);
             if (targetMover != null && targetMover != adjacentMover)
             {

@@ -15,7 +15,7 @@ public partial class Game : Node
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
 
     private int _movingCount = 0;
-    
+
     public List<Step> StepHistory = new List<Step>();
 
     private struct MoverPosition
@@ -59,8 +59,8 @@ public partial class Game : Node
         IsInputBlocked = false;
 
         LevelSelector.OnLevelExit += OnLevelExit;
-        Events.OnMoveComplete += SetReferences;
-        Events.OnLevelComplete += levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory);
+        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(SetReferences));
+        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.LevelComplete, Callable.From<string>(levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory)));
     }
 
     private void OnLevelExit(bool isBool)
@@ -144,7 +144,7 @@ public partial class Game : Node
         StepHistory.Clear();
         CommandManager.ResetAll();
         Refresh();
-        Events.OnReset?.Invoke();
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.Reset);
     }
 
     private void ExecuteUndo()
@@ -159,7 +159,7 @@ public partial class Game : Node
 
         CommandManager.UndoCommand();
         Refresh();
-        Events.OnUndo?.Invoke();
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.Undo);
     }
 
     private async void StartUndoRepeat()
@@ -206,7 +206,7 @@ public partial class Game : Node
     private void InitializeMovement()
     {
         _plannedMoves.Clear();
-        Events.OnMoveStart?.Invoke(Player.Instance.Direction);
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.MoveStart, Player.Instance.Direction);
     }
 
     private void CalculateMovementCycles()
@@ -233,7 +233,7 @@ public partial class Game : Node
 
         if (moved && isPushing)
         {
-            Events.OnPush?.Invoke();
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.Push);
         }
     }
 
@@ -329,7 +329,7 @@ public partial class Game : Node
 
     public void CompleteMove()
     {
-        Events.OnMoveComplete?.Invoke();
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.MoveComplete);
     }
 
     public bool HasMoverSliding()

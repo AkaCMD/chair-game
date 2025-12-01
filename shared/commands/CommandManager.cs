@@ -9,7 +9,7 @@ public partial class CommandManager : Node
     public override void _EnterTree()
     {
         InitializeInstance();
-        Events.OnMoveComplete += AddNewTurn;
+        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(AddNewTurn));
     }
 
     private void InitializeInstance()
