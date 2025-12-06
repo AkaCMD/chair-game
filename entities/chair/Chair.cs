@@ -19,7 +19,7 @@ public partial class Chair : Mover
     [Export] private Texture2D _textureBoxDown;
 
     [Export] public Vector2I Direction { get; set; } = Vector2I.Down;
-    public bool HasBox { get; set; } = false;
+    [Export] public bool HasBox { get; set; } = false;
     public Box BoxOnChair { get; set; }
 
     private const int MaxSlideAttempts = 20;
@@ -29,6 +29,18 @@ public partial class Chair : Mover
     {
         base._Ready();
         GameEventSignals.Instance.Connect(GameEventSignals.SignalName.Push, Callable.From(OnPushEvent));
+
+        if (HasBox)
+        {
+            var boxScene = GD.Load<PackedScene>("res://entities/box/box.tscn");
+            if (boxScene != null)
+            {
+                var boxInstance = boxScene.Instantiate<Box>();
+                Map.AddChild(boxInstance);
+                BoxOnChair = boxInstance;
+                BoxOnChair.GridPosition = new Vector2I(999, 999);
+            }
+        }
     }
 
     private void OnPushEvent()

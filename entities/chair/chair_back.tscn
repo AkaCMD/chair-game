@@ -25,4 +25,4 @@ Direction = Vector2i(0, -1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -52)
-texture = ExtResource("5_2u848")
+texture = ExtResource("4_l62iu")

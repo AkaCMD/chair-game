@@ -206,6 +206,7 @@ public partial class Player : Mover
                     }
                     else
                     {
+                        IsSliding = false;
                         isValidMove = false;
                     }
                 }
