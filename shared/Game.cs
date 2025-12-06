@@ -1,7 +1,6 @@
 // Manage Movers, walls and undo/reset input
 
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -141,6 +140,7 @@ public partial class Game : Node
 
     public void ExecuteReset()
     {
+        KillAllTweens();
         StepHistory.Clear();
         CommandManager.ResetAll();
         Refresh();
@@ -149,13 +149,17 @@ public partial class Game : Node
 
     private void ExecuteUndo()
     {
-        StepHistory.RemoveAt(StepHistory.Count - 1);
-        Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
-
+        KillAllTweens();
         if (IsMoving)
         {
             CompleteMove();
         }
+
+        if (StepHistory.Count > 0)
+        {
+            StepHistory.RemoveAt(StepHistory.Count - 1);
+        }
+        Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
 
         CommandManager.UndoCommand();
         Refresh();
@@ -335,5 +339,16 @@ public partial class Game : Node
     public bool HasMoverSliding()
     {
         return Movers.Any(mover => mover.IsSliding);
+    }
+
+    public void KillAllTweens()
+    {
+        foreach (var tween in GetTree().GetProcessedTweens())
+        {
+            if (tween.IsValid())
+            {
+                tween.Kill();
+            }
+        }
     }
 }
