@@ -189,6 +189,13 @@ public partial class Chair : Mover
             return false;
         }
 
-        return Direction != -direction;
+        if (!HasBox)
+        {
+            return Direction != -direction;   
+        }
+        else
+        {
+            return Direction == direction;
+        }
     }
 }
