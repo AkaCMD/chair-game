@@ -42,6 +42,11 @@ public partial class Obstacle : Mover
             return player.IsSit;
         }
 
+        if (mover is Chair chair)
+        {
+            return chair.HasBox;
+        }
+
         return false;
     }
     
@@ -57,11 +62,8 @@ public partial class Obstacle : Mover
     }
     
     protected override void PlanMove(Vector2I dir)
-    {
-        if (!_shouldBreakThisMove)
-        {
-            _plannedMove = Vector2I.Zero;
-        }
+    { 
+        _plannedMove = Vector2I.Zero;
     }
 
     public void Break()
