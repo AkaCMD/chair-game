@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=16 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f3sxa08hv6g" path="res://entities/chair/chair_right_with_box.tscn" id="5_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://bj0eekijn4fa2" path="res://entities/chair/chair_back.tscn" id="5_ujsqe"]
 [ext_resource type="PackedScene" uid="uid://l3yp1lwyff7f" path="res://entities/chair/chair_right.tscn" id="6_nmmw6"]
+[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/Obstacle/obstacle.tscn" id="6_ur1dq"]
 [ext_resource type="PackedScene" uid="uid://dta5p641ycy5e" path="res://entities/chair/chair_left.tscn" id="7_ib5sr"]
 [ext_resource type="PackedScene" uid="uid://co0lhvxbvrj8p" path="res://entities/chair/chair_front.tscn" id="8_ms38y"]
 [ext_resource type="PackedScene" uid="uid://chr7ms4bigd42" path="res://entities/chair/chair_front_with_box.tscn" id="12_mg4m7"]
@@ -156,6 +157,7 @@ scenes/9/scene = ExtResource("12_mg4m7")
 scenes/10/scene = ExtResource("3_md5dg")
 scenes/11/scene = ExtResource("4_ur1dq")
 scenes/12/scene = ExtResource("5_b4kd3")
+scenes/13/scene = ExtResource("6_ur1dq")
 
 [resource]
 tile_size = Vector2i(128, 128)

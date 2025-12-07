@@ -14,7 +14,7 @@ public partial class Mover : Node2D
 
     // During a movement cycle, what's the next move (as a difference
     // from its current position) that this Mover will try to make?
-    private Vector2I _plannedMove;
+    protected Vector2I _plannedMove;
 
     private Vector2I prevMoveDir;
 
@@ -57,7 +57,7 @@ public partial class Mover : Node2D
         return true;
     }
 
-    private void PlanMove(Vector2I dir)
+    protected virtual void PlanMove(Vector2I dir)
     {
         if (_plannedMove == dir) return;
 
@@ -82,7 +82,7 @@ public partial class Mover : Node2D
     }
 
     // Perform the currently planned move (if any).
-    public bool ExecuteLogicalMove()
+    public virtual bool ExecuteLogicalMove()
     {
         if (_plannedMove == Vector2I.Zero)
         {
@@ -109,6 +109,12 @@ public partial class Mover : Node2D
             return false;
         }
         Mover m = GetMover(posToCheck);
+        
+        // destructible obstacles
+        if (m is Obstacle obstacle)
+        {
+            return obstacle.CanMoveToward(dir);
+        }
 
         // Movers don't block themselves.
         if (m != null && m != this)
