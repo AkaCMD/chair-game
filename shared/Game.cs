@@ -3,6 +3,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 public partial class Game : Node
 {
@@ -39,6 +40,9 @@ public partial class Game : Node
     [Export]
     public TileMapLayer ObjectsTileMapLayer;
 
+    // scene management
+    public string CurrentLevelName;
+
     public override void _EnterTree()
     {
         if (Instance == null)
@@ -60,6 +64,11 @@ public partial class Game : Node
         LevelSelector.OnLevelExit += OnLevelExit;
         GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(SetReferences));
         GameEventSignals.Instance.Connect(GameEventSignals.SignalName.LevelComplete, Callable.From<string>(levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory)));
+
+        if (CurrentLevelName == null)
+        {
+            CurrentLevelName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
+        }
     }
 
     private void OnLevelExit(bool isBool)
@@ -102,7 +111,7 @@ public partial class Game : Node
 
         if (@event.IsActionPressed("test"))
         {
-            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(LevelSelector.Instance.CurrentLevelName);
+            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(CurrentLevelName);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
@@ -10,7 +10,7 @@ public partial class ReplaySystem : Node
     {
         if (Game.Instance.IsReplaying) return;
         Game.Instance.IsReplaying = true;
-        
+
         var saveManager = GetNode<SaveManager>("/root/SaveManager");
         List<Step> solution = saveManager.GetReplayData(levelId);
 
@@ -37,7 +37,7 @@ public partial class ReplaySystem : Node
     {
         Game.Instance.IsReplaying = false;
     }
-    
+
     private async Task WaitForAllMovementComplete()
     {
         while (Game.Instance.HasMoverSliding() || Player.Instance.InputBuffer.Count > 0)

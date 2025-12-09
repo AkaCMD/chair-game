@@ -27,8 +27,6 @@ public partial class LevelSelector : Node2D
     [Export]
     private AudioStreamPlayer _soundLevelStart;
 
-    public string CurrentLevelName;
-
     public override void _EnterTree()
     {
         Instance = this;
@@ -38,7 +36,7 @@ public partial class LevelSelector : Node2D
     {
         OnLevelEnter += packedLevel =>
         {
-            CurrentLevelName = Path.GetFileNameWithoutExtension(packedLevel.ResourcePath);
+            Game.Instance.CurrentLevelName = Path.GetFileNameWithoutExtension(packedLevel.ResourcePath);
             if (!_isOnLevel)
             {
                 _soundLevelStart.PitchScale = 1;

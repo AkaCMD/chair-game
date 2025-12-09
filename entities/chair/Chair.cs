@@ -76,7 +76,7 @@ public partial class Chair : Mover
     {
         if (LevelSelector.Instance != null)
         {
-            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, LevelSelector.Instance.CurrentLevelName);
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, Game.Instance.CurrentLevelName);
         }
         else
         {
