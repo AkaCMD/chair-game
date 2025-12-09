@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://byum3yrvpcbgb" path="res://audios/break.wav" id="22_221hk"]
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundUndo", "SoundWalk", "SoundTakeBox", "SoundSlide", "SoundLeaveChair", "SoundDropBox", "SoundCrush", "SoundCollide", "SoundBreak") groups=["movers", "player"]]
+y_sort_enabled = true
 script = ExtResource("1_abrql")
 _sprite = NodePath("Sprite2D")
 _texturePlayerLeft = ExtResource("2_bectd")
