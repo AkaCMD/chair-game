@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 public partial class Obstacle : Mover
 {
@@ -49,7 +49,7 @@ public partial class Obstacle : Mover
 
         return false;
     }
-    
+
     public override bool ExecuteLogicalMove()
     {
         bool hasMove = base.ExecuteLogicalMove();
@@ -60,9 +60,9 @@ public partial class Obstacle : Mover
         }
         return hasMove;
     }
-    
+
     protected override void PlanMove(Vector2I dir)
-    { 
+    {
         _plannedMove = Vector2I.Zero;
     }
 
@@ -71,7 +71,7 @@ public partial class Obstacle : Mover
         _isBroken = true;
         _sprite.Texture = _textureBroken;
         RemoveFromGroup("movers");
-        
+
         // TODO: Play SFX
     }
 

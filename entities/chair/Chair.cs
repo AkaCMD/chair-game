@@ -64,6 +64,11 @@ public partial class Chair : Mover
                 HandleTargetReached();
                 break;
             }
+
+            if (IsObstacle(GridPosition + Direction, out Obstacle obs))
+            {
+                CommandManager.ExecuteCommand(new BreakObstacleCommand(obs));
+            }
         }
     }
 
@@ -191,7 +196,7 @@ public partial class Chair : Mover
 
         if (!HasBox)
         {
-            return Direction != -direction;   
+            return Direction != -direction;
         }
         else
         {

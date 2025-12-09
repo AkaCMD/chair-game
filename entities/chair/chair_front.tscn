@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cnby02dskub2v" path="res://assets/world/chair_box/chair_box_back.png" id="8_r5n3u"]
 [ext_resource type="Texture2D" uid="uid://bkl0376uv6jee" path="res://assets/world/chair_box/chair_box_front.png" id="9_sux1c"]
 
-[node name="Chair" type="Node2D" node_paths=PackedStringArray("_sprite")]
+[node name="Chair" type="Node2D" node_paths=PackedStringArray("_sprite") groups=["movers"]]
 script = ExtResource("1_gfq1m")
 _sprite = NodePath("Sprite2D")
 _textureLeft = ExtResource("2_0t4r0")

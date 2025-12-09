@@ -109,7 +109,7 @@ public partial class Mover : Node2D
             return false;
         }
         Mover m = GetMover(posToCheck);
-        
+
         // destructible obstacles
         if (m is Obstacle obstacle)
         {
@@ -166,6 +166,18 @@ public partial class Mover : Node2D
         return false;
     }
 
+    public bool IsObstacle(Vector2I pos, out Obstacle obs)
+    {
+        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Obstacle))
+        {
+            obs = (Obstacle)GetMover(pos);
+            return true;
+        }
+
+        obs = null;
+        return false;
+    }
+
     protected Mover GetMover(Vector2I pos)
     {
         foreach (var mover in GetTree().GetNodesInGroup("movers").Cast<Mover>())
@@ -191,8 +203,8 @@ public partial class Mover : Node2D
         Tween.SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime/2);
-        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime/2);
+        Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime / 2);
+        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime / 2);
 
         if (shouldMove)
         {

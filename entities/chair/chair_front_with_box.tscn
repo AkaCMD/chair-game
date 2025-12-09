@@ -23,6 +23,6 @@ _textureBoxUp = ExtResource("8_hu4g2")
 _textureBoxDown = ExtResource("9_dltyf")
 HasBox = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["movers"]]
 position = Vector2(0, -52)
 texture = ExtResource("9_dltyf")

@@ -7,6 +7,8 @@ public class SlideChairCommand : IAction
     private Vector2I _position;
     private Vector2I _playerPreviousDirection;
     private Vector2I _playerPreviousPreviousDirection;
+    private bool _wasSuccessful;
+
     public SlideChairCommand(Chair chair)
     {
         _chair = chair;
@@ -14,27 +16,31 @@ public class SlideChairCommand : IAction
         _position = chair.GridPosition;
         _playerPreviousPreviousDirection = Player.Instance.PreviousPreviousDirection;
         _playerPreviousDirection = Player.Instance.PreviousDirection;
+        _wasSuccessful = false;
     }
     public void ExecuteCommand()
     {
-        Player.Instance.SoundSlide.Stop();
-        Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
-        for (int j = 0; j < GameConstants.MaxMovementCycles; j++)
+        if (_chair.TryPlanMove(_chair.Direction))
         {
-            if (!_chair.TryPlanMove(_chair.Direction * j) && j != 0)
-            {
-                _chair.TryPlanMove(_chair.Direction * (j - 1));
-                _chair.MoveIt();
-                break;
-            }
+            Player.Instance.SoundSlide.Stop();
+            Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
+            _chair.MoveIt();
+            _wasSuccessful = true;
+        }
+        else
+        {
+            _wasSuccessful = false;
         }
     }
 
     public void UndoCommand()
     {
-        _chair.Direction = _direction;
-        _chair.GridPosition = _position;
-        Player.Instance.PreviousDirection = _playerPreviousPreviousDirection;
-        Player.Instance.Direction = _playerPreviousDirection;
+        if (_wasSuccessful)
+        {
+            _chair.Direction = _direction;
+            _chair.GridPosition = _position;
+            Player.Instance.PreviousDirection = _playerPreviousPreviousDirection;
+            Player.Instance.Direction = _playerPreviousDirection;
+        }
     }
 }
