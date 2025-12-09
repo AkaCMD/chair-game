@@ -170,6 +170,10 @@ public partial class Chair : Mover
             {
                 return false;
             }
+            if (IsCoffee(targetPos, out Coffee _))
+            {
+                return true;
+            }
 
             Mover targetMover = GetMover(targetPos);
             if (targetMover != null && targetMover != adjacentMover)
@@ -192,6 +196,11 @@ public partial class Chair : Mover
         if (IsWall(GridPosition + direction))
         {
             return false;
+        }
+
+        if (IsCoffee(GridPosition + direction, out Coffee coffee))
+        {
+            return true;
         }
 
         if (!HasBox)

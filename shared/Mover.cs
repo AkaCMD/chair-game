@@ -116,6 +116,11 @@ public partial class Mover : Node2D
             return obstacle.CanMoveToward(dir);
         }
 
+        if (m is Coffee coffee)
+        {
+            return coffee.CanMoveToward(dir);
+        }
+
         // Movers don't block themselves.
         if (m != null && m != this)
         {
@@ -175,6 +180,18 @@ public partial class Mover : Node2D
         }
 
         obs = null;
+        return false;
+    }
+
+    public bool IsCoffee(Vector2I pos, out Coffee coffee)
+    {
+        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Coffee))
+        {
+            coffee = (Coffee)GetMover(pos);
+            return true;
+        }
+
+        coffee = null;
         return false;
     }
 

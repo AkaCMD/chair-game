@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cys8jc3f3bgj8"]
 
-[ext_resource type="Script" uid="uid://dg8r1km8fbmaj" path="res://entities/box/Box.cs" id="1_15yl0"]
+[ext_resource type="Script" uid="uid://yni17p4iqol4" path="res://entities/coffee_stain/Coffee.cs" id="1_mnm4l"]
 [ext_resource type="Texture2D" uid="uid://dhbqajd6d3jdn" path="res://assets/world/coffee_stain/coffee_stain.png" id="2_mnm4l"]
 
 [sub_resource type="Animation" id="Animation_pihpk"]
@@ -55,8 +55,8 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Coffee" type="Node2D" groups=["boxes", "movers"]]
-script = ExtResource("1_15yl0")
+[node name="Coffee" type="Node2D" groups=["movers"]]
+script = ExtResource("1_mnm4l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)

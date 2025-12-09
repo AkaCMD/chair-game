@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Coworker : Mover
+public partial class Coffee : Mover
 {
     [Export] private Sprite2D _sprite;
     [Export] private Texture2D _textureIntact;
@@ -21,11 +21,10 @@ public partial class Coworker : Mover
 
         return false;
     }
-    
+
     protected override void PlanMove(Vector2I dir)
     {
         _plannedMove = Vector2I.Zero;
-        // TODO: 播放同事躲闪动画
     }
 
     private bool IsChairSlidingInto(Vector2I dir)
