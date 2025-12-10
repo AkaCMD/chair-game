@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0ldaa64voux8"]
+
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="1_sx6ta"]
+
+[node name="Textbox" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 57.0
+offset_right = 1070.0
+offset_bottom = 183.0
+
+[node name="DialogController" parent="Button" instance=ExtResource("1_sx6ta")]
+position = Vector2(33, 33)
+Text = "人才库，里面塞满了简历。"

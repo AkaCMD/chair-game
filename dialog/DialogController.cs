@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class DialogController : Node2D
 {
@@ -25,5 +24,4 @@ public partial class DialogController : Node2D
             Utils.PlayWithRandomPitch(_soundTalk);
         }
     }
-
 }
