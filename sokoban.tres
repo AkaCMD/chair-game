@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f3sxa08hv6g" path="res://entities/chair/chair_right_with_box.tscn" id="5_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://bj0eekijn4fa2" path="res://entities/chair/chair_back.tscn" id="5_ujsqe"]
 [ext_resource type="PackedScene" uid="uid://l3yp1lwyff7f" path="res://entities/chair/chair_right.tscn" id="6_nmmw6"]
-[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/obstacle/obstacle.tscn" id="6_ur1dq"]
+[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/Obstacle/obstacle.tscn" id="6_ur1dq"]
 [ext_resource type="PackedScene" uid="uid://cys8jc3f3bgj8" path="res://entities/coffee_stain/coffee_stain.tscn" id="7_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://dta5p641ycy5e" path="res://entities/chair/chair_left.tscn" id="7_ib5sr"]
 [ext_resource type="PackedScene" uid="uid://co0lhvxbvrj8p" path="res://entities/chair/chair_front.tscn" id="8_ms38y"]

@@ -91,7 +91,7 @@ public partial class Game : Node
         if (!IsInstanceValid(this)) return;
 
         Movers.Clear();
-        Movers = GetTree().GetNodesInGroup("movers").Cast<Mover>().Where(m => m != null).ToList();
+        Movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m != null).ToList();
     }
 
     public override void _Process(double delta)

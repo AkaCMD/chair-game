@@ -197,7 +197,7 @@ public partial class Mover : Node2D
 
     protected Mover GetMover(Vector2I pos)
     {
-        foreach (var mover in GetTree().GetNodesInGroup("movers").Cast<Mover>())
+        foreach (var mover in GetTree().GetNodesInGroup("movers").OfType<Mover>())
         {
             if (mover.GridPosition == pos)
             {
