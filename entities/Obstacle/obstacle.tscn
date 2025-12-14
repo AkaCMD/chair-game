@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://8sk4e8o5e81q"]
 
-[ext_resource type="Script" uid="uid://c3sn8ouc27g3r" path="res://entities/obstacle/Obstacle.cs" id="1_jpv10"]
+[ext_resource type="Script" uid="uid://ds18eegt1yvbm" path="res://entities/obstacle/Obstacle.cs" id="1_jpv10"]
 [ext_resource type="Texture2D" uid="uid://b3lrqa1a7qtai" path="res://assets/world/filestack/filestack_intact.png" id="2_pouka"]
 [ext_resource type="Texture2D" uid="uid://dr5dogvcx1bdp" path="res://assets/world/filestack/filestack_broken.png" id="3_pouka"]
 

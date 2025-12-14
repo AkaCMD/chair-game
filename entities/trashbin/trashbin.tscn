@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://logusmgd41gs"]
+[gd_scene load_steps=10 format=3 uid="uid://logusmgd41gs"]
 
-[ext_resource type="Script" uid="uid://dg8r1km8fbmaj" path="res://entities/box/Box.cs" id="1_1xwxg"]
+[ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Trashbin.cs" id="1_dit17"]
 [ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="2_ipf8v"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_dit17"]
+[ext_resource type="Script" uid="uid://bootpsptdggwr" path="res://shared/InteractableArea.cs" id="4_f2vkq"]
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -56,8 +57,12 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Trashbin" type="Node2D" groups=["boxes", "movers"]]
-script = ExtResource("1_1xwxg")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
+size = Vector2(280, 73)
+
+[node name="Trashbin" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
+script = ExtResource("1_dit17")
+_hintLabel = NodePath("HintLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -23.000002)
@@ -70,9 +75,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_mfoj8")
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="HintLabel" type="Label" parent="."]
 texture_filter = 1
-anchors_preset = -1
 offset_left = -62.0
 offset_top = -139.5
 offset_right = 62.0
@@ -88,3 +92,14 @@ theme_override_font_sizes/font_size = 56
 text = "E： 检查"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("4_f2vkq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_dit17")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_dit17")

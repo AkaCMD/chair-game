@@ -58,6 +58,7 @@ public partial class Player : Mover
     public override void _EnterTree()
     {
         Instance = this;
+        AddToGroup("player");
     }
 
     public override void _Process(double delta)

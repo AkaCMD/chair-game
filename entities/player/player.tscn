@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bytjsm567mmes"]
+[gd_scene load_steps=24 format=3 uid="uid://bytjsm567mmes"]
 
 [ext_resource type="Script" uid="uid://cwp3w3o0wh4gn" path="res://entities/player/Player.cs" id="1_abrql"]
 [ext_resource type="Texture2D" uid="uid://nru6km223bl3" path="res://assets/world/character/character_left.png" id="2_bectd"]
@@ -22,6 +22,9 @@
 [ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="20_mtric"]
 [ext_resource type="AudioStream" uid="uid://clxrjbnvpxle0" path="res://audios/collide.wav" id="21_eyb6c"]
 [ext_resource type="AudioStream" uid="uid://byum3yrvpcbgb" path="res://audios/break.wav" id="22_221hk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_221hk"]
+size = Vector2(100, 100)
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundUndo", "SoundWalk", "SoundTakeBox", "SoundSlide", "SoundLeaveChair", "SoundDropBox", "SoundCrush", "SoundCollide", "SoundBreak") groups=["movers", "player"]]
 y_sort_enabled = true
@@ -81,3 +84,8 @@ stream = ExtResource("21_eyb6c")
 
 [node name="Break" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_221hk")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" groups=["player"]]
+shape = SubResource("RectangleShape2D_221hk")
