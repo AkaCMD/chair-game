@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=4 uid="uid://c01atco7trwo3"]
+
+[ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_j5y7e"]
+[ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_6chg4"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_ifj48"]
+[ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="4_wrnut"]
+
+[node name="Main" type="Node2D"]
+
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
+script = ExtResource("1_j5y7e")
+ObjectsTileMapLayer = NodePath("Objects")
+
+[node name="Background" type="TileMapLayer" parent="World"]
+scale = Vector2(0.65, 0.65)
+tile_map_data = PackedByteArray("AAALAAQAAAAHAAMAAAAMAAQAAAAHAAMAAAAFAAcAAAAHAAMAAAAGAAcAAAAHAAMAAAAIAAcAAAAHAAMAAAABAAYAAAAFAAIAAAAAAAYAAAAFAAIAAAAGAAMAAAABAAAAAAAGAAQAAAABAAEAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAEAAAAIAAMAAAABAAAAAAAIAAQAAAABAAEAAAAGAAUAAAABAAAAAAAGAAYAAAABAAEAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAEAAAAIAAUAAAABAAAAAAAIAAYAAAABAAEAAAAJAAQAAAAAAAEAAAA=")
+tile_set = ExtResource("2_6chg4")
+
+[node name="Objects" type="TileMapLayer" parent="World"]
+scale = Vector2(0.65, 0.65)
+tile_map_data = PackedByteArray("AAANAAYAAAAHAAMAAAANAAUAAAAHAAMAAAANAAIAAAAHAAMAAAAKAAgAAAAHAAMAAAAFAAgAAAAHAAMAAAAGAAgAAAAHAAMAAAAHAAgAAAAHAAMAAAAIAAgAAAAFAAIAAAAJAAgAAAAFAAIAAAAIAAEAAAACAAAAAAAIAAIAAAACAAEAAAAGAAcAAAAFAAMAAAAHAAcAAAAFAAMAAAAIAAcAAAAFAAMAAAAJAAcAAAAGAAMAAAAJAAYAAAAGAAIAAAAJAAMAAAAHAAIAAAAHAAIAAAAFAAEAAAAGAAIAAAAFAAEAAAAIAAYAAgAAAAAADwAJAAUAAAAHAAEAAAAIAAQAAgAAAAAADQAGAAQAAgAAAAAAAgAFAAcAAAAEAAMAAAAFAAYAAAAEAAIAAAAFAAUAAAAEAAIAAAAFAAQAAAAEAAIAAAAFAAMAAAAEAAIAAAAFAAIAAAAEAAEAAAAKAAQAAAAGAAEAAAAFAAEAAAAEAAAAAAAGAAEAAAAFAAAAAAAHAAEAAAAFAAAAAAAJAAEAAAAGAAAAAAAJAAIAAAAGAAEAAAAKAAMAAAAGAAAAAAAKAAUAAAAGAAMAAAAGAAMAAAAAAAIAAAAHAAYAAAAAAAIAAAAGAAUAAgAAAAAABgAJAAQAAgAAAAAAAQA=")
+tile_set = ExtResource("2_6chg4")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+top_level = true
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11764706, 0.13333334, 0.18039216, 1)
+
+[node name="DialogController" parent="." instance=ExtResource("3_ifj48")]
+position = Vector2(119, 97)
+Text = "Put the box on the chair. Then push the chair on it rear."
+
+[node name="LittleTiledShooking" parent="." instance=ExtResource("4_wrnut")]

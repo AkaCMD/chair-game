@@ -61,6 +61,7 @@ _data = {
 size = Vector2(280, 73)
 
 [node name="Trashbin" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
+y_sort_enabled = true
 script = ExtResource("1_dit17")
 _hintLabel = NodePath("HintLabel")
 

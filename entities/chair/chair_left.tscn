@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bkl0376uv6jee" path="res://assets/world/chair_box/chair_box_front.png" id="9_0cmo5"]
 
 [node name="Chair" type="Node2D" node_paths=PackedStringArray("_sprite")]
+y_sort_enabled = true
 script = ExtResource("1_q40u6")
 _sprite = NodePath("Sprite2D")
 _textureLeft = ExtResource("2_4dru1")
