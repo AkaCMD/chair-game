@@ -374,7 +374,7 @@ public partial class Player : Mover
     {
         if (Game.Instance.StepHistory.Count == 0)
         {
-            GD.Print("当前解法序列: []");
+            //GD.Print("当前解法序列: []");
             return;
         }
 

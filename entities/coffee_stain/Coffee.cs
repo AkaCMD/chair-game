@@ -27,6 +27,7 @@ public partial class Coffee : Mover
         _plannedMove = Vector2I.Zero;
     }
 
+    // Only chair and player(sit on chair) can be pushed into
     private bool IsChairSlidingInto(Vector2I dir)
     {
         Vector2I sourcePos = GridPosition - dir;
@@ -39,7 +40,7 @@ public partial class Coffee : Mover
 
         if (mover is Chair chair)
         {
-            return chair.HasBox;
+            return true;
         }
 
         return false;
