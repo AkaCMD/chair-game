@@ -70,6 +70,8 @@ public partial class Obstacle : Mover
     {
         _isBroken = true;
         _sprite.Texture = _textureBroken;
+        YSortEnabled = false;
+        ZIndex = 0;
         RemoveFromGroup("movers");
 
         // TODO: Play SFX
@@ -79,6 +81,8 @@ public partial class Obstacle : Mover
     {
         _isBroken = false;
         _sprite.Texture = _textureIntact;
+        YSortEnabled = true;
+        ZIndex = 1;
         AddToGroup("movers");
     }
 }

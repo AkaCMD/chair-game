@@ -25,5 +25,6 @@ _textureBoxDown = ExtResource("9_j38bt")
 Direction = Vector2i(0, -1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["movers"]]
+z_index = 1
 position = Vector2(0, -52)
 texture = ExtResource("4_l62iu")

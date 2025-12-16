@@ -56,6 +56,7 @@ _data = {
 }
 
 [node name="Box" type="Node2D" groups=["boxes", "movers"]]
+z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_pihpk")
 

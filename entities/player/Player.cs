@@ -1,6 +1,5 @@
 // Derives from Mover, handles character movement input.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -393,7 +392,7 @@ public partial class Player : Mover
             }
         }
 
-        GD.Print($"当前解法序列: [{string.Join(", ", sequence)}]");
+        //GD.Print($"当前解法序列: [{string.Join(", ", sequence)}]");
     }
 
     private string GetDirectionSymbol(int dirX, int dirY)

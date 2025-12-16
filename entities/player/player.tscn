@@ -27,6 +27,7 @@
 size = Vector2(100, 100)
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundUndo", "SoundWalk", "SoundTakeBox", "SoundSlide", "SoundLeaveChair", "SoundDropBox", "SoundCrush", "SoundCollide", "SoundBreak") groups=["movers", "player"]]
+z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_abrql")
 _sprite = NodePath("Sprite2D")
