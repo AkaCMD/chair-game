@@ -30,6 +30,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="DialogController" parent="GUI" instance=ExtResource("3_dgbnf")]
+
 [node name="Background" type="ColorRect" parent="."]
 visible = false
 top_level = true
@@ -40,9 +42,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
-
-[node name="DialogController" parent="." instance=ExtResource("3_dgbnf")]
-position = Vector2(119, 97)
-Text = "This is a simple room."
 
 [node name="LittleTiledShooking" parent="." instance=ExtResource("4_17efc")]

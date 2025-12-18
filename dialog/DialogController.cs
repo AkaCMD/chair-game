@@ -25,7 +25,7 @@ public partial class DialogController : Node2D
     public override void _Ready()
     {
         _dialogUI.Visible = false;
-        Test();
+        //Test();
     }
 
     private void Test()
