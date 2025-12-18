@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class Trashbin : Box, IInteractable
 {
     [Export] private Label _hintLabel;
+    [Export] private DialogResource _checkDialog;
 
     public override void _Ready()
     {
@@ -18,6 +20,8 @@ public partial class Trashbin : Box, IInteractable
     public void Interact()
     {
         // Show dialogue
+        if (_checkDialog != null)
+            DialogController.Instance.StartDialog(new List<DialogResource> { _checkDialog });
     }
 
     public void ShowHint()

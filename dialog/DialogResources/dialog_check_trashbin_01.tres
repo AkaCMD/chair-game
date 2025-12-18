@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="DialogResource" load_steps=2 format=3 uid="uid://cr8ijoymbra3f"]
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://cr8ijoymbra3f"]
 
 [ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_6amp7"]
+[ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_gc5xf"]
 
 [resource]
 script = ExtResource("1_6amp7")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_gc5xf")
+Text = "人才库，里面堆满了简历。"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

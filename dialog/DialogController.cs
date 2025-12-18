@@ -4,6 +4,8 @@ using Godot;
 
 public partial class DialogController : Node2D
 {
+    public static DialogController Instance { get; private set; }
+
     [ExportGroup("References")] 
     [Export] private CanvasItem _dialogUI;
     [Export] private PackedScene _packedDialogText;
@@ -21,6 +23,19 @@ public partial class DialogController : Node2D
     private double _timer;
     private int _charIndex;
     private bool _isTyping = false;
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
 
     public override void _Ready()
     {
