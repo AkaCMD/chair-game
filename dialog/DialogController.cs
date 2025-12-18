@@ -25,7 +25,7 @@ public partial class DialogController : Node2D
     public override void _Ready()
     {
         _dialogUI.Visible = false;
-        //Test();
+        Test();
     }
 
     private void Test()
@@ -117,7 +117,7 @@ public partial class DialogController : Node2D
             return;
         } 
         CreateCharNode(_charIndex);
-        Utils.PlayWithRandomPitch(_soundTalk);
+        Utils.PlayWithRandomPitch(_soundTalk, _currentResource.PitchOffset);
         _charIndex++;
     }
 

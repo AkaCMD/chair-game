@@ -9,4 +9,5 @@ SpeakerName = "以子"
 SpeakerImg = ExtResource("1_2ajsx")
 Text = "你好啊，我是幽灵~
 我喜欢画画"
+PitchOffset = 0.3779999999999999
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
