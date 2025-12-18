@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://ssxbg34cvpfe"]
+
+[ext_resource type="Texture2D" uid="uid://b57vfdmkj1x25" path="res://assets/ui/dialog/ghost_normal.png" id="1_2ajsx"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_fxyto"]
+
+[resource]
+script = ExtResource("1_fxyto")
+SpeakerName = "以子"
+SpeakerImg = ExtResource("1_2ajsx")
+Text = "你好啊，我是幽灵~
+我喜欢画画"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

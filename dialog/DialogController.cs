@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -6,15 +7,16 @@ public partial class DialogController : Node2D
     [ExportGroup("References")] 
     [Export] private CanvasItem _dialogUI;
     [Export] private PackedScene _packedDialogText;
-    [Export] public string Text;
     [Export] private AudioStreamPlayer _soundTalk;
     [Export] private Node2D _textContainer;
+    [Export] private TextureRect _portraitRect;
+    [Export] private RichTextLabel _speakerName;
 
     [ExportGroup("Settings")] 
     [Export] private float _charInterval = 0.05f;
-    [Export] private float _charSpacing = 25f;
+    [Export] private float _charSpacing = 30f;
 
-    private List<DialogResource> _currentDialogQueue = new List<DialogResource>();
+    private List<DialogResource> _runtimeQueue = new List<DialogResource>();
     private DialogResource _currentResource;
     private double _timer;
     private int _charIndex;
@@ -22,14 +24,32 @@ public partial class DialogController : Node2D
 
     public override void _Ready()
     {
-        var line1 = new DialogResource {Text = "你好世界"};
-        var line2 = new DialogResource {Text = "再见世界"};
-        StartDialog(new List<DialogResource> { line1, line2 });
+        _dialogUI.Visible = false;
+        //Test();
+    }
+
+    private void Test()
+    {
+        var line = GD.Load<DialogResource>("res://dialog/DialogResources/dialog_test.tres");
+        StartDialog(new List<DialogResource> { line });
     }
 
     public void StartDialog(List<DialogResource> dialogs)
     {
-        _currentDialogQueue = new List<DialogResource>(dialogs);
+        _runtimeQueue.Clear();
+
+        foreach (var data in dialogs)
+        {
+            var lines = data.Text.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (var line in lines)
+            {
+                var runtimeData = (DialogResource) data.Duplicate();
+                runtimeData.Text = line;
+                _runtimeQueue.Add(runtimeData);
+            }
+        }
+        
+        OpenDialogUI();
         ShowNextLine();
     }
     
@@ -71,16 +91,18 @@ public partial class DialogController : Node2D
             child.QueueFree();
         }
 
-        if (_currentDialogQueue.Count == 0)
+        if (_runtimeQueue.Count == 0)
         {
-            GD.Print("Dialog Finished");
             _currentResource = null;
-            _dialogUI.Visible = false;
+            CloseDialogUI();
             return;
         }
 
-        _currentResource = _currentDialogQueue[0];
-        _currentDialogQueue.RemoveAt(0);
+        _currentResource = _runtimeQueue[0];
+        _runtimeQueue.RemoveAt(0);
+
+        _portraitRect.Texture = _currentResource.SpeakerImg;
+        _speakerName.Text = "[wave][center]" + _currentResource.SpeakerName;
 
         _charIndex = 0;
         _timer = 0;
@@ -118,5 +140,15 @@ public partial class DialogController : Node2D
         // TODO: 换行
         var pos = new Vector2(index * _charSpacing, 0);
         charNode.Setup(_currentResource.Text[index].ToString(), pos);
+    }
+
+    private void OpenDialogUI()
+    {
+        _dialogUI.Visible = true;
+    }
+
+    private void CloseDialogUI()
+    {
+        _dialogUI.Visible = false;
     }
 }

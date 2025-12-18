@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://8njujq2xqliw"]
+[gd_scene load_steps=5 format=3 uid="uid://8njujq2xqliw"]
 
 [ext_resource type="Script" uid="uid://ccao4t51ctqb1" path="res://dialog/DialogController.cs" id="1_j2njv"]
 [ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
 [ext_resource type="AudioStream" uid="uid://72a51eykusug" path="res://audios/talk.wav" id="3_lo7ct"]
+[ext_resource type="Texture2D" uid="uid://b57vfdmkj1x25" path="res://assets/ui/dialog/ghost_normal.png" id="4_n83ol"]
 
-[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer")]
+[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer", "_portraitRect", "_speakerName")]
 script = ExtResource("1_j2njv")
 _dialogUI = NodePath("DialogUI")
 _packedDialogText = ExtResource("2_m0y87")
-Text = "This is a simple text."
 _soundTalk = NodePath("Talk")
 _textContainer = NodePath("DialogUI/TextContainer")
+_portraitRect = NodePath("DialogUI/Portrait")
+_speakerName = NodePath("DialogUI/SpeakerName")
 
 [node name="Talk" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_lo7ct")
@@ -21,8 +23,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="DialogUI"]
-
 [node name="Button" type="Button" parent="DialogUI"]
 layout_mode = 0
 offset_left = 277.0
@@ -30,5 +30,25 @@ offset_top = 57.0
 offset_right = 1070.0
 offset_bottom = 183.0
 
+[node name="Portrait" type="TextureRect" parent="DialogUI"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = -39.999996
+offset_right = 522.0
+offset_bottom = 240.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_n83ol")
+
 [node name="TextContainer" type="Node2D" parent="DialogUI"]
-position = Vector2(310, 90)
+position = Vector2(419, 91)
+
+[node name="SpeakerName" type="RichTextLabel" parent="DialogUI"]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 152.0
+offset_right = 396.0
+offset_bottom = 186.0
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave][center]以子"
+fit_content = true
