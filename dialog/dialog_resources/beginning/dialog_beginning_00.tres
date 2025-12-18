@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://bjjnoydl2jpaj"]
+
+[ext_resource type="Texture2D" uid="uid://dexlr0rkhhy17" path="res://assets/ui/dialog/boss_normal.png" id="1_lx26v"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_oqdca"]
+
+[resource]
+script = ExtResource("1_oqdca")
+SpeakerName = "？？？"
+SpeakerImg = ExtResource("1_lx26v")
+Text = "嘿嘿嘿，降本增效…降本增效…
+没用的东西就该清理出去哟"
+PitchOffset = -0.33000000000000007
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Trashbin.cs" id="1_dit17"]
 [ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="2_ipf8v"]
-[ext_resource type="Resource" uid="uid://cr8ijoymbra3f" path="res://dialog/DialogResources/dialog_check_trashbin_01.tres" id="2_t40ax"]
+[ext_resource type="Resource" uid="uid://cr8ijoymbra3f" path="res://dialog/dialog_resources/dialog_check_trashbin_01.tres" id="2_t40ax"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_dit17"]
 [ext_resource type="Script" uid="uid://bootpsptdggwr" path="res://shared/InteractableArea.cs" id="4_f2vkq"]
 

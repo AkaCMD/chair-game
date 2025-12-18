@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://bdnay8xlyn1dc"]
+
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_fq686"]
+[ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_onlbv"]
+
+[resource]
+script = ExtResource("1_fq686")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_onlbv")
+Text = "…
+突然整个项目组都被裁掉了啊
+那前一个月的加班算什么…
+…真是安静呢
+。。。
+工位上的东西已经打包好放在箱子里了
+放在椅子上推走能省点力气
+东西堆得真是一团糟，似乎都走不出去了
+试着推一下我收拾好的椅子吧"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

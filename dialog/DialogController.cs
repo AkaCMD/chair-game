@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 
 public partial class DialogController : Node2D
 {
@@ -17,6 +18,7 @@ public partial class DialogController : Node2D
     [ExportGroup("Settings")] 
     [Export] private float _charInterval = 0.05f;
     [Export] private float _charSpacing = 30f;
+    [Export] private Array<DialogResource> _dialogQueue = new Array<DialogResource>(); // Being played when entering the scene
 
     private List<DialogResource> _runtimeQueue = new List<DialogResource>();
     private DialogResource _currentResource;
@@ -40,6 +42,10 @@ public partial class DialogController : Node2D
     public override void _Ready()
     {
         _dialogUI.Visible = false;
+        if (_dialogQueue.Count != 0)
+        {
+            StartDialog(new List<DialogResource>(_dialogQueue));
+        }
         //Test();
     }
 
