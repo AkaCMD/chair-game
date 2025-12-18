@@ -4,11 +4,31 @@
 [ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
 [ext_resource type="AudioStream" uid="uid://72a51eykusug" path="res://audios/talk.wav" id="3_lo7ct"]
 
-[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_soundTalk")]
+[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer")]
 script = ExtResource("1_j2njv")
+_dialogUI = NodePath("DialogUI")
 _packedDialogText = ExtResource("2_m0y87")
 Text = "This is a simple text."
 _soundTalk = NodePath("Talk")
+_textContainer = NodePath("DialogUI/TextContainer")
 
 [node name="Talk" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_lo7ct")
+
+[node name="DialogUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="DialogUI"]
+
+[node name="Button" type="Button" parent="DialogUI"]
+layout_mode = 0
+offset_left = 277.0
+offset_top = 57.0
+offset_right = 1070.0
+offset_bottom = 183.0
+
+[node name="TextContainer" type="Node2D" parent="DialogUI"]
+position = Vector2(310, 90)

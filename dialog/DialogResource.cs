@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class DialogueResource : Resource
+public partial class DialogResource : Resource
 {
     [Export] public string SpeakerName;
     [Export] public Texture2D SpeakerImg;
