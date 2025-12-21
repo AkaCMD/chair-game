@@ -69,7 +69,7 @@ public partial class Player : Mover
         // Back to level selector without beat the level
         if (Input.IsActionJustPressed("escape"))
         {
-            LevelSelector.OnLevelExit(false);
+            LevelManager.OnLevelExit(false);
         }
         if (!Game.Instance.IsHoldingUndo)
         {
@@ -236,7 +236,7 @@ public partial class Player : Mover
                     CommandManager.AddNewTurn();
                     InputBuffer.Clear();
                     _waitForInputRelease = true;
-                    
+
                     Game.Instance.StepHistory.Add(Step.CreateMove(newDirection));
                     PrintSolutionSequence();
                     return;

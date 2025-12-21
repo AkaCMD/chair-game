@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.IO;
 
 public partial class Chair : Mover
@@ -74,27 +73,31 @@ public partial class Chair : Mover
 
     private void HandleTargetReached()
     {
-        if (LevelSelector.Instance != null)
+        string levelName = LevelManager.Instance?.CurrentLevelName;
+        if (string.IsNullOrEmpty(levelName))
         {
-            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, Game.Instance.CurrentLevelName);
+            levelName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
         }
-        else
-        {
-            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
-        }
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, levelName);
+
         var exitTimer = GetTree().CreateTimer(LevelExitDelay);
 
         Player.Instance.SoundCrush.Play();
         Player.Instance.SoundBreak.Play();
         Player.Instance.IsWaiting = true;
-        LevelSelector.Instance.Break();
+        if (LevelSelector.Instance != null) LevelSelector.Instance.Break();
 
         exitTimer.Timeout += OnLevelExitTimerComplete;
     }
 
     private void OnLevelExitTimerComplete()
     {
-        LevelSelector.OnLevelExit.Invoke(true);
+        LevelManager.OnLevelExit.Invoke(true);
+        // 当不从 LevelSelector 场景进入而是单独测试关卡的时候，过关不播放 Break 动画，直接进入 LevelSelector
+        if (LevelSelector.Instance == null)
+        {
+            GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
+        }
     }
 
     public override void _Process(double delta)

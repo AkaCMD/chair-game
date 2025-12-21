@@ -40,9 +40,6 @@ public partial class Game : Node
     [Export]
     public TileMapLayer ObjectsTileMapLayer;
 
-    // scene management
-    public string CurrentLevelName;
-
     public override void _EnterTree()
     {
         if (Instance == null)
@@ -61,13 +58,19 @@ public partial class Game : Node
         CallDeferred(nameof(InitAfterFrame));
         IsInputBlocked = false;
 
-        LevelSelector.OnLevelExit += OnLevelExit;
+        LevelManager.OnLevelExit += OnLevelExit;
         GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(SetReferences));
         GameEventSignals.Instance.Connect(GameEventSignals.SignalName.LevelComplete, Callable.From<string>(levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory)));
 
-        if (CurrentLevelName == null)
+        // Level name is now managed by LevelManager
+    }
+
+    public override void _ExitTree()
+    {
+        LevelManager.OnLevelExit -= OnLevelExit;
+        if (Instance == this)
         {
-            CurrentLevelName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
+            Instance = null;
         }
     }
 
@@ -111,7 +114,7 @@ public partial class Game : Node
 
         if (@event.IsActionPressed("test"))
         {
-            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(CurrentLevelName);
+            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(LevelManager.Instance?.CurrentLevelName ?? Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
         }
     }
 
