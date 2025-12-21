@@ -12,6 +12,8 @@ public partial class GameEventSignals : Node
     [Signal] public delegate void ResetEventHandler();
     [Signal] public delegate void UISelectEventHandler();
     [Signal] public delegate void UISubmitEventHandler();
+    [Signal] public delegate void DialogStartEventHandler(string dialogId = "");
+    [Signal] public delegate void DialogCompleteEventHandler(string dialogId = "");
 
     public static GameEventSignals Instance { get; private set; }
 

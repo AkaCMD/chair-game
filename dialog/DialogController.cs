@@ -25,6 +25,7 @@ public partial class DialogController : Node2D
     private double _timer;
     private int _charIndex;
     private bool _isTyping = false;
+    private string _currentDialogId = "";
 
     public override void _EnterTree()
     {
@@ -44,7 +45,8 @@ public partial class DialogController : Node2D
         _dialogUI.Visible = false;
         if (_dialogQueue.Count != 0)
         {
-            StartDialog(new List<DialogResource>(_dialogQueue));
+            // this plays the dialog when player entering the scene
+            StartDialog(new List<DialogResource>(_dialogQueue), "AutoStartDialog");
         }
         //Test();
     }
@@ -57,7 +59,14 @@ public partial class DialogController : Node2D
 
     public void StartDialog(List<DialogResource> dialogs)
     {
+        StartDialog(dialogs, "");
+    }
+
+    public void StartDialog(List<DialogResource> dialogs, string dialogId)
+    {
         _runtimeQueue.Clear();
+        _currentDialogId = dialogId;
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.DialogStart, _currentDialogId);
 
         foreach (var data in dialogs)
         {
@@ -116,6 +125,8 @@ public partial class DialogController : Node2D
         {
             _currentResource = null;
             CloseDialogUI();
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.DialogComplete, _currentDialogId);
+            _currentDialogId = "";
             return;
         }
 
