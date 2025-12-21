@@ -24,7 +24,6 @@ SaveManager="*res://shared/save/SaveManager.cs"
 ReplaySystem="*res://shared/save/ReplaySystem.cs"
 LevelManager="*res://shared/LevelManager.cs"
 
-
 [display]
 
 window/size/viewport_width=1280

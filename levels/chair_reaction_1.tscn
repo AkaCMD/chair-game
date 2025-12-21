@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=4 uid="uid://cbuk1bccqgan"]
+[gd_scene load_steps=7 format=4 uid="uid://cbuk1bccqgan"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_3rbgk"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_bqvnh"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_t4tjk"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="4_ndq5i"]
+[ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_t4tjk"]
+[ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_ndq5i"]
 
 [node name="Main" type="Node2D"]
 
@@ -32,6 +34,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DialogController" parent="GUI" instance=ExtResource("3_t4tjk")]
+
+[node name="Hint" parent="GUI" instance=ExtResource("4_t4tjk")]
+layout_mode = 1
+
+[node name="ReplayButton" parent="GUI" instance=ExtResource("5_ndq5i")]
+layout_mode = 1
+anchors_preset = 15
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false

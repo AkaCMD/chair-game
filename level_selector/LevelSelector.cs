@@ -9,7 +9,6 @@ public partial class LevelSelector : Node2D
     [Export]
     private ColorRect _screenColorRect;
     [Export]
-    private Control _hint;
     private bool _isOnLevel = false;
 
     [Export]
@@ -68,9 +67,6 @@ public partial class LevelSelector : Node2D
                     _currentLevel = (Node2D)packedLevel.Instantiate();
                     _canvasLayer.AddChild(_currentLevel);
 
-                    // Show hint
-                    _hint.Visible = true;
-
                     // Screen transition back
                     var tween2 = GetTree().CreateTween();
                     tween2.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f)
@@ -110,7 +106,6 @@ public partial class LevelSelector : Node2D
                     // Show level selector UI
                     _nodes.Visible = true;
                     _levelSelectorTitle.Visible = true;
-                    _hint.Visible = false;
 
                     // Screen transition back
                     var tween2 = GetTree().CreateTween();
