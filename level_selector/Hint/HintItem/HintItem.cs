@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class HintItem : Control
 {
@@ -12,5 +11,4 @@ public partial class HintItem : Control
     {
         _label.Text = _labelText;
     }
-
 }

@@ -13,6 +13,11 @@ public partial class ReplaySystem : Node
 
         var saveManager = GetNode<SaveManager>("/root/SaveManager");
         List<Step> solution = saveManager.GetReplayData(levelId);
+        if (solution == null)
+        {
+            GD.Print("No solution record available for this level.");
+            return;
+        }
 
         Player.Instance.InputBuffer.Clear();
         Game.Instance.ExecuteReset();
