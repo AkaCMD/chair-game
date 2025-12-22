@@ -18,6 +18,8 @@ public partial class DialogController : Node2D
     [ExportGroup("Settings")]
     [Export] private float _charInterval = 0.05f;
     [Export] private float _charSpacing = 30f;
+    [Export] private int _maxCharsPerLine = 20;
+    [Export] private float _lineSpacing = 40f;
     [Export] private Array<DialogResource> _dialogQueue = new Array<DialogResource>(); // Being played when entering the scene
 
     private List<DialogResource> _runtimeQueue = new List<DialogResource>();
@@ -169,8 +171,15 @@ public partial class DialogController : Node2D
         var charNode = _packedDialogText.Instantiate<DialogText>();
         _textContainer.AddChild(charNode);
 
-        // TODO: 换行
-        var pos = new Vector2(index * _charSpacing, 0);
+        int col = index;
+        int row = 0;
+        if (_maxCharsPerLine > 0)
+        {
+            col = index % _maxCharsPerLine;
+            row = index / _maxCharsPerLine;
+        }
+        
+        var pos = new Vector2(col * _charSpacing, row * _lineSpacing);
         charNode.Setup(_currentResource.Text[index].ToString(), pos);
     }
 

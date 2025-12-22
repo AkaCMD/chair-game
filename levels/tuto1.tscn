@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dr1tola3r1tpt"]
+[gd_scene load_steps=14 format=4 uid="uid://dr1tola3r1tpt"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_ps1r6"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_eagn6"]
@@ -6,7 +6,13 @@
 [ext_resource type="Script" uid="uid://dur0hbeuoabst" path="res://ui/ReplayBtn.cs" id="3_hv05k"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_1bfg0"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="4_eagn6"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="5_0c5sj"]
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_i1gfa"]
+[ext_resource type="Resource" uid="uid://c5m1lu5jgrv6i" path="res://dialog/dialog_resources/tuto/dialog_tuto_00.tres" id="6_t63v8"]
+[ext_resource type="Resource" uid="uid://betx420e2fvym" path="res://dialog/dialog_resources/tuto/dialog_tuto_01.tres" id="7_t63v8"]
+[ext_resource type="Resource" uid="uid://dxty0f1pm5s0v" path="res://dialog/dialog_resources/tuto/dialog_tuto_02.tres" id="8_ifiye"]
+[ext_resource type="Resource" uid="uid://b7m83j1h2suy6" path="res://dialog/dialog_resources/tuto/dialog_tuto_03.tres" id="9_7621v"]
+[ext_resource type="Resource" uid="uid://dd2lvni6bmui1" path="res://dialog/dialog_resources/tuto/dialog_tuto_04.tres" id="10_pmfny"]
 
 [node name="Main" type="Node2D"]
 
@@ -17,13 +23,13 @@ ObjectsTileMapLayer = NodePath("Objects")
 [node name="Background" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
-tile_map_data = PackedByteArray("AAALAAQAAAAHAAMAAAAMAAQAAAAHAAMAAAAFAAcAAAAHAAMAAAAGAAcAAAAHAAMAAAAIAAcAAAAHAAMAAAABAAYAAAAFAAIAAAAAAAYAAAAFAAIAAAAFAAMAAAABAAAAAAAFAAQAAAABAAEAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAEAAAAFAAUAAAABAAAAAAAGAAUAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAALAAQAAAAHAAMAAAAMAAQAAAAHAAMAAAAFAAcAAAAHAAMAAAAGAAcAAAAHAAMAAAAIAAcAAAAHAAMAAAABAAYAAAAFAAIAAAAAAAYAAAAFAAIAAAAFAAMAAAABAAAAAAAFAAQAAAABAAEAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAEAAAAFAAUAAAABAAAAAAAGAAUAAAAAAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAEAAAAHAAUAAAAAAAEAAAA=")
 tile_set = ExtResource("2_eagn6")
 
 [node name="Objects" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
-tile_map_data = PackedByteArray("AAANAAYAAAAHAAMAAAANAAUAAAAHAAMAAAANAAIAAAAHAAMAAAAKAAgAAAAHAAMAAAAFAAgAAAAHAAMAAAAGAAgAAAAHAAMAAAAHAAgAAAAHAAMAAAAIAAgAAAAFAAIAAAAJAAgAAAAFAAIAAAAFAAEAAAACAAAAAAAFAAIAAAACAAEAAAAFAAQAAgAAAAAABQAFAAUAAgAAAAAAAgAFAAMAAgAAAAAABAAEAAEAAAAEAAAAAAAHAAEAAAAGAAAAAAAGAAEAAAAFAAAAAAAGAAIAAAAFAAEAAAAHAAIAAAAGAAEAAAAHAAMAAAAGAAEAAAAHAAQAAAAGAAEAAAAHAAUAAAAGAAEAAAAEAAIAAAAEAAEAAAAEAAMAAAAEAAEAAAAEAAQAAAAEAAEAAAAEAAUAAAAEAAEAAAAEAAYAAAAEAAMAAAAGAAYAAAAFAAMAAAAHAAYAAAAGAAMAAAAFAAYAAAAFAAMAAAA=")
+tile_map_data = PackedByteArray("AAANAAYAAAAHAAMAAAANAAUAAAAHAAMAAAANAAIAAAAHAAMAAAAKAAgAAAAHAAMAAAAFAAgAAAAHAAMAAAAGAAgAAAAHAAMAAAAHAAgAAAAHAAMAAAAIAAgAAAAFAAIAAAAJAAgAAAAFAAIAAAAFAAEAAAACAAAAAAAFAAIAAAACAAEAAAAFAAQAAgAAAAAABgAFAAUAAgAAAAAAAgAEAAEAAAAEAAAAAAAGAAEAAAAFAAAAAAAGAAIAAAAFAAEAAAAEAAIAAAAEAAEAAAAEAAMAAAAEAAEAAAAEAAQAAAAEAAEAAAAEAAUAAAAEAAEAAAAEAAYAAAAEAAMAAAAGAAYAAAAFAAMAAAAFAAYAAAAFAAMAAAAIAAEAAAAGAAAAAAAIAAIAAAAGAAEAAAAIAAMAAAAGAAEAAAAIAAQAAAAGAAEAAAAIAAUAAAAGAAEAAAAIAAYAAAAGAAMAAAAHAAEAAAAFAAAAAAAHAAIAAAAFAAEAAAAHAAYAAAAFAAMAAAAHAAUAAgAAAAAABAA=")
 tile_set = ExtResource("2_eagn6")
 
 [node name="GUI" type="Control" parent="."]
@@ -36,6 +42,7 @@ grow_vertical = 2
 script = ExtResource("3_hv05k")
 
 [node name="DialogController" parent="GUI" instance=ExtResource("3_1bfg0")]
+_dialogQueue = Array[ExtResource("5_0c5sj")]([ExtResource("6_t63v8"), ExtResource("7_t63v8"), ExtResource("8_ifiye"), ExtResource("9_7621v"), ExtResource("10_pmfny")])
 
 [node name="Hint" parent="GUI" instance=ExtResource("4_1bfg0")]
 layout_mode = 1

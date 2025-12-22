@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://b7m83j1h2suy6"]
+
+[ext_resource type="Texture2D" uid="uid://dr1mv8jmdewmu" path="res://assets/ui/dialog/player_smile.png" id="1_5ywrq"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_gj8fo"]
+
+[resource]
+script = ExtResource("2_gj8fo")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_5ywrq")
+Text = "啊！想起来了
+你就是那个之前因为在办公室举办转椅子大赛被通报批评的
+"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

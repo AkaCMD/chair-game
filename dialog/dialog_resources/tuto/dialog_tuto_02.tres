@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://dxty0f1pm5s0v"]
+
+[ext_resource type="Texture2D" uid="uid://cet6u3lqltvgc" path="res://assets/ui/dialog/wolf_normal.png" id="1_cjpxv"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_mfba0"]
+
+[resource]
+script = ExtResource("2_mfba0")
+SpeakerName = "前同事"
+SpeakerImg = ExtResource("1_cjpxv")
+Text = "哦，你不记得了啊
+这样，我是你前同事来的
+不过不是在一个部门
+前段时间辞职了，现在去做独立游戏了"
+PitchOffset = -0.20000000000000007
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
