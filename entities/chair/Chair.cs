@@ -27,7 +27,7 @@ public partial class Chair : Mover
     public override void _Ready()
     {
         base._Ready();
-        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.Push, Callable.From(OnPushEvent));
+        GameEventSignals.Instance.Push += OnPushEvent;
 
         if (HasBox)
         {
@@ -92,7 +92,7 @@ public partial class Chair : Mover
 
     private void OnLevelExitTimerComplete()
     {
-        LevelManager.OnLevelExit.Invoke(true);
+        LevelManager.Instance.EmitLevelExit(true);
         // 当不从 LevelSelector 场景进入而是单独测试关卡的时候，过关不播放 Break 动画，直接进入 LevelSelector
         if (LevelSelector.Instance == null)
         {
@@ -214,5 +214,11 @@ public partial class Chair : Mover
         {
             return Direction == direction;
         }
+    }
+
+    public override void _ExitTree()
+    {
+        GameEventSignals.Instance.Push -= OnPushEvent;
+        base._ExitTree();
     }
 }

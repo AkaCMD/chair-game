@@ -7,7 +7,7 @@ public partial class DialogController : Node2D
 {
     public static DialogController Instance { get; private set; }
 
-    [ExportGroup("References")] 
+    [ExportGroup("References")]
     [Export] private CanvasItem _dialogUI;
     [Export] private PackedScene _packedDialogText;
     [Export] private AudioStreamPlayer _soundTalk;
@@ -15,7 +15,7 @@ public partial class DialogController : Node2D
     [Export] private TextureRect _portraitRect;
     [Export] private RichTextLabel _speakerName;
 
-    [ExportGroup("Settings")] 
+    [ExportGroup("Settings")]
     [Export] private float _charInterval = 0.05f;
     [Export] private float _charSpacing = 30f;
     [Export] private Array<DialogResource> _dialogQueue = new Array<DialogResource>(); // Being played when entering the scene
@@ -78,11 +78,11 @@ public partial class DialogController : Node2D
                 _runtimeQueue.Add(runtimeData);
             }
         }
-        
+
         OpenDialogUI();
         ShowNextLine();
     }
-    
+
     public override void _Process(double delta)
     {
         if (!_isTyping || _currentResource == null) return;
@@ -147,7 +147,7 @@ public partial class DialogController : Node2D
         {
             _isTyping = false;
             return;
-        } 
+        }
         CreateCharNode(_charIndex);
         Utils.PlayWithRandomPitch(_soundTalk, _currentResource.PitchOffset);
         _charIndex++;
@@ -168,7 +168,7 @@ public partial class DialogController : Node2D
     {
         var charNode = _packedDialogText.Instantiate<DialogText>();
         _textContainer.AddChild(charNode);
-        
+
         // TODO: 换行
         var pos = new Vector2(index * _charSpacing, 0);
         charNode.Setup(_currentResource.Text[index].ToString(), pos);

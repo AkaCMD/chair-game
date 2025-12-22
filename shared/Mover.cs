@@ -34,7 +34,7 @@ public partial class Mover : Node2D
         Map = GetParent<TileMapLayer>();
         GridPosition = Map.LocalToMap(Position);
         AddToGroup("movers");
-        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(TrySlide));
+        GameEventSignals.Instance.MoveComplete += TrySlide;
     }
 
     public void Stop()
@@ -247,5 +247,11 @@ public partial class Mover : Node2D
                 CommandManager.AddNewTurn();
             }
         }
+    }
+
+    public override void _ExitTree()
+    {
+        GameEventSignals.Instance.MoveComplete -= TrySlide;
+        base._ExitTree();
     }
 }

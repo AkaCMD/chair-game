@@ -111,4 +111,9 @@ public partial class SaveManager : Node
             default: return null;
         }
     }
+
+    public bool IsFirstTime()
+    {
+        return !FileAccess.FileExists(SavePath);
+    }
 }

@@ -9,7 +9,7 @@ public partial class CommandManager : Node
     public override void _EnterTree()
     {
         InitializeInstance();
-        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(AddNewTurn));
+        GameEventSignals.Instance.MoveComplete += AddNewTurn;
     }
 
     private void InitializeInstance()
@@ -99,5 +99,14 @@ public partial class CommandManager : Node
             IAction action = turn.Pop();
             action.UndoCommand();
         }
+    }
+
+    public override void _ExitTree()
+    {
+        if (GameEventSignals.Instance != null)
+        {
+            GameEventSignals.Instance.MoveComplete -= AddNewTurn;
+        }
+        base._ExitTree();
     }
 }

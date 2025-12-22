@@ -69,7 +69,7 @@ public partial class Player : Mover
         // Back to level selector without beat the level
         if (Input.IsActionJustPressed("escape"))
         {
-            LevelManager.OnLevelExit(false);
+            LevelManager.Instance.EmitLevelExit(false);
         }
         if (!Game.Instance.IsHoldingUndo)
         {

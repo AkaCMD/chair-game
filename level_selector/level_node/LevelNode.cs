@@ -27,7 +27,7 @@ public partial class LevelNode : Node2D
     private bool _isHover = false;
 
     // Store delegate references for proper unsubscription
-    private Action<PackedScene> _onLevelEnterDelegate;
+    private LevelManager.OnLevelEnterEventHandler _onLevelEnterDelegate;
 
     public override void _Ready()
     {
@@ -53,20 +53,19 @@ public partial class LevelNode : Node2D
             _isHover = false;
         };
 
-        // Store delegate reference for proper unsubscription
         _onLevelEnterDelegate = (packedScene) =>
         {
             _isHover = false;
         };
 
-        LevelManager.OnLevelEnter += _onLevelEnterDelegate;
+        LevelManager.Instance.OnLevelEnter += _onLevelEnterDelegate;
     }
 
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton inputEventMouseButton && _isHover)
         {
-            LevelManager.OnLevelEnter.Invoke(PackedLevel);
+            LevelManager.Instance.EmitLevelEnter(PackedLevel);
         }
     }
 
@@ -83,7 +82,7 @@ public partial class LevelNode : Node2D
     {
         if (_onLevelEnterDelegate != null)
         {
-            LevelManager.OnLevelEnter -= _onLevelEnterDelegate;
+            LevelManager.Instance.OnLevelEnter -= _onLevelEnterDelegate;
         }
     }
 }

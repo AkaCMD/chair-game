@@ -18,6 +18,9 @@ public partial class Game : Node
 
     public List<Step> StepHistory = new List<Step>();
 
+    // Delegate fields for event subscriptions
+    private GameEventSignals.LevelCompleteEventHandler _levelCompleteHandler;
+
     private struct MoverPosition
     {
         public Mover Mover;
@@ -58,16 +61,20 @@ public partial class Game : Node
         CallDeferred(nameof(InitAfterFrame));
         IsInputBlocked = false;
 
-        LevelManager.OnLevelExit += OnLevelExit;
-        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.MoveComplete, Callable.From(SetReferences));
-        GameEventSignals.Instance.Connect(GameEventSignals.SignalName.LevelComplete, Callable.From<string>(levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory)));
-
-        // Level name is now managed by LevelManager
+        LevelManager.Instance.OnLevelExit += OnLevelExit;
+        GameEventSignals.Instance.MoveComplete += SetReferences;
+        _levelCompleteHandler = levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory);
+        GameEventSignals.Instance.LevelComplete += _levelCompleteHandler;
     }
 
     public override void _ExitTree()
     {
-        LevelManager.OnLevelExit -= OnLevelExit;
+        LevelManager.Instance.OnLevelExit -= OnLevelExit;
+        GameEventSignals.Instance.MoveComplete -= SetReferences;
+        if (_levelCompleteHandler != null)
+        {
+            GameEventSignals.Instance.LevelComplete -= _levelCompleteHandler;
+        }
         if (Instance == this)
         {
             Instance = null;

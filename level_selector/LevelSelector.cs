@@ -33,8 +33,15 @@ public partial class LevelSelector : Node2D
 
     public override void _Ready()
     {
-        LevelManager.OnLevelEnter += HandleLevelEnter;
-        LevelManager.OnLevelExit += HandleLevelExit;
+        if (GetNode<SaveManager>("/root/SaveManager").IsFirstTime())
+        {
+            // When player enter the game the first time,
+            // play some dialog
+            var entryScene = GD.Load<PackedScene>("res://levels/entry/entry.tscn");
+            _canvasLayer.AddChild(entryScene.Instantiate());
+        }
+        LevelManager.Instance.OnLevelEnter += HandleLevelEnter;
+        LevelManager.Instance.OnLevelExit += HandleLevelExit;
     }
 
     private void HandleLevelEnter(PackedScene packedLevel)
@@ -155,7 +162,7 @@ public partial class LevelSelector : Node2D
 
     public override void _ExitTree()
     {
-        LevelManager.OnLevelEnter -= HandleLevelEnter;
-        LevelManager.OnLevelExit -= HandleLevelExit;
+        LevelManager.Instance.OnLevelEnter -= HandleLevelEnter;
+        LevelManager.Instance.OnLevelExit -= HandleLevelExit;
     }
 }

@@ -8,8 +8,8 @@ public partial class LevelManager : Node
 
     public string CurrentLevelName { get; private set; }
 
-    public static Action<PackedScene> OnLevelEnter;
-    public static Action<bool> OnLevelExit;
+    [Signal] public delegate void OnLevelEnterEventHandler(PackedScene levelScene);
+    [Signal] public delegate void OnLevelExitEventHandler(bool isCompleted);
 
     public override void _EnterTree()
     {
@@ -55,6 +55,16 @@ public partial class LevelManager : Node
         }
     }
 
+    public void EmitLevelEnter(PackedScene levelScene)
+    {
+        EmitSignal(SignalName.OnLevelEnter, levelScene);
+    }
+
+    public void EmitLevelExit(bool isCompleted)
+    {
+        EmitSignal(SignalName.OnLevelExit, isCompleted);
+    }
+
     private void SaveLevelProgress()
     {
         if (CurrentLevelName != null && Game.Instance != null)
@@ -77,7 +87,7 @@ public partial class LevelManager : Node
         var levelScene = GD.Load<PackedScene>(levelPath);
         if (levelScene != null)
         {
-            HandleLevelEnter(levelScene);
+            EmitLevelEnter(levelScene);
         }
         else
         {
@@ -89,7 +99,7 @@ public partial class LevelManager : Node
     {
         if (CurrentLevelName != null)
         {
-            HandleLevelExit(isCompleted);
+            EmitLevelExit(isCompleted);
         }
     }
 

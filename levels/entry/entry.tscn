@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7phi428wm7ic"]
+
+[ext_resource type="Script" uid="uid://ceot4akvnqadi" path="res://levels/entry/Entry.cs" id="1_ppggn"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="2_vt8dt"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="3_ymatr"]
+[ext_resource type="Resource" uid="uid://bjjnoydl2jpaj" path="res://dialog/dialog_resources/beginning/dialog_beginning_00.tres" id="4_30suu"]
+[ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="5_jv1ig"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ppggn")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogController" parent="GUI" instance=ExtResource("2_vt8dt")]
+_dialogQueue = Array[ExtResource("3_ymatr")]([ExtResource("4_30suu")])
+
+[node name="Background" type="ColorRect" parent="."]
+top_level = true
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11764706, 0.13333334, 0.18039216, 1)
+
+[node name="LittleTiledShooking" parent="." instance=ExtResource("5_jv1ig")]
