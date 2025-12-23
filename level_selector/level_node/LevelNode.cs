@@ -1,29 +1,22 @@
+using System.IO;
 using Godot;
-using System;
 
 public partial class LevelNode : Node2D
 {
-    [Export]
-    private Area2D _area;
-    [Export]
-    private Sprite2D _sprite;
-    [Export]
-    private Label _numberUI;
+    [Export] private Area2D _area;
+    [Export] private Sprite2D _sprite;
+    [Export] private Label _numberUI;
 
-    [Export]
-    private Label _nameUI;
-    [Export]
-    private Panel _panelUI;
-    [Export]
-    private Panel _hoverUI;
-    [Export]
-    public string LevelID;
-    [Export]
-    public string LevelName;
-    [Export]
-    public LevelNode[] LevelNodes;
-    [Export]
-    public PackedScene PackedLevel;
+    [Export] private Label _nameUI;
+    [Export] private Panel _panelUI;
+    [Export] private Panel _hoverUI;
+    [Export] public string LevelID;
+    [Export] public string LevelName;
+    [Export] public LevelNode[] LevelNodes;
+    [Export] public PackedScene PackedLevel;
+
+    [Export] public Color DisabledColor = new Color(112f/255, 112f/255, 112f/255);
+    [Export] public Color NormalColor = new Color(1, 1, 1);
     private bool _isHover = false;
 
     // Store delegate references for proper unsubscription
@@ -59,6 +52,7 @@ public partial class LevelNode : Node2D
         };
 
         LevelManager.Instance.OnLevelEnter += _onLevelEnterDelegate;
+        Init();
     }
 
     public override void _Input(InputEvent @event)
@@ -85,4 +79,30 @@ public partial class LevelNode : Node2D
             LevelManager.Instance.OnLevelEnter -= _onLevelEnterDelegate;
         }
     }
+
+    private void Init()
+    {
+        if (IsCleared())
+        {
+            _hoverUI.Modulate = NormalColor;
+            _panelUI.Modulate = NormalColor;
+            _sprite.Modulate = NormalColor;
+        }
+        else
+        {
+            _hoverUI.Modulate = DisabledColor;
+            _panelUI.Modulate = DisabledColor;
+            _sprite.Modulate = DisabledColor;   
+        }
+    }
+
+    public bool IsCleared()
+    {
+        return GetNode<SaveManager>("/root/SaveManager").IsLevelCleared(Path.GetFileNameWithoutExtension(PackedLevel.ResourcePath));
+    }
+
+    // public bool CanEnter()
+    // {
+    //     return true;
+    // }
 }

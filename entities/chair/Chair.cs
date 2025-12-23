@@ -254,8 +254,12 @@ public partial class Chair : Mover
 
     private void CompleteLevelAndExit()
     {
-        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete,
-            LevelManager.Instance?.CurrentLevelName);
+        string levelName = LevelManager.Instance?.CurrentLevelName;
+        if (string.IsNullOrEmpty(levelName))
+        {
+            levelName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
+        }
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, levelName);
         var exitTimer = GetTree().CreateTimer(LevelExitDelay);
         exitTimer.Timeout += OnLevelExitTimerComplete;
     }

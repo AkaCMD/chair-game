@@ -7,7 +7,7 @@ public partial class LevelSelector : Node2D
     private Camera2D _camera;
     private bool _isHover = false;
 
-    [Export]
+    [Export] 
     private ColorRect _screenColorRect;
     [Export]
     private bool _isOnLevel = false;
