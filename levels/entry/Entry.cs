@@ -9,7 +9,8 @@ public partial class Entry : Node
 
     private void GoToBeginningScene(string _)
     {
-        GetTree().ChangeSceneToFile("res://levels/beginning.tscn");
+        LevelManager.Instance.LoadLevelDirectly("res://levels/beginning.tscn");
+        QueueFree();
     }
 
     public override void _ExitTree()

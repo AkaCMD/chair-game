@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://dnjo3amixj4cx"]
+
+[ext_resource type="Texture2D" uid="uid://d0a1prbygqrnw" path="res://assets/ui/dialog/player_evil.png" id="1_wsnaa"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_08d8t"]
+
+[resource]
+script = ExtResource("2_08d8t")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_wsnaa")
+Text = "。。。
+不过不得不说破坏的感觉挺好的"
+PitchOffset = -0.10000000000000009
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

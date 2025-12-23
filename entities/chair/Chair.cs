@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using System.IO;
 
@@ -23,6 +24,9 @@ public partial class Chair : Mover
 
     private const int MaxSlideAttempts = 20;
     private const float LevelExitDelay = 3.0f;
+    
+    // Dialog
+    private bool _isWaitingForDialog = false;
 
     public override void _Ready()
     {
@@ -78,16 +82,20 @@ public partial class Chair : Mover
         {
             levelName = Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
         }
-        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, levelName);
-
-        var exitTimer = GetTree().CreateTimer(LevelExitDelay);
 
         Player.Instance.SoundCrush.Play();
         Player.Instance.SoundBreak.Play();
         Player.Instance.IsWaiting = true;
         if (LevelSelector.Instance != null) LevelSelector.Instance.Break();
 
-        exitTimer.Timeout += OnLevelExitTimerComplete;
+        if (levelName == "beginning")
+        {
+            PlayDialogsBeforeCompleted();
+        }
+        else
+        {
+            CompleteLevelAndExit();
+        }
     }
 
     private void OnLevelExitTimerComplete()
@@ -220,5 +228,35 @@ public partial class Chair : Mover
     {
         GameEventSignals.Instance.Push -= OnPushEvent;
         base._ExitTree();
+    }
+
+    private void PlayDialogsBeforeCompleted()
+    {
+        DialogController.Instance.StartDialog(new List<DialogResource>
+        {
+            GD.Load<DialogResource>("res://dialog/dialog_resources/beginning/dialog_beginning_02.tres"),
+            GD.Load<DialogResource>("res://dialog/dialog_resources/beginning/dialog_beginning_03.tres"),
+            GD.Load<DialogResource>("res://dialog/dialog_resources/beginning/dialog_beginning_04.tres")
+        }, "beginning_transition");
+        GameEventSignals.Instance.DialogComplete += OnTransitionDialogComplete;
+        _isWaitingForDialog = true;
+    }
+
+    private void OnTransitionDialogComplete(string dialogId = "")
+    {
+        if (dialogId == "beginning_transition")
+        {
+            GameEventSignals.Instance.DialogComplete -= OnTransitionDialogComplete;
+            _isWaitingForDialog = false;
+            CompleteLevelAndExit();
+        } 
+    }
+
+    private void CompleteLevelAndExit()
+    {
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete,
+            LevelManager.Instance?.CurrentLevelName);
+        var exitTimer = GetTree().CreateTimer(LevelExitDelay);
+        exitTimer.Timeout += OnLevelExitTimerComplete;
     }
 }
