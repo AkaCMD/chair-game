@@ -50,31 +50,31 @@ color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 
 [node name="Nodes" type="Node2D" parent="."]
 
-[node name="LevelNode" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="LevelNode" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(151, 287)
 LevelID = "TUTO-1"
 LevelName = "Break"
-LevelNodes = [NodePath("../LevelNode2")]
 PackedLevel = ExtResource("4_v1hyg")
 
 [node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(424, 458)
 LevelID = "LD-2"
 LevelName = "Crush Chair"
-LevelNodes = [NodePath("../LevelNode3"), NodePath("../LevelNode4")]
+LevelNodes = [NodePath("../LevelNode")]
 PackedLevel = ExtResource("5_6j37x")
 
 [node name="LevelNode3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(736, 225)
 LevelID = "LD-3"
 LevelName = "11037"
-LevelNodes = [NodePath("../LevelNode5")]
+LevelNodes = [NodePath("../LevelNode2")]
 PackedLevel = ExtResource("6_ukbrm")
 
-[node name="LevelNode4" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="LevelNode4" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(831, 555)
 LevelID = "EX-1"
 LevelName = "OMG"
+LevelNodes = [NodePath("../LevelNode2")]
 PackedLevel = ExtResource("7_j677p")
 
 [node name="Camera2D" type="Camera2D" parent="Nodes"]
@@ -82,10 +82,11 @@ anchor_mode = 0
 limit_left = 0
 limit_smoothed = true
 
-[node name="LevelNode5" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="LevelNode5" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(1210, 143)
 LevelID = "LD-4"
 LevelName = "HR"
+LevelNodes = [NodePath("../LevelNode3")]
 PackedLevel = ExtResource("8_fytug")
 
 [node name="LevelNode6" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]

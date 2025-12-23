@@ -59,7 +59,10 @@ public partial class LevelNode : Node2D
     {
         if (@event is InputEventMouseButton inputEventMouseButton && _isHover)
         {
-            LevelManager.Instance.EmitLevelEnter(PackedLevel);
+            if (IsCleared() || CanEnter())
+            {
+                LevelManager.Instance.EmitLevelEnter(PackedLevel);   
+            }
         }
     }
 
@@ -82,7 +85,7 @@ public partial class LevelNode : Node2D
 
     private void Init()
     {
-        if (IsCleared())
+        if (IsCleared() || CanEnter())
         {
             _hoverUI.Modulate = NormalColor;
             _panelUI.Modulate = NormalColor;
@@ -101,8 +104,16 @@ public partial class LevelNode : Node2D
         return GetNode<SaveManager>("/root/SaveManager").IsLevelCleared(Path.GetFileNameWithoutExtension(PackedLevel.ResourcePath));
     }
 
-    // public bool CanEnter()
-    // {
-    //     return true;
-    // }
+    public bool CanEnter()
+    {
+        bool canEnter = true;
+        foreach (var node in LevelNodes)
+        {
+            if (!node.IsCleared())
+            {
+                canEnter = false;
+            }
+        }
+        return canEnter;
+    }
 }
