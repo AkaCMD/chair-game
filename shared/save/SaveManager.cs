@@ -98,6 +98,21 @@ public partial class SaveManager : Node
         }
         return null;
     }
+
+    public bool IsLevelCleared(string levelId)
+    {
+        if (Data == null || string.IsNullOrEmpty(levelId))
+        {
+            return false;
+        }
+
+        if (Data.Levels.TryGetValue(levelId, out var record))
+        {
+            return record.IsCleared;
+        }
+
+        return false;
+    }
     
     private Step CharToStep(char c)
     {

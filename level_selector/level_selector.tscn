@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=20 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bu43m80kbae0g" path="res://assets/ui/BreakUI.png" id="12_j677p"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="16_013pk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rcln"]
 shader = ExtResource("2_bqtf1")
@@ -138,3 +139,5 @@ stream = ExtResource("13_fytug")
 stream = ExtResource("14_v1hyg")
 volume_db = 0.7
 autoplay = true
+
+[node name="DialogController" parent="." instance=ExtResource("16_013pk")]

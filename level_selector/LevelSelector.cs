@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class LevelSelector : Node2D
@@ -33,12 +34,19 @@ public partial class LevelSelector : Node2D
 
     public override void _Ready()
     {
-        if (GetNode<SaveManager>("/root/SaveManager").IsFirstTime())
+        var saveManager = GetNode<SaveManager>("/root/SaveManager");
+        if (saveManager.IsFirstTime())
         {
             // When player enter the game the first time,
             // play some dialog
             var entryScene = GD.Load<PackedScene>("res://levels/entry/entry.tscn");
             _canvasLayer.AddChild(entryScene.Instantiate());
+        }
+
+        if (!saveManager.IsLevelCleared("tuto1"))
+        {
+            DialogController.Instance.StartDialog(
+                new List<DialogResource> { GD.Load<DialogResource>("res://dialog/dialog_resources/level_selector/dialog_levelselector.tres")});
         }
         LevelManager.Instance.OnLevelEnter += HandleLevelEnter;
         LevelManager.Instance.OnLevelExit += HandleLevelExit;
