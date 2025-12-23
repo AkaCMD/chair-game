@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://8njujq2xqliw"]
+[gd_scene load_steps=6 format=3 uid="uid://8njujq2xqliw"]
 
 [ext_resource type="Script" uid="uid://ccao4t51ctqb1" path="res://dialog/DialogController.cs" id="1_j2njv"]
 [ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
 [ext_resource type="AudioStream" uid="uid://72a51eykusug" path="res://audios/talk.wav" id="3_lo7ct"]
+[ext_resource type="Script" uid="uid://bv4qnp262plma" path="res://ui/DraggableControl.cs" id="4_fj0ip"]
 [ext_resource type="Texture2D" uid="uid://b57vfdmkj1x25" path="res://assets/ui/dialog/ghost_normal.png" id="4_n83ol"]
 
 [node name="DialogController" type="Node2D" node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer", "_portraitRect", "_speakerName")]
@@ -22,6 +23,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("4_fj0ip")
 
 [node name="Button" type="Button" parent="DialogUI"]
 layout_mode = 0
@@ -29,6 +31,7 @@ offset_left = 263.0
 offset_top = 57.0
 offset_right = 1056.0
 offset_bottom = 183.0
+mouse_filter = 1
 
 [node name="Portrait" type="TextureRect" parent="DialogUI"]
 layout_mode = 0
