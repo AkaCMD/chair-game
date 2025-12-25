@@ -24,7 +24,7 @@ public partial class Chair : Mover
 
     private const int MaxSlideAttempts = 20;
     private const float LevelExitDelay = 3.0f;
-    
+
     // Dialog
     private bool _isWaitingForDialog = false;
 
@@ -173,7 +173,7 @@ public partial class Chair : Mover
         }
 
         Mover adjacentMover = GetMover(GridPosition + direction);
-        if (adjacentMover != null && adjacentMover != this)
+        if (adjacentMover != null &&  adjacentMover != this)
         {
             Vector2I targetPos = adjacentMover.GridPosition + direction;
 
@@ -189,7 +189,7 @@ public partial class Chair : Mover
             Mover targetMover = GetMover(targetPos);
             if (targetMover != null && targetMover != adjacentMover)
             {
-                return false;
+                return targetMover.CanMoveToward(direction);
             }
             return adjacentMover.CanMoveToward(direction);
         }
@@ -249,7 +249,7 @@ public partial class Chair : Mover
             GameEventSignals.Instance.DialogComplete -= OnTransitionDialogComplete;
             _isWaitingForDialog = false;
             CompleteLevelAndExit();
-        } 
+        }
     }
 
     private void CompleteLevelAndExit()
