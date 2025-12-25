@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=23 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bk80ud8k5dwx0" path="res://levels/minimalist.tscn" id="9_6j37x"]
 [ext_resource type="PackedScene" uid="uid://7xliyd8h4i5t" path="res://levels/destroy.tscn" id="10_8n67b"]
 [ext_resource type="PackedScene" uid="uid://bj77qq4i3nf4n" path="res://levels/structure.tscn" id="11_b5x44"]
+[ext_resource type="PackedScene" uid="uid://b7dktctfyte43" path="res://levels/shuffle.tscn" id="12_55fcj"]
 [ext_resource type="Texture2D" uid="uid://bu43m80kbae0g" path="res://assets/ui/BreakUI.png" id="12_j677p"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
@@ -105,6 +106,13 @@ LevelID = "7-1"
 LevelName = "Structure"
 LevelNodes = [NodePath("../LevelNode7"), NodePath("../LevelNode8")]
 PackedLevel = ExtResource("11_b5x44")
+
+[node name="LevelNode10" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2106, 515)
+LevelID = "7-2"
+LevelName = "Shuffle"
+LevelNodes = [NodePath("../LevelNode7"), NodePath("../LevelNode8")]
+PackedLevel = ExtResource("12_55fcj")
 
 [node name="LevelNode5" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(1017, 225)
