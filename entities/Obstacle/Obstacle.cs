@@ -8,6 +8,8 @@ public partial class Obstacle : Mover
 
     private bool _isBroken = false;
     private bool _shouldBreakThisMove = false;
+    
+    [Export] public AudioStreamPlayer SoundBreak;
 
     public override void _Ready()
     {
@@ -68,6 +70,9 @@ public partial class Obstacle : Mover
 
     public void Break()
     {
+        SoundBreak.Stop();
+        Utils.PlayWithRandomPitch(SoundBreak);
+        
         _isBroken = true;
         _sprite.Texture = _textureBroken;
         YSortEnabled = false;
