@@ -1,5 +1,6 @@
 // Things that can move that should be tracked for the undo system
 
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -108,6 +109,10 @@ public partial class Mover : Node2D
             return false;
         }
         Mover m = GetMover(posToCheck);
+        if (IsCoffee(posToCheck, out _) && IsPlayer && !Player.Instance.IsSit)
+        {
+            return false;
+        }
 
         // destructible obstacles
         if (m is Obstacle obstacle)
@@ -160,12 +165,15 @@ public partial class Mover : Node2D
 
     public bool IsChair(Vector2I pos, out Chair chair)
     {
-        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Chair))
+        foreach (var mover in GetAllMovers(pos))
         {
-            chair = (Chair)GetMover(pos);
-            return true;
+            if (mover is Chair chairObj)
+            {
+                chair = chairObj;
+                return true;
+            }
         }
-
+        
         chair = null;
         return false;
     }
@@ -184,12 +192,15 @@ public partial class Mover : Node2D
 
     public bool IsCoffee(Vector2I pos, out Coffee coffee)
     {
-        if (GetMover(pos) != null && GetMover(pos).GetType() == typeof(Coffee))
+        foreach (var mover in GetAllMovers(pos))
         {
-            coffee = (Coffee)GetMover(pos);
-            return true;
+            if (mover is Coffee coffeeObj)
+            {
+                coffee = coffeeObj;
+                return true;
+            }
         }
-
+        
         coffee = null;
         return false;
     }
@@ -204,6 +215,20 @@ public partial class Mover : Node2D
             }
         }
         return null;
+    }
+
+    protected List<Mover> GetAllMovers(Vector2I pos)
+    {
+        var movers = new List<Mover>();
+        foreach (var mover in GetTree().GetNodesInGroup("movers").OfType<Mover>())
+        {
+            if (mover.GridPosition == pos)
+            {
+                movers.Add(mover);
+            }
+        }
+
+        return movers;
     }
 
     public void Bump(Vector2I targetGridPos, bool shouldMove = false)
