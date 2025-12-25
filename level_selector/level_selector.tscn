@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=22 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
@@ -9,9 +9,11 @@
 [ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
 [ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/corner.tscn" id="6_ukbrm"]
-[ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/love.tscn" id="7_j677p"]
+[ext_resource type="PackedScene" uid="uid://btdng3v43f51y" path="res://levels/microban1.tscn" id="7_v1hyg"]
 [ext_resource type="PackedScene" uid="uid://cak3pjjtxihs" path="res://levels/long_desk.tscn" id="8_fytug"]
 [ext_resource type="PackedScene" uid="uid://bk80ud8k5dwx0" path="res://levels/minimalist.tscn" id="9_6j37x"]
+[ext_resource type="PackedScene" uid="uid://7xliyd8h4i5t" path="res://levels/destroy.tscn" id="10_8n67b"]
+[ext_resource type="PackedScene" uid="uid://bj77qq4i3nf4n" path="res://levels/structure.tscn" id="11_b5x44"]
 [ext_resource type="Texture2D" uid="uid://bu43m80kbae0g" path="res://assets/ui/BreakUI.png" id="12_j677p"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
@@ -51,50 +53,70 @@ color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="LevelNode" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(151, 287)
-LevelID = "TUTO-1"
+position = Vector2(94, 324)
 LevelName = "Break"
 PackedLevel = ExtResource("4_v1hyg")
 
 [node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(424, 458)
-LevelID = "LD-2"
-LevelName = "Crush Chair"
+position = Vector2(422, 405)
+LevelID = "2-1"
+LevelName = "Minimalist"
 LevelNodes = [NodePath("../LevelNode")]
-PackedLevel = ExtResource("5_6j37x")
+PackedLevel = ExtResource("9_6j37x")
 
 [node name="LevelNode3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(736, 225)
-LevelID = "LD-3"
-LevelName = "11037"
+position = Vector2(710, 316)
+LevelID = "3-1"
+LevelName = "Long Desk"
 LevelNodes = [NodePath("../LevelNode2")]
-PackedLevel = ExtResource("6_ukbrm")
+PackedLevel = ExtResource("8_fytug")
 
 [node name="LevelNode4" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(831, 555)
-LevelID = "EX-1"
-LevelName = "OMG"
-LevelNodes = [NodePath("../LevelNode2")]
-PackedLevel = ExtResource("7_j677p")
+position = Vector2(985, 435)
+LevelID = "4-1"
+LevelName = "Love"
+LevelNodes = [NodePath("../LevelNode3")]
+PackedLevel = ExtResource("7_v1hyg")
+
+[node name="LevelNode6" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1327, 355)
+LevelID = "5-1"
+LevelName = "Corner"
+LevelNodes = [NodePath("../LevelNode4")]
+PackedLevel = ExtResource("6_ukbrm")
+
+[node name="LevelNode7" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1683, 230)
+LevelID = "6-2"
+LevelName = "Crush"
+LevelNodes = [NodePath("../LevelNode6")]
+PackedLevel = ExtResource("5_6j37x")
+
+[node name="LevelNode8" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1706, 461)
+LevelID = "6-1"
+LevelName = "Destroy"
+LevelNodes = [NodePath("../LevelNode6")]
+PackedLevel = ExtResource("10_8n67b")
+
+[node name="LevelNode9" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2106, 361)
+LevelID = "7-1"
+LevelName = "Structure"
+LevelNodes = [NodePath("../LevelNode7"), NodePath("../LevelNode8")]
+PackedLevel = ExtResource("11_b5x44")
+
+[node name="LevelNode5" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1017, 225)
+LevelID = "4-2"
+LevelName = "Microban"
+LevelNodes = [NodePath("../LevelNode3")]
+PackedLevel = ExtResource("7_v1hyg")
 
 [node name="Camera2D" type="Camera2D" parent="Nodes"]
 anchor_mode = 0
 limit_left = 0
 limit_smoothed = true
-
-[node name="LevelNode5" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1210, 143)
-LevelID = "LD-4"
-LevelName = "HR"
-LevelNodes = [NodePath("../LevelNode3")]
-PackedLevel = ExtResource("8_fytug")
-
-[node name="LevelNode6" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(830, 390)
-LevelID = "EX-2"
-LevelName = "Minimalist"
-LevelNodes = [NodePath("../LevelNode2")]
-PackedLevel = ExtResource("9_6j37x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

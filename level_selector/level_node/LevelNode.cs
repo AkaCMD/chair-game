@@ -85,11 +85,17 @@ public partial class LevelNode : Node2D
 
     private void Init()
     {
-        if (IsCleared() || CanEnter())
+        if (IsCleared())
         {
             _hoverUI.Modulate = NormalColor;
             _panelUI.Modulate = NormalColor;
             _sprite.Modulate = NormalColor;
+        }
+        else if (CanEnter())
+        {
+            _hoverUI.Modulate = NormalColor;
+            _panelUI.Modulate = NormalColor;
+            _sprite.Modulate = DisabledColor;
         }
         else
         {
