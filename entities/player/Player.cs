@@ -113,7 +113,7 @@ public partial class Player : Mover
 
     public bool CanInput()
     {
-        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo;
+        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo && !IsSliding;
     }
 
     public void ClearInputBuffer()
@@ -199,15 +199,18 @@ public partial class Player : Mover
                 bool hasObstacle = IsWall(checkPos) || GetMover(checkPos) != null;
                 if (hasObstacle)
                 {
-                    IsSliding = true;
-                    if (TryPlanMove(-Direction))
+                    if (!IsCoffee(checkPos, out _))
                     {
-                        Bump(checkPos, true);
-                    }
-                    else
-                    {
-                        IsSliding = false;
-                        isValidMove = false;
+                        IsSliding = true;
+                        if (TryPlanMove(-Direction))
+                        {
+                            Bump(checkPos, true);
+                        }
+                        else
+                        {
+                            IsSliding = false;
+                            isValidMove = false;
+                        }   
                     }
                 }
                 else
