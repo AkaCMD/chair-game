@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://dta5p641ycy5e" path="res://entities/chair/chair_left.tscn" id="7_ib5sr"]
 [ext_resource type="PackedScene" uid="uid://logusmgd41gs" path="res://entities/trashbin/trashbin.tscn" id="8_mg4m7"]
 [ext_resource type="PackedScene" uid="uid://co0lhvxbvrj8p" path="res://entities/chair/chair_front.tscn" id="8_ms38y"]
+[ext_resource type="PackedScene" uid="uid://icgvne7g458u" path="res://entities/coworkers/coworker01.tscn" id="9_jtmet"]
+[ext_resource type="PackedScene" uid="uid://bhnusmy1b0ixx" path="res://entities/coworkers/coworker02.tscn" id="10_ae2n5"]
+[ext_resource type="PackedScene" uid="uid://18q4tpf8575p" path="res://entities/coworkers/coworker03.tscn" id="11_nw4uy"]
 [ext_resource type="PackedScene" uid="uid://chr7ms4bigd42" path="res://entities/chair/chair_front_with_box.tscn" id="12_mg4m7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ehper"]
@@ -162,6 +165,9 @@ scenes/12/scene = ExtResource("5_b4kd3")
 scenes/13/scene = ExtResource("6_ur1dq")
 scenes/14/scene = ExtResource("7_b4kd3")
 scenes/15/scene = ExtResource("8_mg4m7")
+scenes/16/scene = ExtResource("9_jtmet")
+scenes/17/scene = ExtResource("10_ae2n5")
+scenes/18/scene = ExtResource("11_nw4uy")
 
 [resource]
 tile_size = Vector2i(128, 128)

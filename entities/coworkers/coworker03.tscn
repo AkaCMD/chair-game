@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://logusmgd41gs"]
+[gd_scene load_steps=10 format=3 uid="uid://18q4tpf8575p"]
 
-[ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Interactable.cs" id="1_f2vkq"]
-[ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="2_ipf8v"]
-[ext_resource type="Resource" uid="uid://cr8ijoymbra3f" path="res://dialog/dialog_resources/dialog_check_trashbin_01.tres" id="2_t40ax"]
-[ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_dit17"]
-[ext_resource type="Script" uid="uid://bootpsptdggwr" path="res://shared/InteractableArea.cs" id="4_f2vkq"]
+[ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Interactable.cs" id="1_qgog2"]
+[ext_resource type="Texture2D" uid="uid://duy72041hc0d7" path="res://assets/world/coworkers/coworker03.png" id="2_qgog2"]
+[ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_osd8k"]
+[ext_resource type="Script" uid="uid://bootpsptdggwr" path="res://shared/InteractableArea.cs" id="4_bxssg"]
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -61,17 +60,15 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
 size = Vector2(280, 73)
 
-[node name="Trashbin" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
+[node name="Coworker" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
-script = ExtResource("1_f2vkq")
+script = ExtResource("1_qgog2")
 _hintLabel = NodePath("HintLabel")
-_checkDialog = ExtResource("2_t40ax")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -23.000002)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_ipf8v")
+position = Vector2(0, -42)
+texture = ExtResource("2_qgog2")
 region_rect = Rect2(64, 0, 64, 64)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -91,14 +88,14 @@ theme_override_colors/font_shadow_color = Color(0.6117647, 0.21176471, 0.0666666
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/shadow_outline_size = 1
-theme_override_fonts/font = ExtResource("3_dit17")
+theme_override_fonts/font = ExtResource("3_osd8k")
 theme_override_font_sizes/font_size = 56
-text = "E： 检查"
+text = "E： 对话"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("4_f2vkq")
+script = ExtResource("4_bxssg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -0.5)

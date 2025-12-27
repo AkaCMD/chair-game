@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class Trashbin : Box, IInteractable
+public partial class Interactable : Box, IInteractable
 {
     [Export] private Label _hintLabel;
     [Export] private DialogResource _checkDialog;

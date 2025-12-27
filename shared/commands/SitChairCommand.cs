@@ -20,6 +20,11 @@ public class SitChairCommand : IAction
     {
         Player.Instance.SoundSlide.Stop();
         Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
+        
+        _chair.Stop();
+        Player.Instance.Stop();
+
+        Vector2I chairOriginalPosition = _chair.GridPosition;
 
         Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
         Player.Instance.PreviousDirection = Player.Instance.Direction;
@@ -27,7 +32,7 @@ public class SitChairCommand : IAction
         Player.Instance.ChairInstance = _chair;
         _chair.GridPosition = new Vector2I(999, 999);
         _direction = _chair.Direction;
-        Player.Instance.GridPosition = _originalPosition;
+        Player.Instance.GridPosition = chairOriginalPosition;
     }
 
     public void UndoCommand()

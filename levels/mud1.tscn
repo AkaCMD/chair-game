@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://dv1nx64jry7wj"]
+[gd_scene load_steps=7 format=4 uid="uid://cta0yqxj0u14v"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_0loe7"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_wn5db"]
