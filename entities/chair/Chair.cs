@@ -65,6 +65,7 @@ public partial class Chair : Mover
             if (IsTarget(GridPosition + Direction))
             {
                 HandleTargetReached();
+                ReplaceDoorWithBrokenVersion(GridPosition + Direction);
                 break;
             }
 
@@ -73,6 +74,14 @@ public partial class Chair : Mover
                 CommandManager.ExecuteCommand(new BreakObstacleCommand(obs));
             }
         }
+    }
+
+    private void ReplaceDoorWithBrokenVersion(Vector2I gridPosition)
+    {
+        Vector2I downCell = new Vector2I(9, 1); // hard coded
+        Vector2I upCell = new Vector2I(9, 0);
+        Map.SetCell(gridPosition, Map.GetCellSourceId(downCell), downCell);
+        Map.SetCell(gridPosition+Vector2I.Up, Map.GetCellSourceId(upCell), upCell);
     }
 
     private void HandleTargetReached()

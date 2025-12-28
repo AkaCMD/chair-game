@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=24 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -17,17 +17,22 @@
 [ext_resource type="PackedScene" uid="uid://icgvne7g458u" path="res://entities/coworkers/coworker01.tscn" id="9_jtmet"]
 [ext_resource type="PackedScene" uid="uid://bhnusmy1b0ixx" path="res://entities/coworkers/coworker02.tscn" id="10_ae2n5"]
 [ext_resource type="PackedScene" uid="uid://18q4tpf8575p" path="res://entities/coworkers/coworker03.tscn" id="11_nw4uy"]
+[ext_resource type="PackedScene" uid="uid://bwu4xmdcwpo2l" path="res://entities/coworkers/coworker04.tscn" id="12_ae2n5"]
 [ext_resource type="PackedScene" uid="uid://chr7ms4bigd42" path="res://entities/chair/chair_front_with_box.tscn" id="12_mg4m7"]
+[ext_resource type="PackedScene" uid="uid://cga2eyrst3ikt" path="res://entities/coworkers/coworker05.tscn" id="14_2t1oo"]
+[ext_resource type="PackedScene" uid="uid://bywgefoudkv3o" path="res://entities/coworkers/coworker06.tscn" id="15_it8q8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ehper"]
 texture = ExtResource("1_0x4yw")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 1:0/0 = 0
+2:0/next_alternative_id = 10
 2:0/0 = 0
 3:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+2:1/next_alternative_id = 8
 2:1/0 = 0
 2:1/0/custom_data_0 = true
 2:1/0/custom_data_1 = true
@@ -148,6 +153,10 @@ texture_region_size = Vector2i(128, 128)
 6:3/0/custom_data_0 = true
 5:2/0 = 0
 5:2/0/terrain_set = 0
+9:0/next_alternative_id = 3
+9:0/0 = 0
+9:1/next_alternative_id = 3
+9:1/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0x4yw"]
 scenes/1/scene = ExtResource("2_mrsv0")
@@ -168,6 +177,9 @@ scenes/15/scene = ExtResource("8_mg4m7")
 scenes/16/scene = ExtResource("9_jtmet")
 scenes/17/scene = ExtResource("10_ae2n5")
 scenes/18/scene = ExtResource("11_nw4uy")
+scenes/19/scene = ExtResource("12_ae2n5")
+scenes/20/scene = ExtResource("14_2t1oo")
+scenes/21/scene = ExtResource("15_it8q8")
 
 [resource]
 tile_size = Vector2i(128, 128)
