@@ -3,29 +3,22 @@ using Godot;
 
 public partial class LevelSelector : Node2D
 {
-    [Export]
-    private Camera2D _camera;
+    [Export] private float DRAGGING_LIMIT_X = 2000f;
+    [Export] private Camera2D _camera;
     private bool _isHover = false;
 
-    [Export] 
-    private ColorRect _screenColorRect;
-    [Export]
-    private bool _isOnLevel = false;
+    [Export] private ColorRect _screenColorRect;
+    [Export] private bool _isOnLevel = false;
 
-    [Export]
-    private CanvasLayer _canvasLayer;
-    [Export]
-    private Panel _levelSelectorTitle;
-    [Export]
-    private Node2D _nodes;
-    [Export]
-    private Sprite2D _breakSprite;
+    [Export] private CanvasLayer _canvasLayer;
+    [Export] private Panel _levelSelectorTitle;
+    [Export] private Node2D _nodes;
+    [Export] private Sprite2D _breakSprite;
 
     private Node2D _currentLevel;
     public static LevelSelector Instance { get; private set; }
 
-    [Export]
-    private AudioStreamPlayer _soundLevelStart;
+    [Export] private AudioStreamPlayer _soundLevelStart;
 
     public override void _EnterTree()
     {
@@ -138,7 +131,7 @@ public partial class LevelSelector : Node2D
         {
             // Handle camera dragging
             _camera.Offset -= _isHover ? new Vector2(inputEventMouseMotion.Relative.X, 0) : Vector2.Zero;
-            _camera.Offset = new Vector2(Mathf.Max(0, Mathf.Min(1000, _camera.Offset.X)), 0);
+            _camera.Offset = new Vector2(Mathf.Max(0, Mathf.Min(DRAGGING_LIMIT_X, _camera.Offset.X)), 0);
         }
 
         if (@event is InputEventMouseButton inputEventMouseButton)
