@@ -39,7 +39,7 @@ public partial class GlassWindow : Mover
         // Otherwise, block like a wall
         return false;
     }
-    
+
     private bool IsSlidingInto(Vector2I dir)
     {
         Vector2I sourcePos = GridPosition - dir;
@@ -61,10 +61,10 @@ public partial class GlassWindow : Mover
         {
             return true;
         }
-        
+
         return false;
     }
-    
+
     public override bool ExecuteLogicalMove()
     {
         bool hasMove = base.ExecuteLogicalMove();
@@ -75,31 +75,31 @@ public partial class GlassWindow : Mover
         }
         return hasMove;
     }
-    
+
     protected override void PlanMove(Vector2I dir)
     {
         _plannedMove = Vector2I.Zero;
     }
-    
+
     public override bool HasPlannedMove()
     {
         return base.HasPlannedMove() || _shouldBreakThisMove;
     }
-    
+
     public void Break(Mover breaker, Vector2I direction)
     {
         if (!_isBroken)
         {
             SoundBreak?.Stop();
             Utils.PlayWithRandomPitch(SoundBreak);
-        
+
             _isBroken = true;
-            _sprite.Texture = _textureBroken;   
+            _sprite.Texture = _textureBroken;
         }
-        
+
         // Keep in "movers" group so it still blocks non-sliding objects
         // Don't remove from group like Obstacle does
-        
+
         // Trigger fall for breaker and any connected movers
         CauseFall(breaker, direction);
     }
@@ -121,10 +121,10 @@ public partial class GlassWindow : Mover
         {
             // Store original position for undo
             _fallenObjects[m] = m.GridPosition;
-            
+
             // Move to (999,999) to hide
             m.GridPosition = new Vector2I(999, 999);
-            
+
             if (m is Player player)
             {
                 // Player falls -> game over
@@ -142,25 +142,22 @@ public partial class GlassWindow : Mover
     {
         if (mover == null || collected.Contains(mover))
             return;
-        
+
         collected.Add(mover);
-        
+
         // Check if mover is planning to move in the same direction
         if (mover.HasPlannedMove() && mover._plannedMove == direction)
         {
-            // Recursively collect movers that are being pushed by this mover
+            // Recursively collect mover that is being pushed by this mover
             Vector2I frontPos = mover.GridPosition + direction;
-            List<Mover> frontMovers = GetAllMovers(frontPos);
-            foreach (Mover front in frontMovers)
+            Mover frontMover = GetMover(frontPos);
+            if (frontMover != null && frontMover != mover && frontMover != this)
             {
-                if (front != mover && front != this)
-                {
-                    CollectMovingGroup(front, direction, collected);
-                }
+                CollectMovingGroup(frontMover, direction, collected);
             }
         }
     }
-    
+
     // Method to restore fallen objects (for undo)
     public void RestoreFallenObjects()
     {
@@ -172,7 +169,7 @@ public partial class GlassWindow : Mover
         }
         _fallenObjects.Clear();
     }
-    
+
     // Getter for fallen objects (used by BreakWindowCommand)
     public Dictionary<Mover, Vector2I> GetFallenObjects()
     {

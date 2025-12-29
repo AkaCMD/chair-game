@@ -120,10 +120,7 @@ public partial class Mover : Node2D
             return obstacle.CanMoveToward(dir);
         }
 
-        if (m is Coffee coffee)
-        {
-            return coffee.CanMoveToward(dir);
-        }
+        // Coffee is no longer a Mover, it's handled separately in IsCoffee check above
 
         // Movers don't block themselves.
         if (m != null && m != this)
@@ -165,13 +162,11 @@ public partial class Mover : Node2D
 
     public bool IsChair(Vector2I pos, out Chair chair)
     {
-        foreach (var mover in GetAllMovers(pos))
+        Mover mover = GetMover(pos);
+        if (mover is Chair chairObj)
         {
-            if (mover is Chair chairObj)
-            {
-                chair = chairObj;
-                return true;
-            }
+            chair = chairObj;
+            return true;
         }
 
         chair = null;
@@ -192,9 +187,9 @@ public partial class Mover : Node2D
 
     public bool IsCoffee(Vector2I pos, out Coffee coffee)
     {
-        foreach (var mover in GetAllMovers(pos))
+        foreach (var node in GetTree().GetNodesInGroup("obstacles"))
         {
-            if (mover is Coffee coffeeObj)
+            if (node is Coffee coffeeObj && coffeeObj.GridPosition == pos)
             {
                 coffee = coffeeObj;
                 return true;
@@ -217,19 +212,7 @@ public partial class Mover : Node2D
         return null;
     }
 
-    protected List<Mover> GetAllMovers(Vector2I pos)
-    {
-        var movers = new List<Mover>();
-        foreach (var mover in GetTree().GetNodesInGroup("movers").OfType<Mover>())
-        {
-            if (mover.GridPosition == pos)
-            {
-                movers.Add(mover);
-            }
-        }
 
-        return movers;
-    }
 
     public void Bump(Vector2I targetGridPos, bool shouldMove = false)
     {

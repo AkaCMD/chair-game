@@ -210,7 +210,7 @@ public partial class Player : Mover
                         {
                             IsSliding = false;
                             isValidMove = false;
-                        }   
+                        }
                     }
                 }
                 else
@@ -337,7 +337,8 @@ public partial class Player : Mover
             if (HasBox)
             {
                 var mover = GetMover(GridPosition + Direction);
-                if ((mover == null && !IsWall(GridPosition + Direction)) ||
+                var targetPos = GridPosition + Direction;
+                if ((mover == null && !IsWall(targetPos) && !IsCoffee(targetPos, out _)) ||
                     (mover is Chair chair && Direction == -chair.Direction))
                 {
                     CommandManager.ExecuteCommand(new DropBoxCommand(BoxInstance));

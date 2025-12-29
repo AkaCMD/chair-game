@@ -55,7 +55,7 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Coffee" type="Node2D" groups=["movers"]]
+[node name="Coffee" type="Node2D" groups=["obstacles"]]
 script = ExtResource("1_mnm4l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
