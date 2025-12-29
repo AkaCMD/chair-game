@@ -51,7 +51,11 @@ public partial class Chair : Mover
     private void OnPushEvent()
     {
         if (_isBoxSliding) return; // Prevent recursive calls
-        if (HasBox && Direction == Player.Instance.Direction)
+        if (HasBox && 
+            Direction == Player.Instance.Direction && 
+            Player.Instance.GridPosition == GridPosition - Direction && 
+            !Player.Instance.IsSit && 
+            !Player.Instance.HasBox)
         {
             Game.Instance.StepHistory.Add(Step.CreateMove(Direction));
             Player.Instance.PrintSolutionSequence();

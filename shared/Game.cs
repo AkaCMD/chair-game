@@ -69,7 +69,10 @@ public partial class Game : Node
         _levelCompleteHandler = levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory);
         GameEventSignals.Instance.LevelComplete += _levelCompleteHandler;
 
-        _gameOverOverlay.Visible = false;
+        if (_gameOverOverlay != null)
+        {
+            _gameOverOverlay.Visible = false;   
+        }
     }
 
     public override void _ExitTree()
