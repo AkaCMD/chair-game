@@ -78,8 +78,6 @@ public partial class Obstacle : Mover
         YSortEnabled = false;
         ZIndex = 0;
         RemoveFromGroup("movers");
-
-        // TODO: Play SFX
     }
 
     public void Restore()

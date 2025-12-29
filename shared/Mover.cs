@@ -14,7 +14,7 @@ public partial class Mover : Node2D
 
     // During a movement cycle, what's the next move (as a difference
     // from its current position) that this Mover will try to make?
-    protected Vector2I _plannedMove;
+    protected internal Vector2I _plannedMove;
 
     private Vector2I prevMoveDir;
 
@@ -65,7 +65,7 @@ public partial class Mover : Node2D
         PlanPushes(dir);
     }
 
-    public bool HasPlannedMove()
+    public virtual bool HasPlannedMove()
     {
         return _plannedMove != Vector2I.Zero;
     }
@@ -173,7 +173,7 @@ public partial class Mover : Node2D
                 return true;
             }
         }
-        
+
         chair = null;
         return false;
     }
@@ -200,7 +200,7 @@ public partial class Mover : Node2D
                 return true;
             }
         }
-        
+
         coffee = null;
         return false;
     }
