@@ -15,7 +15,7 @@ tile_set = ExtResource("1_72lju")
 
 [node name="Objects" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAEAAMAAgAAAAAAAgAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAADAAIAAMAAgAAAAAAFgA=")
+tile_map_data = PackedByteArray("AAAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgADAAMAAgAAAAAADAAJAAMAAgAAAAAAFgAEAAMAAgAAAAAACAA=")
 tile_set = ExtResource("1_72lju")
 
 [node name="GUI" type="Control" parent="."]

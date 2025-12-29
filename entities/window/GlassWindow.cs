@@ -33,7 +33,7 @@ public partial class GlassWindow : Mover
         {
             // Check if the caller is sliding
             Mover caller = GetMover(GridPosition - dir);
-            if (caller != null && caller.IsSliding)
+            if (caller != null && (caller.IsSliding || caller is Turret))
             {
                 // Sliding mover can pass through broken window and fall
                 return true;
@@ -68,6 +68,11 @@ public partial class GlassWindow : Mover
 
         // Case 2: Chair with box sliding
         if (mover is Chair chair && chair.HasBox)
+        {
+            return true;
+        }
+
+        if (mover is Turret)
         {
             return true;
         }
@@ -135,6 +140,7 @@ public partial class GlassWindow : Mover
             if (m is Player player)
             {
                 // Player falls -> game over
+                GD.Print("Gameover");
                 SoundFall?.Play();
                 LevelManager.Instance?.EmitLevelExit(false);
                 break; // No need to process others if player falls

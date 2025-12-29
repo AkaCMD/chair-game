@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfvgup60df7rn"]
+
+[ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_7uj4s"]
+[ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="3_dv8dn"]
+[ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="5_un5sm"]
+[ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="6_vistemp"]
+
+[sub_resource type="Animation" id="Animation_pihpk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_josro"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_mfoj8"]
+resource_name = "reached"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 64, 64, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mfoj8"]
+_data = {
+&"RESET": SubResource("Animation_pihpk"),
+&"default": SubResource("Animation_josro"),
+&"reached": SubResource("Animation_mfoj8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
+size = Vector2(376.375, 375.5)
+
+[node name="Turret" type="Node2D" groups=["movers"]]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_7uj4s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -23.000002)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_dv8dn")
+region_rect = Rect2(64, 0, 64, 64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mfoj8")
+}
+
+[node name="DamageArea" type="Area2D" parent="."]
+script = ExtResource("5_un5sm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("RectangleShape2D_dit17")
+debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
+
+[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
+script = ExtResource("6_vistemp")

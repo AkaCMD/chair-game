@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=26 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cga2eyrst3ikt" path="res://entities/coworkers/coworker05.tscn" id="14_2t1oo"]
 [ext_resource type="PackedScene" uid="uid://bywgefoudkv3o" path="res://entities/coworkers/coworker06.tscn" id="15_it8q8"]
 [ext_resource type="PackedScene" uid="uid://ebl1ksxvlqsb" path="res://entities/window/window.tscn" id="16_it8q8"]
+[ext_resource type="PackedScene" uid="uid://dfvgup60df7rn" path="res://entities/turret/turret.tscn" id="17_48o06"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ehper"]
 texture = ExtResource("1_0x4yw")
@@ -182,6 +183,7 @@ scenes/19/scene = ExtResource("12_ae2n5")
 scenes/20/scene = ExtResource("14_2t1oo")
 scenes/21/scene = ExtResource("15_it8q8")
 scenes/22/scene = ExtResource("16_it8q8")
+scenes/23/scene = ExtResource("17_48o06")
 
 [resource]
 tile_size = Vector2i(128, 128)
