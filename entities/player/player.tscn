@@ -24,7 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://byum3yrvpcbgb" path="res://audios/break.wav" id="22_221hk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_221hk"]
-size = Vector2(100, 100)
+size = Vector2(63, 62.5)
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundUndo", "SoundWalk", "SoundTakeBox", "SoundSlide", "SoundLeaveChair", "SoundDropBox", "SoundCrush", "SoundCollide", "SoundBreak") groups=["movers", "player"]]
 z_index = 1
@@ -89,4 +89,5 @@ stream = ExtResource("22_221hk")
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" groups=["player"]]
+position = Vector2(0, -9.75)
 shape = SubResource("RectangleShape2D_221hk")
