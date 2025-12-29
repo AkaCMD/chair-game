@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=4 uid="uid://bhm2yij11uwce"]
+[gd_scene load_steps=4 format=4 uid="uid://bhm2yij11uwce"]
 
+[ext_resource type="Script" uid="uid://b258i3baneqsd" path="res://shared/Debug.cs" id="1_6qf51"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="1_72lju"]
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_lkjt4"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_6qf51")
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1_lkjt4")
@@ -15,7 +17,7 @@ tile_set = ExtResource("1_72lju")
 
 [node name="Objects" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgADAAMAAgAAAAAADAAJAAMAAgAAAAAAFgAEAAMAAgAAAAAACAA=")
+tile_map_data = PackedByteArray("AAAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgADAAMAAgAAAAAADAAIAAMAAgAAAAAAFgA=")
 tile_set = ExtResource("1_72lju")
 
 [node name="GUI" type="Control" parent="."]

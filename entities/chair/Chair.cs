@@ -22,11 +22,13 @@ public partial class Chair : Mover
     [Export] public bool HasBox { get; set; } = false;
     public Box BoxOnChair { get; set; }
 
-    private const int MaxSlideAttempts = 20;
     private const float LevelExitDelay = 3.0f;
 
     // Dialog
     private bool _isWaitingForDialog = false;
+
+    // Box sliding state
+    private bool _isBoxSliding = false;
 
     public override void _Ready()
     {
@@ -48,32 +50,31 @@ public partial class Chair : Mover
 
     private void OnPushEvent()
     {
+        if (_isBoxSliding) return; // Prevent recursive calls
         if (HasBox && Direction == Player.Instance.Direction)
         {
             Game.Instance.StepHistory.Add(Step.CreateMove(Direction));
             Player.Instance.PrintSolutionSequence();
-            HandleBoxSlide();
+            StartBoxSlide(); // Replace HandleBoxSlide with event-driven sliding
         }
     }
 
-    private void HandleBoxSlide()
+    private void StartBoxSlide()
     {
-        for (int slideAttempt = 0; slideAttempt < MaxSlideAttempts; slideAttempt++)
-        {
-            CommandManager.ExecuteCommand(new SlideChairCommand(this));
+        if (_isBoxSliding) return;
 
-            if (IsTarget(GridPosition + Direction))
-            {
-                HandleTargetReached();
-                ReplaceDoorWithBrokenVersion(GridPosition + Direction);
-                break;
-            }
+        _isBoxSliding = true;
+        IsSliding = true;
+        prevMoveDir = Direction;
 
-            if (IsObstacle(GridPosition + Direction, out Obstacle obs))
-            {
-                CommandManager.ExecuteCommand(new BreakObstacleCommand(obs));
-            }
-        }
+        // Execute first slide move
+        ExecuteBoxSlideMove();
+    }
+
+    private void ExecuteBoxSlideMove()
+    {
+        // Use command to record movement (maintain undo support)
+        CommandManager.ExecuteCommand(new SlideChairCommand(this));
     }
 
     private void ReplaceDoorWithBrokenVersion(Vector2I gridPosition)
@@ -81,7 +82,7 @@ public partial class Chair : Mover
         Vector2I downCell = new Vector2I(9, 1); // hard coded
         Vector2I upCell = new Vector2I(9, 0);
         Map.SetCell(gridPosition, Map.GetCellSourceId(downCell), downCell);
-        Map.SetCell(gridPosition+Vector2I.Up, Map.GetCellSourceId(upCell), upCell);
+        Map.SetCell(gridPosition + Vector2I.Up, Map.GetCellSourceId(upCell), upCell);
     }
 
     private void HandleTargetReached()
@@ -182,7 +183,7 @@ public partial class Chair : Mover
         }
 
         Mover adjacentMover = GetMover(GridPosition + direction);
-        if (adjacentMover != null &&  adjacentMover != this)
+        if (adjacentMover != null && adjacentMover != this)
         {
             Vector2I targetPos = adjacentMover.GridPosition + direction;
 
@@ -237,6 +238,60 @@ public partial class Chair : Mover
     {
         GameEventSignals.Instance.Push -= OnPushEvent;
         base._ExitTree();
+    }
+
+    protected override void TrySlide()
+    {
+        if (_isBoxSliding)
+        {
+            // Check if chair has fallen out of bounds (e.g., after breaking glass)
+            if (GridPosition.X >= 500 || GridPosition.Y >= 500)
+            {
+                StopBoxSlide();
+                CommandManager.AddNewTurn();
+                return;
+            }
+
+            // Check if reached target
+            if (IsTarget(GridPosition + prevMoveDir))
+            {
+                HandleTargetReached();
+                ReplaceDoorWithBrokenVersion(GridPosition + prevMoveDir);
+                StopBoxSlide();
+                return;
+            }
+
+            // Check for obstacles
+            if (IsObstacle(GridPosition + prevMoveDir, out Obstacle obs))
+            {
+                CommandManager.ExecuteCommand(new BreakObstacleCommand(obs));
+            }
+
+            // Try to continue sliding
+            IsSliding = TryPlanMove(prevMoveDir);
+            if (IsSliding)
+            {
+                Player.Instance.SoundSlide.Stop();
+                Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
+                Game.Instance.MoveStart();
+            }
+            else
+            {
+                StopBoxSlide();
+                CommandManager.AddNewTurn();
+            }
+        }
+        else
+        {
+            base.TrySlide(); // Keep original player-on-chair sliding logic
+        }
+    }
+
+    private void StopBoxSlide()
+    {
+        _isBoxSliding = false;
+        IsSliding = false;
+        Player.Instance.SoundSlide.Stop();
     }
 
     private void PlayDialogsBeforeCompleted()

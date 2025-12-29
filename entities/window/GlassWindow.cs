@@ -28,21 +28,6 @@ public partial class GlassWindow : Mover
 
     public override bool CanMoveToward(Vector2I dir)
     {
-        // If already broken, only allow sliding movers to pass through
-        if (_isBroken)
-        {
-            // Check if the caller is sliding
-            Mover caller = GetMover(GridPosition - dir);
-            if (caller != null && (caller.IsSliding || caller is Turret))
-            {
-                // Sliding mover can pass through broken window and fall
-                return true;
-            }
-            // Non-sliding movers cannot pass
-            return false;
-        }
-
-        // Intact window: check if something is sliding into it
         if (IsSlidingInto(dir))
         {
             _shouldBreakThisMove = true;
@@ -72,7 +57,7 @@ public partial class GlassWindow : Mover
             return true;
         }
 
-        if (mover is Turret)
+        if (mover is Turret turret)
         {
             return true;
         }
@@ -103,11 +88,14 @@ public partial class GlassWindow : Mover
     
     public void Break(Mover breaker, Vector2I direction)
     {
-        SoundBreak?.Stop();
-        Utils.PlayWithRandomPitch(SoundBreak);
+        if (!_isBroken)
+        {
+            SoundBreak?.Stop();
+            Utils.PlayWithRandomPitch(SoundBreak);
         
-        _isBroken = true;
-        _sprite.Texture = _textureBroken;
+            _isBroken = true;
+            _sprite.Texture = _textureBroken;   
+        }
         
         // Keep in "movers" group so it still blocks non-sliding objects
         // Don't remove from group like Obstacle does

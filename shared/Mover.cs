@@ -16,7 +16,7 @@ public partial class Mover : Node2D
     // from its current position) that this Mover will try to make?
     protected internal Vector2I _plannedMove;
 
-    private Vector2I prevMoveDir;
+    protected Vector2I prevMoveDir;
 
     public Vector2I GridPosition
     {
@@ -256,10 +256,19 @@ public partial class Mover : Node2D
         }
     }
 
-    private void TrySlide()
+    protected virtual void TrySlide()
     {
         if (IsSliding)
         {
+            // Check if mover has fallen out of bounds (e.g., after breaking glass)
+            if (GridPosition.X >= 500 || GridPosition.Y >= 500)
+            {
+                IsSliding = false;
+                Player.Instance.SoundSlide.Stop();
+                CommandManager.AddNewTurn();
+                return;
+            }
+
             IsSliding = TryPlanMove(prevMoveDir);
             if (IsSliding)
             {
