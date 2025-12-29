@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ebl1ksxvlqsb"]
+[gd_scene load_steps=9 format=3 uid="uid://ebl1ksxvlqsb"]
 
 [ext_resource type="Script" uid="uid://dff7a7pajj3nh" path="res://entities/window/GlassWindow.cs" id="1_h7br1"]
+[ext_resource type="Texture2D" uid="uid://cjhvk8epm4p78" path="res://assets/world/window/temp_window.png" id="2_yci3q"]
+[ext_resource type="Texture2D" uid="uid://bew6xqqbjd76f" path="res://assets/world/window/temp_broken_window.png" id="3_gqcop"]
 [ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="3_h7br1"]
-[ext_resource type="Texture2D" uid="uid://cyjotgr43d402" path="res://assets/world/plant.png" id="4_gqcop"]
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -61,13 +62,14 @@ z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_h7br1")
 _sprite = NodePath("Sprite2D")
-_textureIntact = ExtResource("4_gqcop")
+_textureIntact = ExtResource("2_yci3q")
+_textureBroken = ExtResource("3_gqcop")
 SoundBreak = NodePath("Break")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("4_gqcop")
+texture = ExtResource("2_yci3q")
 region_rect = Rect2(64, 0, 64, 64)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

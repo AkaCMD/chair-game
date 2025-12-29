@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dfvgup60df7rn"]
 
 [ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_7uj4s"]
-[ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="3_dv8dn"]
+[ext_resource type="Texture2D" uid="uid://mme5d73ptnkv" path="res://assets/world/turret/temp_turret.png" id="2_kqd58"]
 [ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="5_un5sm"]
 [ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="6_vistemp"]
 
@@ -68,7 +68,7 @@ script = ExtResource("1_7uj4s")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -23.000002)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_dv8dn")
+texture = ExtResource("2_kqd58")
 region_rect = Rect2(64, 0, 64, 64)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
