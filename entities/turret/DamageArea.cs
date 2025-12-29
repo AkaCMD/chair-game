@@ -12,10 +12,8 @@ public partial class DamageArea : Area2D
     {
         if (body.IsInGroup("player"))
         {
-            if (Game.Instance != null)
-            {
+            if (!Player.Instance.IsSliding)
                 Game.Instance.SetGameOver();
-            }
         }
     }
 }
