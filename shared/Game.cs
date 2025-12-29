@@ -18,6 +18,9 @@ public partial class Game : Node
 
     public List<Step> StepHistory = new List<Step>();
 
+    [Export] private CanvasLayer _gameOverOverlay;
+    private bool _isGameOver = false;
+
     // Delegate fields for event subscriptions
     private GameEventSignals.LevelCompleteEventHandler _levelCompleteHandler;
 
@@ -65,6 +68,8 @@ public partial class Game : Node
         GameEventSignals.Instance.MoveComplete += SetReferences;
         _levelCompleteHandler = levelName => GetNode<SaveManager>("/root/SaveManager").SubmitLevelClear(levelName, StepHistory);
         GameEventSignals.Instance.LevelComplete += _levelCompleteHandler;
+
+        _gameOverOverlay.Visible = false;
     }
 
     public override void _ExitTree()
@@ -129,8 +134,15 @@ public partial class Game : Node
     {
         if (Input.IsActionJustPressed("undo") && !HasMoverSliding())
         {
-            ExecuteUndo();
-            StartUndoRepeat();
+            if (_isGameOver)
+            {
+                ResumeFromGameOver();
+            }
+            else
+            {
+                ExecuteUndo();
+                StartUndoRepeat();   
+            }
         }
 
         if (Input.IsActionJustReleased("undo"))
@@ -369,5 +381,32 @@ public partial class Game : Node
                 tween.Kill();
             }
         }
+    }
+
+    public void SetGameOver()
+    {
+        if (_isGameOver) return;
+        
+        _isGameOver = true;
+        IsInputBlocked = true;
+        if (_gameOverOverlay != null)
+        {
+            _gameOverOverlay.Visible = true;
+        }
+    }
+    
+    public void ResumeFromGameOver()
+    {
+        if (!_isGameOver) return;
+        
+        _isGameOver = false;
+        IsInputBlocked = false;
+        
+        if (_gameOverOverlay != null)
+        {
+            _gameOverOverlay.Visible = false;
+        }
+        
+        ExecuteUndo();
     }
 }

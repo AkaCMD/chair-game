@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=4 uid="uid://bhm2yij11uwce"]
+[gd_scene load_steps=5 format=4 uid="uid://bhm2yij11uwce"]
 
 [ext_resource type="Script" uid="uid://b258i3baneqsd" path="res://shared/Debug.cs" id="1_6qf51"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="1_72lju"]
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_lkjt4"]
+[ext_resource type="PackedScene" uid="uid://cw2lt817npp2q" path="res://ui/gameover_overlay.tscn" id="4_6b7re"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6qf51")
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
 script = ExtResource("1_lkjt4")
+_gameOverOverlay = NodePath("../GUI/GameoverOverlay")
+ObjectsTileMapLayer = NodePath("Objects")
 
 [node name="Background" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
@@ -17,7 +20,7 @@ tile_set = ExtResource("1_72lju")
 
 [node name="Objects" type="TileMapLayer" parent="World"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgADAAMAAgAAAAAADAAIAAMAAgAAAAAAFgA=")
+tile_map_data = PackedByteArray("AAAFAAIAAgAAAAAAAQAFAAQAAgAAAAAAAQAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgADAAMAAgAAAAAADAAIAAMAAgAAAAAAFgAEAAMAAgAAAAAACAA=")
 tile_set = ExtResource("1_72lju")
 
 [node name="GUI" type="Control" parent="."]
@@ -27,3 +30,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GameoverOverlay" parent="GUI" instance=ExtResource("4_6b7re")]
+visible = false

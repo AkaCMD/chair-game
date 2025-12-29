@@ -113,7 +113,7 @@ public partial class Player : Mover
 
     public bool CanInput()
     {
-        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo && !IsSliding;
+        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo && !IsSliding && !Game.Instance.IsInputBlocked;
     }
 
     public void ClearInputBuffer()

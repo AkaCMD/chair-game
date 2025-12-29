@@ -128,9 +128,11 @@ public partial class GlassWindow : Mover
             if (m is Player player)
             {
                 // Player falls -> game over
-                GD.Print("Gameover");
                 SoundFall?.Play();
-                LevelManager.Instance?.EmitLevelExit(false);
+                if (Game.Instance != null)
+                {
+                    Game.Instance.SetGameOver();
+                }
                 break; // No need to process others if player falls
             }
         }

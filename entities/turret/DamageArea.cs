@@ -12,7 +12,10 @@ public partial class DamageArea : Area2D
     {
         if (body.IsInGroup("player"))
         {
-            GD.Print("GameOver");
+            if (Game.Instance != null)
+            {
+                Game.Instance.SetGameOver();
+            }
         }
     }
 }
