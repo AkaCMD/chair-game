@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=26 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=27 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f3sxa08hv6g" path="res://entities/chair/chair_right_with_box.tscn" id="5_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://bj0eekijn4fa2" path="res://entities/chair/chair_back.tscn" id="5_ujsqe"]
 [ext_resource type="PackedScene" uid="uid://l3yp1lwyff7f" path="res://entities/chair/chair_right.tscn" id="6_nmmw6"]
-[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/Obstacle/obstacle.tscn" id="6_ur1dq"]
+[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/obstacle/obstacle.tscn" id="6_ur1dq"]
 [ext_resource type="PackedScene" uid="uid://cys8jc3f3bgj8" path="res://entities/coffee_stain/coffee_stain.tscn" id="7_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://dta5p641ycy5e" path="res://entities/chair/chair_left.tscn" id="7_ib5sr"]
 [ext_resource type="PackedScene" uid="uid://logusmgd41gs" path="res://entities/trashbin/trashbin.tscn" id="8_mg4m7"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bywgefoudkv3o" path="res://entities/coworkers/coworker06.tscn" id="15_it8q8"]
 [ext_resource type="PackedScene" uid="uid://ebl1ksxvlqsb" path="res://entities/window/window.tscn" id="16_it8q8"]
 [ext_resource type="PackedScene" uid="uid://dfvgup60df7rn" path="res://entities/turret/turret.tscn" id="17_48o06"]
+[ext_resource type="PackedScene" uid="uid://dp2b422xqvpbn" path="res://entities/boss/boss.tscn" id="18_qcap0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ehper"]
 texture = ExtResource("1_0x4yw")
@@ -184,6 +185,7 @@ scenes/20/scene = ExtResource("14_2t1oo")
 scenes/21/scene = ExtResource("15_it8q8")
 scenes/22/scene = ExtResource("16_it8q8")
 scenes/23/scene = ExtResource("17_48o06")
+scenes/24/scene = ExtResource("18_qcap0")
 
 [resource]
 tile_size = Vector2i(128, 128)

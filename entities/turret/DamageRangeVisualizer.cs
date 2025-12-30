@@ -63,7 +63,7 @@ public partial class DamageRangeVisualizer : Node2D
         shaderMaterial.SetShaderParameter("size", rectShape.Size);
         shaderMaterial.SetShaderParameter("border_width", 8.0f); // 边框宽度
         shaderMaterial.SetShaderParameter("border_color", new Color(1.0f, 0.0f, 0.0f, 0.9f)); // 红色边框，较高不透明度
-        shaderMaterial.SetShaderParameter("fill_color", new Color(1.0f, 0.2f, 0.2f, 0.6f)); // 浅红色填充
+        shaderMaterial.SetShaderParameter("fill_color", new Color(1.0f, 0.2f, 0.2f, 0.8f)); // 浅红色填充
         shaderMaterial.SetShaderParameter("pulse_speed", 3f); // 较慢的脉冲速度
 
         meshInstance.Material = shaderMaterial;
