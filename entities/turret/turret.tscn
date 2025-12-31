@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dfvgup60df7rn"]
 
 [ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_7uj4s"]
-[ext_resource type="Texture2D" uid="uid://mme5d73ptnkv" path="res://assets/world/turret/temp_turret.png" id="2_kqd58"]
+[ext_resource type="Texture2D" uid="uid://c7tvq8gj5sfdi" path="res://assets/world/turret/turret_cross/turret_cross_idle.png" id="2_kqd58"]
 [ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="5_un5sm"]
 [ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="6_vistemp"]
 

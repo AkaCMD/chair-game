@@ -1,14 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cs8pqw6p2bdgh"]
+[gd_scene load_steps=12 format=3 uid="uid://ec43rcrqygl8"]
 
-[ext_resource type="Script" uid="uid://dff7a7pajj3nh" path="res://entities/window/GlassWindow.cs" id="1_h7br1"]
-[ext_resource type="Script" uid="uid://41ixdv10t8du" path="res://entities/window/ShineLoop.cs" id="1_pp8w7"]
-[ext_resource type="Shader" uid="uid://cwtlu5aaj303i" path="res://shader/shine.gdshader" id="2_wms7q"]
-[ext_resource type="Texture2D" uid="uid://cjhvk8epm4p78" path="res://assets/world/window/temp_window.png" id="2_yci3q"]
-[ext_resource type="Texture2D" uid="uid://bew6xqqbjd76f" path="res://assets/world/window/temp_broken_window.png" id="3_gqcop"]
-[ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="3_h7br1"]
+[ext_resource type="Script" uid="uid://dff7a7pajj3nh" path="res://entities/window/GlassWindow.cs" id="1_kbxtq"]
+[ext_resource type="Texture2D" uid="uid://crj77xooonp5b" path="res://assets/world/window/window_broken.png" id="2_njant"]
+[ext_resource type="Shader" path="res://shader/shine.gdshader" id="3_ji4mx"]
+[ext_resource type="Texture2D" uid="uid://c2u7k8djkbg8y" path="res://assets/world/window/window_sliced/window_down.png" id="4_kbxtq"]
+[ext_resource type="Script" uid="uid://41ixdv10t8du" path="res://entities/window/ShineLoop.cs" id="5_2t24b"]
+[ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="6_etuqv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7esyb"]
-shader = ExtResource("2_wms7q")
+shader = ExtResource("3_ji4mx")
 shader_parameter/progress = -1.0
 shader_parameter/width = 0.24600001098648
 shader_parameter/angle = 0.785398
@@ -17,18 +17,6 @@ shader_parameter/intensity = 1.2
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(64, 0, 64, 64)]
-}
 
 [sub_resource type="Animation" id="Animation_josro"]
 resource_name = "default"
@@ -70,17 +58,17 @@ _data = {
 [node name="Window" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundBreak") groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
-script = ExtResource("1_h7br1")
+script = ExtResource("1_kbxtq")
 _sprite = NodePath("Sprite2D")
-_textureIntact = ExtResource("2_yci3q")
-_textureBroken = ExtResource("3_gqcop")
+_textureIntact = ExtResource("4_kbxtq")
+_textureBroken = ExtResource("2_njant")
 SoundBreak = NodePath("Break")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7esyb")
-texture = ExtResource("2_yci3q")
+texture = ExtResource("4_kbxtq")
 region_rect = Rect2(64, 0, 64, 64)
-script = ExtResource("1_pp8w7")
+script = ExtResource("5_2t24b")
 Sweep = 0.5
 Pause = 2.0
 
@@ -90,5 +78,5 @@ libraries = {
 }
 
 [node name="Break" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_h7br1")
+stream = ExtResource("6_etuqv")
 volume_db = -15.0

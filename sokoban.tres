@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=27 format=3 uid="uid://esohyydcd2dt"]
+[gd_resource type="TileSet" load_steps=33 format=3 uid="uid://esohyydcd2dt"]
 
 [ext_resource type="Texture2D" uid="uid://bv5dgqrfbs1y6" path="res://assets/tileset.png" id="1_0x4yw"]
 [ext_resource type="PackedScene" uid="uid://b0hnp46ekplmk" path="res://entities/box/box.tscn" id="2_mrsv0"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b2f3sxa08hv6g" path="res://entities/chair/chair_right_with_box.tscn" id="5_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://bj0eekijn4fa2" path="res://entities/chair/chair_back.tscn" id="5_ujsqe"]
 [ext_resource type="PackedScene" uid="uid://l3yp1lwyff7f" path="res://entities/chair/chair_right.tscn" id="6_nmmw6"]
-[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/Obstacle/obstacle.tscn" id="6_ur1dq"]
+[ext_resource type="PackedScene" uid="uid://8sk4e8o5e81q" path="res://entities/obstacle/obstacle.tscn" id="6_ur1dq"]
 [ext_resource type="PackedScene" uid="uid://cys8jc3f3bgj8" path="res://entities/coffee_stain/coffee_stain.tscn" id="7_b4kd3"]
 [ext_resource type="PackedScene" uid="uid://dta5p641ycy5e" path="res://entities/chair/chair_left.tscn" id="7_ib5sr"]
 [ext_resource type="PackedScene" uid="uid://logusmgd41gs" path="res://entities/trashbin/trashbin.tscn" id="8_mg4m7"]
@@ -17,13 +17,16 @@
 [ext_resource type="PackedScene" uid="uid://icgvne7g458u" path="res://entities/coworkers/coworker01.tscn" id="9_jtmet"]
 [ext_resource type="PackedScene" uid="uid://bhnusmy1b0ixx" path="res://entities/coworkers/coworker02.tscn" id="10_ae2n5"]
 [ext_resource type="PackedScene" uid="uid://18q4tpf8575p" path="res://entities/coworkers/coworker03.tscn" id="11_nw4uy"]
-[ext_resource type="PackedScene" path="res://entities/coworkers/coworker04.tscn" id="12_ae2n5"]
+[ext_resource type="PackedScene" uid="uid://bwu4xmdcwpo2l" path="res://entities/coworkers/coworker04.tscn" id="12_ae2n5"]
 [ext_resource type="PackedScene" uid="uid://chr7ms4bigd42" path="res://entities/chair/chair_front_with_box.tscn" id="12_mg4m7"]
-[ext_resource type="PackedScene" path="res://entities/coworkers/coworker05.tscn" id="14_2t1oo"]
-[ext_resource type="PackedScene" path="res://entities/coworkers/coworker06.tscn" id="15_it8q8"]
-[ext_resource type="PackedScene" uid="uid://cs8pqw6p2bdgh" path="res://entities/window/window.tscn" id="16_it8q8"]
+[ext_resource type="PackedScene" uid="uid://cga2eyrst3ikt" path="res://entities/coworkers/coworker05.tscn" id="14_2t1oo"]
+[ext_resource type="PackedScene" uid="uid://bywgefoudkv3o" path="res://entities/coworkers/coworker06.tscn" id="15_it8q8"]
+[ext_resource type="PackedScene" uid="uid://7biyr5hmrlax" path="res://entities/window/window_up.tscn" id="16_it8q8"]
 [ext_resource type="PackedScene" uid="uid://dfvgup60df7rn" path="res://entities/turret/turret.tscn" id="17_48o06"]
 [ext_resource type="PackedScene" uid="uid://dp2b422xqvpbn" path="res://entities/boss/boss.tscn" id="18_qcap0"]
+[ext_resource type="PackedScene" uid="uid://bktgxorhiolwk" path="res://entities/window/window_left.tscn" id="25_51mc7"]
+[ext_resource type="PackedScene" uid="uid://jle4ptobvm0y" path="res://entities/window/window_right.tscn" id="26_n6gxn"]
+[ext_resource type="PackedScene" uid="uid://ec43rcrqygl8" path="res://entities/window/window_down.tscn" id="27_vkgj8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ehper"]
 texture = ExtResource("1_0x4yw")
@@ -162,6 +165,7 @@ texture_region_size = Vector2i(128, 128)
 9:1/0 = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0x4yw"]
+resource_name = "Collection"
 scenes/1/scene = ExtResource("2_mrsv0")
 scenes/2/scene = ExtResource("3_av3ks")
 scenes/3/scene = ExtResource("4_av3ks")
@@ -187,6 +191,33 @@ scenes/22/scene = ExtResource("16_it8q8")
 scenes/23/scene = ExtResource("17_48o06")
 scenes/24/scene = ExtResource("18_qcap0")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_qcap0"]
+resource_name = "Windows"
+scenes/1/scene = ExtResource("25_51mc7")
+scenes/2/scene = ExtResource("26_n6gxn")
+scenes/3/scene = ExtResource("16_it8q8")
+scenes/4/scene = ExtResource("27_vkgj8")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_27to2"]
+resource_name = "Chair"
+scenes/1/scene = ExtResource("7_ib5sr")
+scenes/2/scene = ExtResource("6_nmmw6")
+scenes/3/scene = ExtResource("8_ms38y")
+scenes/4/scene = ExtResource("5_ujsqe")
+scenes/5/scene = ExtResource("4_ur1dq")
+scenes/6/scene = ExtResource("5_b4kd3")
+scenes/7/scene = ExtResource("12_mg4m7")
+scenes/8/scene = ExtResource("3_md5dg")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_v2nr7"]
+resource_name = "Coworkers"
+scenes/2/scene = ExtResource("9_jtmet")
+scenes/3/scene = ExtResource("10_ae2n5")
+scenes/4/scene = ExtResource("11_nw4uy")
+scenes/5/scene = ExtResource("12_ae2n5")
+scenes/6/scene = ExtResource("14_2t1oo")
+scenes/7/scene = ExtResource("15_it8q8")
+
 [resource]
 tile_size = Vector2i(128, 128)
 terrain_set_0/mode = 0
@@ -198,3 +229,6 @@ custom_data_layer_1/name = "is_target"
 custom_data_layer_1/type = 1
 sources/2 = SubResource("TileSetScenesCollectionSource_0x4yw")
 sources/0 = SubResource("TileSetAtlasSource_ehper")
+sources/5 = SubResource("TileSetScenesCollectionSource_qcap0")
+sources/6 = SubResource("TileSetScenesCollectionSource_27to2")
+sources/7 = SubResource("TileSetScenesCollectionSource_v2nr7")
