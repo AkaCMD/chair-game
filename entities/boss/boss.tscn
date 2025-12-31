@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dp2b422xqvpbn"]
+[gd_scene load_steps=11 format=3 uid="uid://dp2b422xqvpbn"]
 
 [ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_tjfx7"]
 [ext_resource type="Texture2D" uid="uid://bp8r2uwo4ay43" path="res://assets/world/coworkers/boss.png" id="2_wijo7"]
 [ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="3_0vb5h"]
 [ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="4_08nm4"]
+[ext_resource type="AudioStream" uid="uid://b23b3nla5npb0" path="res://audios/laser.wav" id="5_hj6y4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5o42"]
 size = Vector2(376.375, 375.5)
@@ -65,8 +66,9 @@ z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_tjfx7")
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="DamageArea" type="Area2D" parent="." node_paths=PackedStringArray("_sfx")]
 script = ExtResource("3_0vb5h")
+_sfx = NodePath("../AudioStreamPlayer")
 
 [node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
 script = ExtResource("4_08nm4")
@@ -85,3 +87,6 @@ region_rect = Rect2(64, 0, 64, 64)
 libraries = {
 &"": SubResource("AnimationLibrary_mfoj8")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hj6y4")

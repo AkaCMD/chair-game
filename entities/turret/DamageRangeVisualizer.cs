@@ -53,6 +53,8 @@ public partial class DamageRangeVisualizer : Node2D
 
         meshInstance.Mesh = quadMesh;
         meshInstance.Position = collisionShape.Position;
+        meshInstance.Rotation = collisionShape.Rotation;
+        meshInstance.Scale = collisionShape.Scale;
 
         // 创建 ShaderMaterial
         var shaderMaterial = new ShaderMaterial();

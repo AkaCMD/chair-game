@@ -141,11 +141,8 @@ public partial class Game : Node
             {
                 ResumeFromGameOver();
             }
-            else
-            {
-                ExecuteUndo();
-                StartUndoRepeat();   
-            }
+            ExecuteUndo();
+            StartUndoRepeat();   
         }
 
         if (Input.IsActionJustReleased("undo"))
@@ -158,6 +155,10 @@ public partial class Game : Node
     {
         if (Input.IsActionJustPressed("reset"))
         {
+            if (_isGameOver)
+            {
+                ResumeFromGameOver();
+            }
             ExecuteReset();
         }
     }
@@ -409,7 +410,5 @@ public partial class Game : Node
         {
             _gameOverOverlay.Visible = false;
         }
-        
-        ExecuteUndo();
     }
 }

@@ -1,0 +1,132 @@
+[gd_scene load_steps=16 format=3 uid="uid://dfvgup60df7rn"]
+
+[ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_syuor"]
+[ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="2_l3v0w"]
+[ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="3_8nht0"]
+[ext_resource type="Texture2D" uid="uid://c7tvq8gj5sfdi" path="res://assets/world/turret/turret_cross/turret_cross_idle.png" id="4_52430"]
+[ext_resource type="Texture2D" uid="uid://c2arwnw7gyja5" path="res://assets/world/turret/turret_circle/turret_circle_idle.png" id="5_1855v"]
+[ext_resource type="Texture2D" uid="uid://tfpbjmqogvcx" path="res://assets/world/turret/turret_circle/turret_circle_move1.png" id="6_k3v65"]
+[ext_resource type="Texture2D" uid="uid://ypypwplc4wje" path="res://assets/world/turret/turret_circle/turret_circle_move2.png" id="7_gbb7q"]
+[ext_resource type="Texture2D" uid="uid://blxpps0vo8wao" path="res://assets/world/turret/turret_circle/turret_circle_move3.png" id="8_f1r5a"]
+[ext_resource type="AudioStream" uid="uid://b23b3nla5npb0" path="res://audios/laser.wav" id="9_l3v0w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
+size = Vector2(376.375, 375.5)
+
+[sub_resource type="Animation" id="Animation_pihpk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 0, 64, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_52430")]
+}
+
+[sub_resource type="Animation" id="Animation_josro"]
+resource_name = "default"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_1855v")]
+}
+
+[sub_resource type="Animation" id="Animation_mfoj8"]
+resource_name = "reached"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(64, 64, 64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_un5sm"]
+resource_name = "attack"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_k3v65"), ExtResource("7_gbb7q"), ExtResource("8_f1r5a")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mfoj8"]
+_data = {
+&"RESET": SubResource("Animation_pihpk"),
+&"attack": SubResource("Animation_un5sm"),
+&"default": SubResource("Animation_josro"),
+&"reached": SubResource("Animation_mfoj8")
+}
+
+[node name="Turret" type="Node2D" groups=["movers"]]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_syuor")
+
+[node name="DamageArea" type="Area2D" parent="." node_paths=PackedStringArray("_animationPlayer", "_sfx")]
+position = Vector2(0, -1.9073486e-06)
+scale = Vector2(0.99999994, 0.99999994)
+script = ExtResource("2_l3v0w")
+_animationPlayer = NodePath("../AnimationPlayer")
+_sfx = NodePath("../AudioStreamPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("RectangleShape2D_dit17")
+debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
+
+[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
+script = ExtResource("3_8nht0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -23.000002)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_52430")
+region_rect = Rect2(64, 0, 64, 64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mfoj8")
+}
+autoplay = "default"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_l3v0w")
