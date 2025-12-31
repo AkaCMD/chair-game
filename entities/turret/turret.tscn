@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="5_un5sm"]
 [ext_resource type="Script" uid="uid://fxrya7m00lbd" path="res://entities/turret/DamageRangeVisualizer.cs" id="6_vistemp"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
+size = Vector2(376.375, 375.5)
+
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
 tracks/0/type = "value"
@@ -57,13 +60,22 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
-size = Vector2(376.375, 375.5)
-
 [node name="Turret" type="Node2D" groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_7uj4s")
+
+[node name="DamageArea" type="Area2D" parent="."]
+position = Vector2(0, -1.9073486e-06)
+scale = Vector2(0.99999994, 0.99999994)
+script = ExtResource("5_un5sm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("RectangleShape2D_dit17")
+debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
+
+[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
+script = ExtResource("6_vistemp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -23.000002)
@@ -75,13 +87,3 @@ region_rect = Rect2(64, 0, 64, 64)
 libraries = {
 &"": SubResource("AnimationLibrary_mfoj8")
 }
-
-[node name="DamageArea" type="Area2D" parent="."]
-script = ExtResource("5_un5sm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("RectangleShape2D_dit17")
-debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
-
-[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
-script = ExtResource("6_vistemp")
