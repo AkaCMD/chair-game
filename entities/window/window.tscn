@@ -1,9 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://ebl1ksxvlqsb"]
+[gd_scene load_steps=12 format=3 uid="uid://cs8pqw6p2bdgh"]
 
 [ext_resource type="Script" uid="uid://dff7a7pajj3nh" path="res://entities/window/GlassWindow.cs" id="1_h7br1"]
+[ext_resource type="Script" uid="uid://41ixdv10t8du" path="res://entities/window/ShineLoop.cs" id="1_pp8w7"]
+[ext_resource type="Shader" uid="uid://cwtlu5aaj303i" path="res://shader/shine.gdshader" id="2_wms7q"]
 [ext_resource type="Texture2D" uid="uid://cjhvk8epm4p78" path="res://assets/world/window/temp_window.png" id="2_yci3q"]
 [ext_resource type="Texture2D" uid="uid://bew6xqqbjd76f" path="res://assets/world/window/temp_broken_window.png" id="3_gqcop"]
 [ext_resource type="AudioStream" uid="uid://dxq0mq0augud7" path="res://audios/crush.wav" id="3_h7br1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7esyb"]
+shader = ExtResource("2_wms7q")
+shader_parameter/progress = -1.0
+shader_parameter/width = 0.24600001098648
+shader_parameter/angle = 0.785398
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/intensity = 1.2
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -67,10 +77,12 @@ _textureBroken = ExtResource("3_gqcop")
 SoundBreak = NodePath("Break")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -6)
-scale = Vector2(0.9, 0.9)
+material = SubResource("ShaderMaterial_7esyb")
 texture = ExtResource("2_yci3q")
 region_rect = Rect2(64, 0, 64, 64)
+script = ExtResource("1_pp8w7")
+Sweep = 0.5
+Pause = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
