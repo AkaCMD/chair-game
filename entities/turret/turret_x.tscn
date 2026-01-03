@@ -10,10 +10,10 @@
 [ext_resource type="AudioStream" uid="uid://b23b3nla5npb0" path="res://audios/laser.wav" id="8_545im"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
-size = Vector2(376.375, 116.50003)
+size = Vector2(619.59424, 116.50003)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_545im"]
-size = Vector2(376.375, 116.5)
+size = Vector2(627.2972, 116.5)
 
 [sub_resource type="Animation" id="Animation_pihpk"]
 length = 0.001
@@ -112,14 +112,15 @@ _animationPlayer = NodePath("../AnimationPlayer")
 _sfx = NodePath("../AudioStreamPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-scale = Vector2(0.9999996, 0.9999996)
+position = Vector2(0.20316553, 2.1457663e-06)
+scale = Vector2(0.9999991, 0.9999991)
 shape = SubResource("RectangleShape2D_dit17")
 debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2(0, -6.4373016e-06)
+position = Vector2(4.0877126e-07, -0.35159993)
 rotation = 1.5707964
-scale = Vector2(0.9999997, 0.9999997)
+scale = Vector2(0.9999994, 0.9999994)
 shape = SubResource("RectangleShape2D_545im")
 debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
 
