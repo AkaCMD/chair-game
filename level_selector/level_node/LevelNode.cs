@@ -15,7 +15,7 @@ public partial class LevelNode : Node2D
     [Export] public LevelNode[] LevelNodes;
     [Export] public PackedScene PackedLevel;
 
-    [Export] public Color DisabledColor = new Color(112f/255, 112f/255, 112f/255);
+    [Export] public Color DisabledColor = new Color(112f / 255, 112f / 255, 112f / 255);
     [Export] public Color NormalColor = new Color(1, 1, 1);
     private bool _isHover = false;
 
@@ -33,16 +33,16 @@ public partial class LevelNode : Node2D
         {
             var tween = GetTree().CreateTween();
             var tween2 = GetTree().CreateTween();
-            tween.TweenProperty(_sprite, "scale", Vector2.One, .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-            tween2.TweenProperty(_hoverUI, "scale", Vector2.One, .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+            tween.TweenProperty(_panelUI, "rotation", .2f, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+            tween2.TweenProperty(_hoverUI, "scale", Vector2.One, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
             _isHover = true;
         };
         _area.MouseExited += () =>
         {
             var tween = GetTree().CreateTween();
             var tween2 = GetTree().CreateTween();
-            tween.TweenProperty(_sprite, "scale", new Vector2(.6f, .6f), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-            tween2.TweenProperty(_hoverUI, "scale", new Vector2(0, 1), .8).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
+            tween.TweenProperty(_panelUI, "rotation", 0f, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+            tween2.TweenProperty(_hoverUI, "scale", new Vector2(0, 0), .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
             _isHover = false;
         };
 
@@ -59,9 +59,12 @@ public partial class LevelNode : Node2D
     {
         if (@event is InputEventMouseButton inputEventMouseButton && _isHover)
         {
-            if (IsCleared() || CanEnter())
+            if (inputEventMouseButton.IsReleased())
             {
-                LevelManager.Instance.EmitLevelEnter(PackedLevel);   
+                if (IsCleared() || CanEnter())
+                {
+                    LevelManager.Instance.EmitLevelEnter(PackedLevel);
+                }
             }
         }
     }
@@ -101,7 +104,7 @@ public partial class LevelNode : Node2D
         {
             _hoverUI.Modulate = DisabledColor;
             _panelUI.Modulate = DisabledColor;
-            _sprite.Modulate = DisabledColor;   
+            _sprite.Modulate = DisabledColor;
         }
     }
 
