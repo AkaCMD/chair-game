@@ -120,8 +120,6 @@ public partial class Mover : Node2D
             return obstacle.CanMoveToward(dir);
         }
 
-        // Coffee is no longer a Mover, it's handled separately in IsCoffee check above
-
         // Movers don't block themselves.
         if (m != null && m != this)
         {

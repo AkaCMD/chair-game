@@ -213,29 +213,15 @@ public partial class Chair : Mover
 
     private bool CanMoveInDirection(Vector2I direction)
     {
-        if (Player.Instance.HasBox)
-        {
-            return false;
-        }
-
-        if (IsWall(GridPosition + direction))
-        {
-            return false;
-        }
-
-        if (IsCoffee(GridPosition + direction, out Coffee coffee))
-        {
-            return true;
-        }
-
-        if (!HasBox)
-        {
-            return Direction != -direction;
-        }
-        else
-        {
-            return Direction == direction;
-        }
+        if (Player.Instance.HasBox) return false;
+        
+        if (HasBox && Direction != direction) return false;
+        
+        if (IsWall(GridPosition + direction)) return false;
+        
+        if (IsCoffee(GridPosition + direction, out _)) return true;
+        
+        return HasBox || Direction != -direction;
     }
 
     public override void _ExitTree()
