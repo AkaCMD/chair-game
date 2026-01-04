@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
-[ext_resource type="Shader" uid="uid://be17m3s4ya5fc" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
+[ext_resource type="Shader" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
 [ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
 [ext_resource type="PackedScene" uid="uid://c01atco7trwo3" path="res://levels/crush1.tscn" id="5_6j37x"]
-[ext_resource type="Shader" uid="uid://bifjabecg6vvn" path="res://level_selector/cover.gdshader" id="5_28gom"]
+[ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
 [ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/corner.tscn" id="6_ukbrm"]
 [ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/love.tscn" id="7_ot8yv"]

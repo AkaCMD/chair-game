@@ -7,6 +7,11 @@ public partial class LevelSelector : Node2D
     [Export] private Camera2D _camera;
     private bool _isHover = false;
 
+    // prevent accidental touch
+    [Export] private float DRAG_THRESHOLD = 20f;
+    private Vector2 _dragStartPos;
+    public bool IsDragging { get; private set; }
+
     [Export] private ColorRect _screenColorRect;
     [Export] private bool _isOnLevel = false;
 
@@ -127,16 +132,33 @@ public partial class LevelSelector : Node2D
 
     public override void _Input(InputEvent @event)
     {
+        if (@event is InputEventMouseButton inputEventMouseButton)
+        {
+            if (inputEventMouseButton.Pressed)
+            {
+                _isHover = true;
+                _dragStartPos = inputEventMouseButton.Position;
+                IsDragging = false;
+            }
+            else
+            {
+                _isHover = false;
+            }
+        }
+        
         if (@event is InputEventMouseMotion inputEventMouseMotion)
         {
+            if (_isHover)
+            {
+                if (!IsDragging && _dragStartPos.DistanceTo(inputEventMouseMotion.Position) > DRAG_THRESHOLD)
+                {
+                    IsDragging = true;
+                }
+            }
+            
             // Handle camera dragging
             _camera.Offset -= _isHover ? new Vector2(inputEventMouseMotion.Relative.X, 0) : Vector2.Zero;
             _camera.Offset = new Vector2(Mathf.Max(0, Mathf.Min(DRAGGING_LIMIT_X, _camera.Offset.X)), 0);
-        }
-
-        if (@event is InputEventMouseButton inputEventMouseButton)
-        {
-            _isHover = inputEventMouseButton.IsPressed();
         }
     }
 

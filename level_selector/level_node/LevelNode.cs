@@ -61,6 +61,11 @@ public partial class LevelNode : Node2D
         {
             if (inputEventMouseButton.IsReleased())
             {
+                if (LevelSelector.Instance.IsDragging)
+                {
+                    return;
+                }
+                
                 if (IsCleared() || CanEnter())
                 {
                     LevelManager.Instance.EmitLevelEnter(PackedLevel);
