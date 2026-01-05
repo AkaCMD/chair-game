@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=36 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
@@ -21,7 +21,17 @@
 [ext_resource type="PackedScene" uid="uid://dg7l6bgqs28my" path="res://levels/secret_room.tscn" id="13_eu35e"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
+[ext_resource type="PackedScene" uid="uid://cta0yqxj0u14v" path="res://levels/mud1.tscn" id="15_hy4wi"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="16_013pk"]
+[ext_resource type="PackedScene" uid="uid://c432aaeygqvok" path="res://levels/mud2.tscn" id="16_o2tf7"]
+[ext_resource type="PackedScene" uid="uid://wskk5xp87ucs" path="res://levels/mud3.tscn" id="17_mdq67"]
+[ext_resource type="PackedScene" uid="uid://d221n521ia0rs" path="res://levels/mud4.tscn" id="18_p0hum"]
+[ext_resource type="PackedScene" uid="uid://bl1prll4gipyg" path="res://levels/watch_out.tscn" id="19_xvmaa"]
+[ext_resource type="PackedScene" uid="uid://bxlwmtdtssmkh" path="res://levels/danger_zone.tscn" id="20_n45w5"]
+[ext_resource type="PackedScene" uid="uid://behandkon0fx8" path="res://levels/trouble_maker.tscn" id="21_1k4fi"]
+[ext_resource type="PackedScene" uid="uid://hw3e66xpek8u" path="res://levels/turrets.tscn" id="22_54584"]
+[ext_resource type="PackedScene" uid="uid://cqjwg8w3pkhv1" path="res://levels/guard.tscn" id="22_pkhps"]
+[ext_resource type="PackedScene" uid="uid://c1d5xtb2jchp3" path="res://levels/boss_fight.tscn" id="23_jbyjf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rcln"]
 shader = ExtResource("2_bqtf1")
@@ -38,6 +48,7 @@ shader = ExtResource("5_28gom")
 
 [node name="LevelSelector" type="Node2D" node_paths=PackedStringArray("_camera", "_screenColorRect", "_canvasLayer", "_levelSelectorTitle", "_nodes", "_breakSprite", "_soundLevelStart")]
 script = ExtResource("1_hfeca")
+DRAGGING_LIMIT_X = 4500.0
 _camera = NodePath("Nodes/Camera2D")
 _screenColorRect = NodePath("CanvasLayer/ColorRect")
 _canvasLayer = NodePath("CanvasLayer")
@@ -50,91 +61,157 @@ _soundLevelStart = NodePath("LevelStart")
 top_level = true
 z_index = -10
 material = SubResource("ShaderMaterial_8rcln")
-offset_right = 4126.0
+offset_right = 5961.0
 offset_bottom = 725.0
 color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 
 [node name="Nodes" type="Node2D" parent="."]
 
-[node name="LevelNode" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(191, 324)
+[node name="Tuto1" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(370, 298)
 LevelName = "Break"
-LevelNodes = [NodePath("../LevelNode12")]
+LevelNodes = [NodePath("../Beginning")]
 PackedLevel = ExtResource("4_v1hyg")
 
-[node name="LevelNode12" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(188, 583)
+[node name="Beginning" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(174, 463)
 LevelID = "0-1"
 LevelName = "Beginning"
 PackedLevel = ExtResource("4_imy11")
 
-[node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(514, 471)
+[node name="Minimalist" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(542, 451)
 LevelID = "2-1"
 LevelName = "Minimalist"
-LevelNodes = [NodePath("../LevelNode")]
+LevelNodes = [NodePath("../Tuto1")]
 PackedLevel = ExtResource("9_6j37x")
 
-[node name="LevelNode3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(773, 279)
+[node name="LongDesk" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(731, 241)
 LevelID = "3-1"
 LevelName = "Long Desk"
-LevelNodes = [NodePath("../LevelNode2")]
+LevelNodes = [NodePath("../Minimalist")]
 PackedLevel = ExtResource("8_fytug")
 
-[node name="LevelNode4" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1082, 435)
+[node name="Love" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(975, 434)
 LevelID = "4-1"
 LevelName = "Love"
-LevelNodes = [NodePath("../LevelNode3")]
+LevelNodes = [NodePath("../LongDesk")]
 PackedLevel = ExtResource("7_ot8yv")
 
-[node name="LevelNode6" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1443, 399)
+[node name="Corner" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1418, 389)
 LevelID = "5-1"
 LevelName = "Corner"
-LevelNodes = [NodePath("../LevelNode4")]
+LevelNodes = [NodePath("../Love")]
 PackedLevel = ExtResource("6_ukbrm")
 
-[node name="LevelNode7" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1780, 230)
+[node name="Crush" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1959, 204)
 LevelID = "6-2"
 LevelName = "Crush"
-LevelNodes = [NodePath("../LevelNode6")]
+LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("5_6j37x")
 
-[node name="LevelNode8" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1803, 461)
+[node name="Destroy" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1982, 435)
 LevelID = "6-1"
 LevelName = "Destroy"
-LevelNodes = [NodePath("../LevelNode6")]
+LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("10_8n67b")
 
-[node name="LevelNode9" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2203, 361)
+[node name="Structure" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2382, 335)
 LevelID = "7-1"
 LevelName = "Structure"
-LevelNodes = [NodePath("../LevelNode7"), NodePath("../LevelNode8")]
+LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]
 PackedLevel = ExtResource("11_b5x44")
 
-[node name="LevelNode10" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2203, 515)
-LevelID = "7-2"
+[node name="Shuffle" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2001, 580)
+LevelID = "6-3"
 LevelName = "Shuffle"
-LevelNodes = [NodePath("../LevelNode7"), NodePath("../LevelNode8")]
+LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("12_55fcj")
 
-[node name="LevelNode11" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(2871, 381)
+[node name="SecretRoom" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(5635, 227)
 LevelID = "???"
 LevelName = "Secret Room"
+LevelNodes = [NodePath("../BossFight")]
 PackedLevel = ExtResource("13_eu35e")
 
-[node name="LevelNode5" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1114, 225)
+[node name="Mud1" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(2387, 501)
+LevelID = "7-2"
+LevelName = "Mud1"
+PackedLevel = ExtResource("15_hy4wi")
+
+[node name="Mud2" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(2777, 538)
+LevelID = "7-3"
+LevelName = "Mud2"
+PackedLevel = ExtResource("16_o2tf7")
+
+[node name="Mud3" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(3153, 542)
+LevelID = "7-4"
+LevelName = "Mud3"
+PackedLevel = ExtResource("17_mdq67")
+
+[node name="Mud4" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(3520, 592)
+LevelID = "7-5"
+LevelName = "Mud4"
+PackedLevel = ExtResource("18_p0hum")
+
+[node name="WatchOut" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(3826, 324)
+LevelID = "8-1"
+LevelName = "Watch Out"
+PackedLevel = ExtResource("19_xvmaa")
+
+[node name="DangerZone" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(4232, 322)
+LevelID = "8-2"
+LevelName = "Danger Zone"
+LevelNodes = [NodePath("../WatchOut")]
+PackedLevel = ExtResource("20_n45w5")
+
+[node name="Trouble Maker" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(4587, 443)
+LevelID = "8-3"
+LevelName = "Trouble Maker"
+LevelNodes = [NodePath("../DangerZone")]
+PackedLevel = ExtResource("21_1k4fi")
+
+[node name="Turrets" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(5036, 491)
+LevelID = ""
+LevelName = "Turrets"
+LevelNodes = [NodePath("../Trouble Maker")]
+PackedLevel = ExtResource("22_54584")
+
+[node name="BossFight" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(5486, 530)
+LevelID = ""
+LevelName = "Boss Fight"
+LevelNodes = [NodePath("../Turrets")]
+PackedLevel = ExtResource("23_jbyjf")
+
+[node name="Guard" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(4236, 544)
+LevelID = ""
+LevelName = "Guard"
+LevelNodes = [NodePath("../DangerZone")]
+PackedLevel = ExtResource("22_pkhps")
+
+[node name="Microban" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1145, 222)
 LevelID = "4-2"
 LevelName = "Microban"
-LevelNodes = [NodePath("../LevelNode3")]
+LevelNodes = [NodePath("../LongDesk")]
 PackedLevel = ExtResource("7_v1hyg")
 
 [node name="Camera2D" type="Camera2D" parent="Nodes"]
