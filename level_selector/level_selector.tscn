@@ -1,13 +1,13 @@
-[gd_scene load_steps=36 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=35 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
-[ext_resource type="Shader" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
+[ext_resource type="Shader" uid="uid://be17m3s4ya5fc" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
 [ext_resource type="PackedScene" uid="uid://b7rb05gxslgcy" path="res://levels/beginning.tscn" id="4_imy11"]
 [ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
 [ext_resource type="PackedScene" uid="uid://c01atco7trwo3" path="res://levels/crush1.tscn" id="5_6j37x"]
-[ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
+[ext_resource type="Shader" uid="uid://bifjabecg6vvn" path="res://level_selector/cover.gdshader" id="5_28gom"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
 [ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/corner.tscn" id="6_ukbrm"]
 [ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/love.tscn" id="7_ot8yv"]
@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://dg7l6bgqs28my" path="res://levels/secret_room.tscn" id="13_eu35e"]
 [ext_resource type="AudioStream" uid="uid://cydxek6jqlodv" path="res://audios/levelStart.wav" id="13_fytug"]
 [ext_resource type="AudioStream" uid="uid://gkh8c6bpaybe" path="res://audios/Chairbrone.ogg" id="14_v1hyg"]
-[ext_resource type="PackedScene" uid="uid://cta0yqxj0u14v" path="res://levels/mud1.tscn" id="15_hy4wi"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="16_013pk"]
 [ext_resource type="PackedScene" uid="uid://c432aaeygqvok" path="res://levels/mud2.tscn" id="16_o2tf7"]
 [ext_resource type="PackedScene" uid="uid://wskk5xp87ucs" path="res://levels/mud3.tscn" id="17_mdq67"]
@@ -73,10 +72,11 @@ LevelName = "Break"
 LevelNodes = [NodePath("../Beginning")]
 PackedLevel = ExtResource("4_v1hyg")
 
-[node name="Beginning" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="Beginning" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(174, 463)
 LevelID = "0-1"
 LevelName = "Beginning"
+LevelNodes = []
 PackedLevel = ExtResource("4_imy11")
 
 [node name="Minimalist" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
@@ -124,7 +124,7 @@ PackedLevel = ExtResource("10_8n67b")
 [node name="Structure" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(2382, 335)
 LevelID = "7-1"
-LevelName = "Structure"
+LevelName = "Split Coffee"
 LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]
 PackedLevel = ExtResource("11_b5x44")
 
@@ -142,34 +142,32 @@ LevelName = "Secret Room"
 LevelNodes = [NodePath("../BossFight")]
 PackedLevel = ExtResource("13_eu35e")
 
-[node name="Mud1" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(2387, 501)
-LevelID = "7-2"
-LevelName = "Mud1"
-PackedLevel = ExtResource("15_hy4wi")
-
-[node name="Mud2" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(2777, 538)
+[node name="Mud2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(3167, 367)
 LevelID = "7-3"
-LevelName = "Mud2"
+LevelName = "Chairs helps Coffee"
+LevelNodes = []
 PackedLevel = ExtResource("16_o2tf7")
 
-[node name="Mud3" parent="Nodes" instance=ExtResource("1_g7fs3")]
-position = Vector2(3153, 542)
+[node name="Mud3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2781, 542)
 LevelID = "7-4"
-LevelName = "Mud3"
+LevelName = "Pit in pit"
+LevelNodes = []
 PackedLevel = ExtResource("17_mdq67")
 
-[node name="Mud4" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="Mud4" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(3520, 592)
 LevelID = "7-5"
-LevelName = "Mud4"
+LevelName = "Across the coffee"
+LevelNodes = []
 PackedLevel = ExtResource("18_p0hum")
 
-[node name="WatchOut" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="WatchOut" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(3826, 324)
 LevelID = "8-1"
 LevelName = "Watch Out"
+LevelNodes = []
 PackedLevel = ExtResource("19_xvmaa")
 
 [node name="DangerZone" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
