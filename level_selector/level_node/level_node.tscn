@@ -24,7 +24,7 @@ shadow_offset = Vector2(2, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuw2l"]
 size = Vector2(319, 140)
 
-[node name="LevelNode" type="Node2D" node_paths=PackedStringArray("_area", "_sprite", "_numberUI", "_nameUI", "_panelUI", "_hoverUI", "LevelNodes")]
+[node name="LevelNode" type="Node2D" node_paths=PackedStringArray("_area", "_sprite", "_numberUI", "_nameUI", "_panelUI", "_hoverUI")]
 script = ExtResource("1_2hhiy")
 _area = NodePath("Area2D")
 _sprite = NodePath("Sprite2D")
@@ -34,7 +34,6 @@ _panelUI = NodePath("Panel")
 _hoverUI = NodePath("Hover")
 LevelID = "1-1"
 LevelName = "Name"
-LevelNodes = []
 
 [node name="Hover" type="Panel" parent="."]
 anchors_preset = 4

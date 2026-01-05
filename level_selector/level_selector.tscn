@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://g2as385a7me"]
+[gd_scene load_steps=26 format=3 uid="uid://g2as385a7me"]
 
 [ext_resource type="PackedScene" uid="uid://8avx0w8kptco" path="res://level_selector/level_node/level_node.tscn" id="1_g7fs3"]
 [ext_resource type="Script" uid="uid://cp4apwd3ewnwf" path="res://level_selector/LevelSelector.cs" id="1_hfeca"]
 [ext_resource type="Shader" path="res://level_selector/level_selector.gdshader" id="2_bqtf1"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="4_8rcln"]
+[ext_resource type="PackedScene" uid="uid://b7rb05gxslgcy" path="res://levels/beginning.tscn" id="4_imy11"]
 [ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
 [ext_resource type="PackedScene" uid="uid://c01atco7trwo3" path="res://levels/crush1.tscn" id="5_6j37x"]
 [ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
@@ -55,10 +56,17 @@ color = Color(0.10980392, 0.13333334, 0.1882353, 1)
 
 [node name="Nodes" type="Node2D" parent="."]
 
-[node name="LevelNode" parent="Nodes" instance=ExtResource("1_g7fs3")]
+[node name="LevelNode" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(191, 324)
 LevelName = "Break"
+LevelNodes = [NodePath("../LevelNode12")]
 PackedLevel = ExtResource("4_v1hyg")
+
+[node name="LevelNode12" parent="Nodes" instance=ExtResource("1_g7fs3")]
+position = Vector2(188, 583)
+LevelID = "0-1"
+LevelName = "Beginning"
+PackedLevel = ExtResource("4_imy11")
 
 [node name="LevelNode2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(514, 471)
@@ -180,3 +188,4 @@ volume_db = 0.7
 autoplay = true
 
 [node name="DialogController" parent="." instance=ExtResource("16_013pk")]
+visible = false
