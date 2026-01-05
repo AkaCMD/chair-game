@@ -72,11 +72,10 @@ LevelName = "Break"
 LevelNodes = [NodePath("../Beginning")]
 PackedLevel = ExtResource("4_v1hyg")
 
-[node name="Beginning" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="Beginning" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(174, 463)
 LevelID = "0-1"
 LevelName = "Beginning"
-LevelNodes = []
 PackedLevel = ExtResource("4_imy11")
 
 [node name="Minimalist" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
@@ -124,7 +123,7 @@ PackedLevel = ExtResource("10_8n67b")
 [node name="Structure" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
 position = Vector2(2382, 335)
 LevelID = "7-1"
-LevelName = "Split Coffee"
+LevelName = "SplitCoffee"
 LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]
 PackedLevel = ExtResource("11_b5x44")
 
@@ -142,32 +141,28 @@ LevelName = "Secret Room"
 LevelNodes = [NodePath("../BossFight")]
 PackedLevel = ExtResource("13_eu35e")
 
-[node name="Mud2" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="Mud2" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(3167, 367)
 LevelID = "7-3"
-LevelName = "Chairs helps Coffee"
-LevelNodes = []
+LevelName = "Helper"
 PackedLevel = ExtResource("16_o2tf7")
 
-[node name="Mud3" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="Mud3" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(2781, 542)
 LevelID = "7-4"
 LevelName = "Pit in pit"
-LevelNodes = []
 PackedLevel = ExtResource("17_mdq67")
 
-[node name="Mud4" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="Mud4" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(3520, 592)
 LevelID = "7-5"
-LevelName = "Across the coffee"
-LevelNodes = []
+LevelName = "Coffross"
 PackedLevel = ExtResource("18_p0hum")
 
-[node name="WatchOut" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+[node name="WatchOut" parent="Nodes" instance=ExtResource("1_g7fs3")]
 position = Vector2(3826, 324)
 LevelID = "8-1"
 LevelName = "Watch Out"
-LevelNodes = []
 PackedLevel = ExtResource("19_xvmaa")
 
 [node name="DangerZone" parent="Nodes" node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
