@@ -117,7 +117,7 @@ public partial class LevelNode : Node2D
         {
             if (item != null)
             {
-                DrawLine(GlobalPosition - Position, item.GlobalPosition - Position, Color.Color8(255, 255, 255), 5);
+                DrawLine(Vector2.Zero, ToLocal(item.GlobalPosition), Color.Color8(255, 255, 255), 5);
             }
         }
     }
