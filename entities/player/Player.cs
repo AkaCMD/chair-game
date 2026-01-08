@@ -27,6 +27,7 @@ public partial class Player : Mover
 
     public bool IsSit { get; set; } = false;
     public bool IsPreviousSit { get; set; } = false;
+    public bool IsLeavingChair { get; set; } = false; // Tracks when player is leaving a chair
 
     [Export] private Texture2D _texturePlayerWithBoxLeft;
     [Export] private Texture2D _texturePlayerWithBoxRight;

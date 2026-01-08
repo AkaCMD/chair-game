@@ -4,64 +4,72 @@ public partial class DamageArea : Area2D
 {
     [Export] private AnimationPlayer _animationPlayer;
     [Export] private AudioStreamPlayer _sfx;
-    
-    private bool _playerInArea = false;
-    private bool _wasPlayerSitting = false;
+
+    private bool _wasPlayerLeavingChair = false;
 
     public override void _Ready()
     {
-        BodyEntered += OnBodyEntered;
-        BodyExited += OnBodyExited;
-        
         GameEventSignals.Instance.Undo += ResetAnimation;
         GameEventSignals.Instance.Reset += ResetAnimation;
+
+        GameEventSignals.Instance.MoveComplete += CheckDamage;
     }
 
     public override void _Process(double delta)
     {
-        if (!_playerInArea || Player.Instance == null) return;
-        
-        bool isPlayerSitting = Player.Instance.IsSit;
-        
-        if (_wasPlayerSitting && !isPlayerSitting && !Player.Instance.IsSliding)
+        // Check for delayed damage after chair exit
+        if (Player.Instance != null && _wasPlayerLeavingChair && !Player.Instance.IsLeavingChair)
         {
-            TriggerAttack();
-        }
-        
-        _wasPlayerSitting = isPlayerSitting;
-    }
+            _wasPlayerLeavingChair = false;
 
-    private void OnBodyEntered(Node2D body)
-    {
-        if (body.IsInGroup("player"))
-        {
-            _playerInArea = true;
-            _wasPlayerSitting = Player.Instance?.IsSit ?? false;
-            
-            if (!_wasPlayerSitting && !Player.Instance.IsSliding)
+            // Player just finished leaving chair, check if they're in danger now
+            if (!Player.Instance.IsSit && !Player.Instance.IsSliding && IsPlayerOverlapping())
             {
                 TriggerAttack();
             }
         }
+
+        // Track when player is leaving chair
+        if (Player.Instance != null && Player.Instance.IsLeavingChair && !_wasPlayerLeavingChair)
+        {
+            _wasPlayerLeavingChair = true;
+        }
     }
 
-    private void OnBodyExited(Node2D body)
+    private void CheckDamage()
     {
-        if (body.IsInGroup("player"))
+        if (Player.Instance == null) return;
+
+        // Skip damage check if player is sitting, sliding, or leaving a chair
+        if (Player.Instance.IsSit || Player.Instance.IsSliding || Player.Instance.IsLeavingChair)
         {
-            _playerInArea = false;
-            _wasPlayerSitting = false;
+            return;
         }
+
+        if (IsPlayerOverlapping())
+        {
+            TriggerAttack();
+        }
+    }
+
+    public bool IsPlayerOverlapping()
+    {
+        var bodies = GetOverlappingBodies();
+        foreach (var body in bodies)
+        {
+            if (body.IsInGroup("player")) return true;
+        }
+        return false;
     }
 
     private void TriggerAttack()
     {
         if (_sfx != null)
             _sfx.Play();
-        
+
         if (_animationPlayer != null)
             _animationPlayer.Play("attack");
-        
+
         if (!Player.Instance.IsSliding)
             Game.Instance.SetGameOver();
     }
