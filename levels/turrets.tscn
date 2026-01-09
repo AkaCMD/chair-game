@@ -36,7 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DialogController" parent="GUI" instance=ExtResource("3_255dp")]
-visible = false
 
 [node name="Hint" parent="GUI" instance=ExtResource("4_w2fb7")]
 layout_mode = 1
