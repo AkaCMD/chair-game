@@ -44,6 +44,7 @@ public partial class DialogController : Node2D
 
     public override void _Ready()
     {
+        Visible = true;
         _dialogUI.Visible = false;
         if (_dialogQueue.Count != 0)
         {
