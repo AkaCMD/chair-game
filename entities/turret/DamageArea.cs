@@ -15,6 +15,18 @@ public partial class DamageArea : Area2D
         GameEventSignals.Instance.MoveComplete += CheckDamage;
     }
 
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            GameEventSignals.Instance.Undo -= ResetAnimation;
+            GameEventSignals.Instance.Reset -= ResetAnimation;
+            GameEventSignals.Instance.MoveComplete -= CheckDamage;
+        }
+
+        base.Dispose(disposing);
+    }
+
     public override void _Process(double delta)
     {
         // Check for delayed damage after chair exit
