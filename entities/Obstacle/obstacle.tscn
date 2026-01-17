@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://8sk4e8o5e81q"]
 
-[ext_resource type="Script" uid="uid://ds18eegt1yvbm" path="res://entities/obstacle/Obstacle.cs" id="1_jpv10"]
+[ext_resource type="Script" uid="uid://dw32k0s3ioppl" path="res://entities/obstacle/obstacle.cs" id="1_jpv10"]
 [ext_resource type="Texture2D" uid="uid://bet54qrmmpiwv" path="res://assets/world/filestack/filestack_broken_new.png" id="3_2xdrx"]
 [ext_resource type="Texture2D" uid="uid://c00ruy1ad52gi" path="res://assets/world/filestack/filestack_intact_new.png" id="4_1idad"]
 [ext_resource type="AudioStream" uid="uid://bqee782xuc53x" path="res://audios/stashFiles.wav" id="4_2xdrx"]
