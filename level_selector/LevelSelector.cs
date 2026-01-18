@@ -25,6 +25,9 @@ public partial class LevelSelector : Node2D
 
     [Export] private AudioStreamPlayer _soundLevelStart;
 
+    // Store camera position to restore when returning to level selector
+    private static Vector2 _savedCameraOffset = Vector2.Zero;
+
     public override void _EnterTree()
     {
         Instance = this;
@@ -32,6 +35,12 @@ public partial class LevelSelector : Node2D
 
     public override void _Ready()
     {
+        // Restore camera position from previous visit
+        if (_camera != null)
+        {
+            _camera.Offset = _savedCameraOffset;
+        }
+
         var saveManager = GetNode<SaveManager>("/root/SaveManager");
         if (saveManager.IsFirstTime())
         {
@@ -54,6 +63,12 @@ public partial class LevelSelector : Node2D
     {
         if (!_isOnLevel)
         {
+            // Save camera position before entering level
+            if (_camera != null)
+            {
+                _savedCameraOffset = _camera.Offset;
+            }
+
             _soundLevelStart.PitchScale = 1;
             _soundLevelStart.Play();
             _isOnLevel = true;
@@ -120,6 +135,12 @@ public partial class LevelSelector : Node2D
                     _nodes.Visible = true;
                     _levelSelectorTitle.Visible = true;
 
+                    // Restore camera position when returning to level selector
+                    if (_camera != null)
+                    {
+                        _camera.Offset = _savedCameraOffset;
+                    }
+
                     // Screen transition back
                     var tween2 = GetTree().CreateTween();
                     tween2.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f)
@@ -145,7 +166,7 @@ public partial class LevelSelector : Node2D
                 _isHover = false;
             }
         }
-        
+
         if (@event is InputEventMouseMotion inputEventMouseMotion)
         {
             if (_isHover)
@@ -155,7 +176,7 @@ public partial class LevelSelector : Node2D
                     IsDragging = true;
                 }
             }
-            
+
             // Handle camera dragging
             _camera.Offset -= _isHover ? new Vector2(inputEventMouseMotion.Relative.X, 0) : Vector2.Zero;
             _camera.Offset = new Vector2(Mathf.Max(0, Mathf.Min(DRAGGING_LIMIT_X, _camera.Offset.X)), 0);

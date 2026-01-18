@@ -35,6 +35,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogController" parent="GUI" instance=ExtResource("4_hkt8g")]
+visible = false
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
