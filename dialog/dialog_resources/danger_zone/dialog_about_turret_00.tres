@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://bfq21of127pqf"]
+
+[ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_qld8x"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_fwiva"]
+
+[resource]
+script = ExtResource("2_fwiva")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_qld8x")
+Text = "什么鬼？
+怎么扫地机器人还能变异来的
+…我记得之前没有冒红光来着。难不成？"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

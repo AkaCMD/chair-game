@@ -1,12 +1,17 @@
-[gd_scene load_steps=8 format=4 uid="uid://bxlwmtdtssmkh"]
+[gd_scene load_steps=13 format=4 uid="uid://bxlwmtdtssmkh"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_f8t5b"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_rwods"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_7b8ly"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_5bpbx"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="4_p744a"]
+[ext_resource type="Resource" uid="uid://bfq21of127pqf" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_00.tres" id="5_0e84x"]
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_ogrcm"]
 [ext_resource type="PackedScene" uid="uid://cw2lt817npp2q" path="res://ui/gameover_overlay.tscn" id="6_p744a"]
+[ext_resource type="Resource" uid="uid://dsse08it577v3" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_01.tres" id="6_xbxp3"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="7_0e84x"]
+[ext_resource type="Resource" uid="uid://yelkalbbkte4" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_02.tres" id="7_mpxmc"]
+[ext_resource type="Resource" uid="uid://cn4t1kr8efosd" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_03.tres" id="8_ba8qq"]
 
 [node name="Main" type="Node2D"]
 
@@ -37,6 +42,7 @@ grow_vertical = 2
 
 [node name="DialogController" parent="GUI" instance=ExtResource("3_7b8ly")]
 visible = false
+_dialogQueue = Array[ExtResource("4_p744a")]([ExtResource("5_0e84x"), ExtResource("6_xbxp3"), ExtResource("7_mpxmc"), ExtResource("8_ba8qq")])
 
 [node name="Hint" parent="GUI" instance=ExtResource("4_5bpbx")]
 layout_mode = 1

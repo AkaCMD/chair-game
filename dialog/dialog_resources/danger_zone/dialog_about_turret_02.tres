@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://yelkalbbkte4"]
+
+[ext_resource type="Texture2D" uid="uid://2xfbcdsf20kr" path="res://assets/ui/dialog/player_normal.png" id="1_ud8v0"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_lbcyc"]
+
+[resource]
+script = ExtResource("2_lbcyc")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_ud8v0")
+Text = "太好了，不是老板耶。
+还真是这样啊，我会小心的
+那要是扫地机器人挡住必经之路该怎么办？"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
