@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://dlvya8rxmro7b"]
+
+[ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_opeil"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_pqfrn"]
+
+[resource]
+script = ExtResource("2_pqfrn")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_opeil")
+Text = "不过听说之前为了省钱偷工减料，但愿不会撞到窗户之后连人带椅子一起掉下去吧…"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

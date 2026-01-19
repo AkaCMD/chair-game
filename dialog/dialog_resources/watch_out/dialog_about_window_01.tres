@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://ducboicsj7gjh"]
+
+[ext_resource type="Texture2D" uid="uid://2xfbcdsf20kr" path="res://assets/ui/dialog/player_normal.png" id="1_581fo"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_bbmo2"]
+
+[resource]
+script = ExtResource("1_bbmo2")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_581fo")
+Text = "这里装了落地窗诶，感觉采光好了不少，心情也跟着好了一点点"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

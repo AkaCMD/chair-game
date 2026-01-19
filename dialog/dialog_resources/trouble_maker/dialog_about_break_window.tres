@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://2re4ohipie8"]
+
+[ext_resource type="Texture2D" uid="uid://c41iptrrd220a" path="res://assets/ui/dialog/feishiko_normal.png" id="1_mmeq4"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_o4t80"]
+
+[resource]
+script = ExtResource("1_o4t80")
+SpeakerName = "摸鱼同事"
+SpeakerImg = ExtResource("1_mmeq4")
+Text = "害嗨害，我又来了
+再一次，用了一点小小的技术手段
+还记得我上次说的吗？利用一点自由落体来解决掉眼前的麻烦吧"
+TextSpeed = 0.15000000000000002
+PitchOffset = -0.15000000000000002
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
