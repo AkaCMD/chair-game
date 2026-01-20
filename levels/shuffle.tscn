@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=4 uid="uid://b7dktctfyte43"]
+[gd_scene load_steps=9 format=4 uid="uid://b7dktctfyte43"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_m0ihk"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_jbkdi"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_5qc8h"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="4_5qc8h"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_qf7ow"]
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_pucte"]
+[ext_resource type="Resource" uid="uid://bj4tw50aws7tj" path="res://dialog/dialog_resources/shuffle/dialog_about_lots_of_chairs.tres" id="5_qf7ow"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="6_ntaot"]
 
 [node name="Main" type="Node2D"]
@@ -34,6 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DialogController" parent="GUI" instance=ExtResource("3_5qc8h")]
+_dialogQueue = Array[ExtResource("4_5qc8h")]([ExtResource("5_qf7ow")])
 
 [node name="Hint" parent="GUI" instance=ExtResource("4_qf7ow")]
 layout_mode = 1
