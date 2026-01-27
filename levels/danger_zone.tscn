@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bxlwmtdtssmkh"]
+[gd_scene format=4 uid="uid://bxlwmtdtssmkh"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_f8t5b"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_rwods"]
@@ -13,26 +13,26 @@
 [ext_resource type="Resource" uid="uid://yelkalbbkte4" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_02.tres" id="7_mpxmc"]
 [ext_resource type="Resource" uid="uid://cn4t1kr8efosd" path="res://dialog/dialog_resources/danger_zone/dialog_about_turret_03.tres" id="8_ba8qq"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=999932172]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=1647464448 node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
 script = ExtResource("1_f8t5b")
 _gameOverOverlay = NodePath("../GUI/GameoverOverlay")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=1593837958]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAFAAIAAAAAAAAAAAAFAAMAAAAAAAEAAAAGAAIAAAABAAAAAAAGAAMAAAABAAEAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAEAAAAIAAIAAAABAAAAAAAIAAMAAAABAAEAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAEAAAAGAAQAAAABAAAAAAAGAAUAAAABAAEAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAEAAAAIAAQAAAABAAAAAAAIAAUAAAABAAEAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAEAAAAGAAYAAAABAAAAAAAGAAcAAAABAAEAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAEAAAAIAAYAAAABAAAAAAAIAAcAAAABAAEAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAEAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAEAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAEAAAAFAAEAAAAFAAEAAAAJAAEAAAAFAAEAAAA=")
 tile_set = ExtResource("2_rwods")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=973793021]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAIAAEAAAAFAAEAAAAHAAEAAAACAAEAAAAGAAEAAAAFAAEAAAAGAAAAAAAHAAAAAAAGAAgAAAAFAAMAAAAHAAAAAAACAAAAAAAHAAgAAAAFAAMAAAAIAAAAAAAIAAAAAAAIAAgAAAAFAAMAAAAFAAAAAAAFAAAAAAAFAAEAAAADAAAAAAAFAAgAAAAFAAMAAAAJAAAAAAAFAAAAAAAJAAEAAAADAAAAAAAJAAgAAAAFAAMAAAAKAAAAAAAGAAAAAAAKAAEAAAAGAAIAAAAKAAIAAAAGAAIAAAAKAAMAAAAGAAEAAAAKAAQAAAAGAAIAAAAKAAUAAAAGAAEAAAAKAAYAAAAGAAEAAAAKAAcAAAAGAAIAAAAKAAgAAAAGAAMAAAAEAAAAAAAEAAAAAAAEAAEAAAAEAAEAAAAEAAIAAAAEAAEAAAAEAAMAAAAEAAEAAAAEAAQAAAAEAAIAAAAEAAUAAAAEAAEAAAAEAAYAAAAEAAEAAAAEAAcAAAAEAAIAAAAEAAgAAAAEAAMAAAAHAAYAAgAAAAAAFwAHAAQAAgAAAAAACwAJAAIAAAADAAEAAAAGAAIAAgAAAAAAAgAFAAIAAAADAAEAAAA=")
 tile_set = ExtResource("2_rwods")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=733193255]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,21 +40,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogController" parent="GUI" instance=ExtResource("3_7b8ly")]
+[node name="DialogController" parent="GUI" unique_id=1336826537 instance=ExtResource("3_7b8ly")]
 visible = false
 _dialogQueue = Array[ExtResource("4_p744a")]([ExtResource("5_0e84x"), ExtResource("6_xbxp3"), ExtResource("7_mpxmc"), ExtResource("8_ba8qq")])
 
-[node name="Hint" parent="GUI" instance=ExtResource("4_5bpbx")]
+[node name="Hint" parent="GUI" unique_id=1155617693 instance=ExtResource("4_5bpbx")]
 layout_mode = 1
 
-[node name="ReplayButton" parent="GUI" instance=ExtResource("5_ogrcm")]
+[node name="ReplayButton" parent="GUI" unique_id=807617467 instance=ExtResource("5_ogrcm")]
 layout_mode = 1
 anchors_preset = 15
 
-[node name="GameoverOverlay" parent="GUI" instance=ExtResource("6_p744a")]
+[node name="GameoverOverlay" parent="GUI" unique_id=767852487 instance=ExtResource("6_p744a")]
 visible = false
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1521850827]
 visible = false
 top_level = true
 z_index = -1
@@ -65,4 +65,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 
-[node name="LittleTiledShooking" parent="." instance=ExtResource("7_0e84x")]
+[node name="LittleTiledShooking" parent="." unique_id=1766765323 instance=ExtResource("7_0e84x")]

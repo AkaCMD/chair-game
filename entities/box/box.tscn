@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0hnp46ekplmk"]
+[gd_scene format=3 uid="uid://b0hnp46ekplmk"]
 
 [ext_resource type="Script" uid="uid://dg8r1km8fbmaj" path="res://entities/box/Box.cs" id="1_pihpk"]
 [ext_resource type="Texture2D" uid="uid://c6lg28uh2cwsr" path="res://assets/world/box.png" id="2_pihpk"]
@@ -55,17 +55,15 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Box" type="Node2D" groups=["boxes", "movers"]]
+[node name="Box" type="Node2D" unique_id=2108319459 groups=["boxes", "movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_pihpk")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=719877203]
 position = Vector2(0, -30)
 texture = ExtResource("2_pihpk")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1197720512]
+libraries/ = SubResource("AnimationLibrary_mfoj8")

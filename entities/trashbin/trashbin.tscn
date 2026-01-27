@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://logusmgd41gs"]
+[gd_scene format=3 uid="uid://logusmgd41gs"]
 
 [ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Interactable.cs" id="1_f2vkq"]
 [ext_resource type="Texture2D" uid="uid://yd0u4tf8s4c4" path="res://assets/world/trashbin.png" id="2_ipf8v"]
@@ -61,25 +61,23 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
 size = Vector2(280, 73)
 
-[node name="Trashbin" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
+[node name="Trashbin" type="Node2D" unique_id=1435683626 node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_f2vkq")
 _hintLabel = NodePath("HintLabel")
 _checkDialog = ExtResource("2_t40ax")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2104279188]
 position = Vector2(0, -23.000002)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ipf8v")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1792415710]
+libraries/ = SubResource("AnimationLibrary_mfoj8")
 
-[node name="HintLabel" type="Label" parent="."]
+[node name="HintLabel" type="Label" parent="." unique_id=1633216699]
 texture_filter = 1
 offset_left = -62.0
 offset_top = -139.5
@@ -97,13 +95,13 @@ text = "E： 检查"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1624118220]
 script = ExtResource("4_f2vkq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1858377933]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_dit17")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=777471026]
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_dit17")

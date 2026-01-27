@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://b34qk25isjskl"]
+[gd_scene format=4 uid="uid://b34qk25isjskl"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_i7ep8"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_nlrsn"]
@@ -7,25 +7,25 @@
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_s48d2"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="6_p2bne"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1205551476]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=208132595 node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_i7ep8")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=943716405]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAEAAIAAAAAAAAAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAEAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAEAAAAFAAIAAAABAAAAAAAFAAMAAAABAAEAAAAFAAQAAAABAAAAAAAFAAUAAAABAAEAAAAFAAYAAAABAAAAAAAFAAcAAAABAAEAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAEAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAEAAAAHAAIAAAABAAAAAAAHAAMAAAABAAEAAAAHAAQAAAABAAAAAAAHAAUAAAABAAEAAAAHAAYAAAABAAAAAAAHAAcAAAABAAEAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAEAAAAJAAIAAAABAAAAAAAJAAMAAAABAAEAAAAJAAQAAAABAAAAAAAJAAUAAAABAAEAAAAJAAYAAAABAAAAAAAJAAcAAAABAAEAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAEAAAAKAAYAAAAAAAAAAAAKAAcAAAAAAAEAAAALAAIAAAABAAAAAAALAAMAAAABAAEAAAALAAQAAAABAAAAAAALAAUAAAABAAEAAAALAAYAAAABAAAAAAALAAcAAAABAAEAAAAIAAEAAAAFAAEAAAAKAAEAAAAFAAEAAAA=")
 tile_set = ExtResource("2_nlrsn")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=1864803645]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAADAAAAAAAEAAAAAAADAAEAAAAEAAEAAAADAAIAAAAEAAIAAAADAAMAAAAEAAIAAAADAAQAAAAEAAIAAAADAAUAAAAEAAIAAAADAAYAAAAEAAIAAAAEAAAAAAAFAAAAAAAFAAAAAAAFAAAAAAAGAAAAAAAFAAAAAAAHAAAAAAAFAAAAAAAHAAMAAgAAAAAACQAHAAQAAgAAAAAADgAHAAUAAgAAAAAADgAIAAAAAAAHAAAAAAAIAAQAAAADAAIAAAAJAAAAAAACAAAAAAAKAAAAAAAIAAAAAAADAAcAAAAEAAIAAAAEAAEAAAAFAAEAAAAFAAEAAAAFAAEAAAAFAAMAAgAAAAAAAgAGAAEAAAAFAAEAAAAHAAEAAAAFAAEAAAAIAAEAAAADAAAAAAAIAAUAAAADAAMAAAAJAAEAAAACAAEAAAAKAAEAAAADAAAAAAADAAgAAAAEAAMAAAAEAAgAAAAFAAMAAAAFAAgAAAAFAAMAAAAGAAgAAAAFAAMAAAAHAAgAAAAFAAMAAAAIAAgAAAAFAAMAAAAJAAgAAAAFAAMAAAAKAAgAAAAFAAMAAAAHAAYAAgAAAAAADQAIAAYAAgAAAAAAAQAMAAAAAAAGAAAAAAAMAAEAAAAGAAIAAAAMAAIAAAAGAAIAAAAMAAMAAAAGAAIAAAAMAAQAAAAGAAIAAAAMAAUAAAAGAAIAAAAMAAYAAAAGAAIAAAAMAAcAAAAGAAIAAAAMAAgAAAAGAAMAAAALAAAAAAAFAAAAAAALAAEAAAAFAAEAAAALAAgAAAAFAAMAAAAJAAYAAgAAAAAADQAIAAIAAAADAAEAAAAKAAIAAAADAAEAAAAJAAIAAgAAAAAADQAJAAMAAgAAAAAADQAJAAQAAgAAAAAADQA=")
 tile_set = ExtResource("2_nlrsn")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=314811424]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,17 +33,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogController" parent="GUI" instance=ExtResource("3_r57ge")]
+[node name="DialogController" parent="GUI" unique_id=1482259579 instance=ExtResource("3_r57ge")]
 visible = false
 
-[node name="Hint" parent="GUI" instance=ExtResource("4_3rxeu")]
+[node name="Hint" parent="GUI" unique_id=1192967875 instance=ExtResource("4_3rxeu")]
 layout_mode = 1
 
-[node name="ReplayButton" parent="GUI" instance=ExtResource("5_s48d2")]
+[node name="ReplayButton" parent="GUI" unique_id=710620347 instance=ExtResource("5_s48d2")]
 layout_mode = 1
 anchors_preset = 15
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=164404305]
 visible = false
 top_level = true
 z_index = -1
@@ -54,4 +54,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 
-[node name="LittleTiledShooking" parent="." instance=ExtResource("6_p2bne")]
+[node name="LittleTiledShooking" parent="." unique_id=1346669043 instance=ExtResource("6_p2bne")]

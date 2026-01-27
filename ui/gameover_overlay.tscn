@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cw2lt817npp2q"]
 
-[node name="GameoverOverlay" type="CanvasLayer"]
+[node name="GameoverOverlay" type="CanvasLayer" unique_id=1463280183]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=619884570]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,7 +10,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.56078434)
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="Label" type="Label" parent="ColorRect" unique_id=103863521]
 layout_mode = 0
 offset_left = 364.0
 offset_top = 151.0

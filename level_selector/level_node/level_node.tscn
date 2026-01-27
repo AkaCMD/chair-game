@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://8avx0w8kptco"]
+[gd_scene format=3 uid="uid://8avx0w8kptco"]
 
 [ext_resource type="Script" uid="uid://dicu6s7jdcq3v" path="res://level_selector/level_node/LevelNode.cs" id="1_2hhiy"]
 [ext_resource type="Texture2D" uid="uid://dgt2g1hq60h87" path="res://level_selector/textures/button.png" id="2_0axd4"]
@@ -24,7 +24,7 @@ shadow_offset = Vector2(2, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuw2l"]
 size = Vector2(319, 140)
 
-[node name="LevelNode" type="Node2D" node_paths=PackedStringArray("_area", "_sprite", "_numberUI", "_nameUI", "_panelUI", "_hoverUI")]
+[node name="LevelNode" type="Node2D" unique_id=1121280240 node_paths=PackedStringArray("_area", "_sprite", "_numberUI", "_nameUI", "_panelUI", "_hoverUI")]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_2hhiy")
 _area = NodePath("Area2D")
@@ -36,7 +36,7 @@ _hoverUI = NodePath("Hover")
 LevelID = "1-1"
 LevelName = "Name"
 
-[node name="Hover" type="Panel" parent="."]
+[node name="Hover" type="Panel" parent="." unique_id=81019567]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -48,12 +48,12 @@ grow_vertical = 2
 pivot_offset = Vector2(153, 19)
 theme_override_styles/panel = SubResource("StyleBoxFlat_tuw2l")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1942444092]
 visible = false
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_0axd4")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1318479017]
 z_index = 100
 anchors_preset = 2
 anchor_top = 1.0
@@ -67,7 +67,7 @@ pivot_offset = Vector2(97, 31)
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0axd4")
 
-[node name="Number" type="Label" parent="Panel"]
+[node name="Number" type="Label" parent="Panel" unique_id=427775687]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -82,7 +82,7 @@ text = "1-1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Name" type="Label" parent="Panel"]
+[node name="Name" type="Label" parent="Panel" unique_id=906667833]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -99,11 +99,11 @@ text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=2041014742]
 z_index = 200
 position = Vector2(-151, 1)
 priority = 100
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=577963503]
 position = Vector2(147.5, -5)
 shape = SubResource("RectangleShape2D_tuw2l")

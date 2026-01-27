@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://b7dktctfyte43"]
+[gd_scene format=4 uid="uid://b7dktctfyte43"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_m0ihk"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_jbkdi"]
@@ -9,25 +9,25 @@
 [ext_resource type="Resource" uid="uid://bj4tw50aws7tj" path="res://dialog/dialog_resources/shuffle/dialog_about_lots_of_chairs.tres" id="5_qf7ow"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="6_ntaot"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1437144381]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=373367126 node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_m0ihk")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=2109436350]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAFAAMAAAAAAAAAAAAFAAQAAAAAAAEAAAAGAAMAAAABAAAAAAAGAAQAAAABAAEAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAEAAAAIAAMAAAABAAAAAAAIAAQAAAABAAEAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAEAAAAGAAUAAAABAAAAAAAGAAYAAAABAAEAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAEAAAAIAAUAAAABAAAAAAAIAAYAAAABAAEAAAA=")
 tile_set = ExtResource("2_jbkdi")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=180258669]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAEAAIAAAAEAAEAAAAFAAIAAAAFAAEAAAAEAAEAAAAEAAAAAAAFAAEAAAAFAAAAAAAFAAcAAAAFAAMAAAAEAAcAAAAEAAMAAAAIAAcAAAAFAAMAAAAJAAYAAAAGAAEAAAAJAAcAAAAGAAMAAAAJAAUAAAAGAAEAAAAJAAQAAAAGAAIAAAAJAAMAAAAGAAIAAAAHAAIAAAAFAAEAAAAJAAIAAAAGAAEAAAAHAAEAAAAHAAAAAAAIAAEAAAACAAAAAAAJAAEAAAAGAAAAAAAGAAIAAAAFAAEAAAAGAAEAAAAFAAAAAAAHAAcAAAAFAAMAAAAGAAcAAAAFAAMAAAAEAAYAAAAEAAEAAAAEAAUAAAAEAAEAAAAEAAQAAAAEAAEAAAAEAAMAAAAEAAEAAAAIAAIAAAACAAEAAAAFAAYAAgAAAAAAAgAIAAYAAgAAAAAABQAHAAYAAgAAAAAABwAGAAYAAgAAAAAABQAIAAUAAgAAAAAABwAHAAUAAgAAAAAACAAGAAUAAgAAAAAABwAHAAMAAgAAAAAACAAHAAQAAgAAAAAACAAGAAQAAgAAAAAABQAGAAMAAgAAAAAABQAFAAUAAgAAAAAACAAFAAQAAgAAAAAABQAIAAQAAgAAAAAACgAIAAMAAgAAAAAABwA=")
 tile_set = ExtResource("2_jbkdi")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=851726569]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,17 +35,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogController" parent="GUI" instance=ExtResource("3_5qc8h")]
+[node name="DialogController" parent="GUI" unique_id=1006565972 instance=ExtResource("3_5qc8h")]
 _dialogQueue = Array[ExtResource("4_5qc8h")]([ExtResource("5_qf7ow")])
 
-[node name="Hint" parent="GUI" instance=ExtResource("4_qf7ow")]
+[node name="Hint" parent="GUI" unique_id=1714447024 instance=ExtResource("4_qf7ow")]
 layout_mode = 1
 
-[node name="ReplayButton" parent="GUI" instance=ExtResource("5_pucte")]
+[node name="ReplayButton" parent="GUI" unique_id=916369934 instance=ExtResource("5_pucte")]
 layout_mode = 1
 anchors_preset = 15
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1066804503]
 visible = false
 top_level = true
 z_index = -1
@@ -56,4 +56,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 
-[node name="LittleTiledShooking" parent="." instance=ExtResource("6_ntaot")]
+[node name="LittleTiledShooking" parent="." unique_id=816701878 instance=ExtResource("6_ntaot")]

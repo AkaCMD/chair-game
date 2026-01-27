@@ -1,29 +1,29 @@
-[gd_scene load_steps=5 format=4 uid="uid://bhm2yij11uwce"]
+[gd_scene format=4 uid="uid://bhm2yij11uwce"]
 
 [ext_resource type="Script" uid="uid://b258i3baneqsd" path="res://shared/Debug.cs" id="1_6qf51"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="1_72lju"]
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_lkjt4"]
 [ext_resource type="PackedScene" uid="uid://cw2lt817npp2q" path="res://ui/gameover_overlay.tscn" id="4_6b7re"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1276126023]
 script = ExtResource("1_6qf51")
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=1047956025 node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
 script = ExtResource("1_lkjt4")
 _gameOverOverlay = NodePath("../GUI/GameoverOverlay")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=1330663806]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAIAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAA=")
 tile_set = ExtResource("1_72lju")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=1831756718]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAGAAMAAgAAAAAAFwABAAMAAgAAAAAAAgAIAAMAAgAAAAAAFgAHAAYAAAAAAAIAAAABAAQAAgAAAAAAAQACAAQAAgAAAAAACAADAAQAAgAAAAAADgAFAAQAAgAAAAAADgAGAAQAAgAAAAAADgAHAAQAAgAAAAAABwAEAAQAAgAAAAAADgADAAMABgAAAAAAAwACAAIAAgAAAAAAAQA=")
 tile_set = ExtResource("1_72lju")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=1911381301]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,5 +31,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GameoverOverlay" parent="GUI" instance=ExtResource("4_6b7re")]
+[node name="GameoverOverlay" parent="GUI" unique_id=834871640 instance=ExtResource("4_6b7re")]
 visible = false

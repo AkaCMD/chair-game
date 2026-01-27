@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://18q4tpf8575p"]
+[gd_scene format=3 uid="uid://18q4tpf8575p"]
 
 [ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Interactable.cs" id="1_qgog2"]
 [ext_resource type="Texture2D" uid="uid://duy72041hc0d7" path="res://assets/world/coworkers/coworker03.png" id="2_qgog2"]
@@ -60,23 +60,21 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dit17"]
 size = Vector2(280, 73)
 
-[node name="Coworker" type="Node2D" node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
+[node name="Coworker" type="Node2D" unique_id=1498047429 node_paths=PackedStringArray("_hintLabel") groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_qgog2")
 _hintLabel = NodePath("HintLabel")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=339318710]
 position = Vector2(0, -42)
 texture = ExtResource("2_qgog2")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=367587101]
+libraries/ = SubResource("AnimationLibrary_mfoj8")
 
-[node name="HintLabel" type="Label" parent="."]
+[node name="HintLabel" type="Label" parent="." unique_id=1872336814]
 texture_filter = 1
 offset_left = -62.0
 offset_top = -139.5
@@ -94,13 +92,13 @@ text = "E： 对话"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=784313103]
 script = ExtResource("4_bxssg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=413126408]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_dit17")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=498305449]
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_dit17")

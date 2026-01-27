@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://blu5fvjmasuaf"]
+[gd_scene format=3 uid="uid://blu5fvjmasuaf"]
 
 [ext_resource type="PackedScene" uid="uid://bv5ot5r5wi6et" path="res://level_selector/Hint/HintItem/HintItem.tscn" id="1_8k0ya"]
 
-[node name="Hint" type="Control"]
+[node name="Hint" type="Control" unique_id=1049869690]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HintItem" parent="." instance=ExtResource("1_8k0ya")]
+[node name="HintItem" parent="." unique_id=196148682 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
 offset_top = 548.0
@@ -18,7 +18,7 @@ offset_right = 1054.88
 offset_bottom = 548.28
 _labelText = "[Move] WASD/Arrow"
 
-[node name="HintItem2" parent="." instance=ExtResource("1_8k0ya")]
+[node name="HintItem2" parent="." unique_id=365244367 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
 offset_top = 590.0
@@ -26,7 +26,7 @@ offset_right = 1054.88
 offset_bottom = 590.28
 _labelText = "[Action] E/X"
 
-[node name="HintItem3" parent="." instance=ExtResource("1_8k0ya")]
+[node name="HintItem3" parent="." unique_id=1371056382 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
 offset_top = 632.0
@@ -34,7 +34,7 @@ offset_right = 1054.88
 offset_bottom = 632.28
 _labelText = "[Undo] Z"
 
-[node name="HintItem4" parent="." instance=ExtResource("1_8k0ya")]
+[node name="HintItem4" parent="." unique_id=337710404 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
 offset_top = 673.0

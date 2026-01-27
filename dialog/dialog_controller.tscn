@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://8njujq2xqliw"]
+[gd_scene format=3 uid="uid://8njujq2xqliw"]
 
 [ext_resource type="Script" uid="uid://ccao4t51ctqb1" path="res://dialog/DialogController.cs" id="1_j2njv"]
 [ext_resource type="PackedScene" uid="uid://bt7r7smubip1t" path="res://dialog/dialog_text.tscn" id="2_m0y87"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b57vfdmkj1x25" path="res://assets/ui/dialog/ghost_normal.png" id="4_n83ol"]
 [ext_resource type="Texture2D" uid="uid://bcc0d8lu2encl" path="res://assets/ui/dialog/dialog_background.png" id="5_4ck6p"]
 
-[node name="DialogController" type="Node2D" node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer", "_portraitRect", "_speakerName")]
+[node name="DialogController" type="Node2D" unique_id=630045588 node_paths=PackedStringArray("_dialogUI", "_soundTalk", "_textContainer", "_portraitRect", "_speakerName")]
 script = ExtResource("1_j2njv")
 _dialogUI = NodePath("DialogUI")
 _packedDialogText = ExtResource("2_m0y87")
@@ -16,17 +16,17 @@ _textContainer = NodePath("DialogUI/TextContainer")
 _portraitRect = NodePath("DialogUI/Portrait")
 _speakerName = NodePath("DialogUI/SpeakerName")
 
-[node name="Talk" type="AudioStreamPlayer" parent="."]
+[node name="Talk" type="AudioStreamPlayer" parent="." unique_id=1278975125]
 stream = ExtResource("3_lo7ct")
 
-[node name="DialogUI" type="Control" parent="."]
+[node name="DialogUI" type="Control" parent="." unique_id=212932965]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_fj0ip")
 
-[node name="Button" type="Button" parent="DialogUI"]
+[node name="Button" type="Button" parent="DialogUI" unique_id=731319038]
 layout_mode = 0
 offset_left = 263.0
 offset_top = 57.0
@@ -40,7 +40,7 @@ theme_override_colors/icon_hover_color = Color(1, 1, 1, 0.5568628)
 icon = ExtResource("5_4ck6p")
 flat = true
 
-[node name="Portrait" type="TextureRect" parent="DialogUI"]
+[node name="Portrait" type="TextureRect" parent="DialogUI" unique_id=2095939413]
 layout_mode = 0
 offset_left = 256.0
 offset_top = -19.0
@@ -49,10 +49,10 @@ offset_bottom = 261.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("4_n83ol")
 
-[node name="TextContainer" type="Node2D" parent="DialogUI"]
+[node name="TextContainer" type="Node2D" parent="DialogUI" unique_id=694687235]
 position = Vector2(435, 87)
 
-[node name="SpeakerName" type="RichTextLabel" parent="DialogUI"]
+[node name="SpeakerName" type="RichTextLabel" parent="DialogUI" unique_id=1993205994]
 layout_mode = 0
 offset_left = 295.0
 offset_top = 152.0
@@ -63,7 +63,7 @@ bbcode_enabled = true
 text = "[wave][center]以子"
 fit_content = true
 
-[node name="PressSpace" type="Label" parent="DialogUI"]
+[node name="PressSpace" type="Label" parent="DialogUI" unique_id=464369069]
 layout_mode = 0
 offset_left = 944.0
 offset_top = 158.0

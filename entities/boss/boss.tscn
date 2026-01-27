@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dp2b422xqvpbn"]
+[gd_scene format=3 uid="uid://dp2b422xqvpbn"]
 
 [ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_tjfx7"]
 [ext_resource type="Texture2D" uid="uid://bp8r2uwo4ay43" path="res://assets/world/coworkers/boss.png" id="2_wijo7"]
@@ -61,32 +61,30 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Boss" type="Node2D" groups=["movers"]]
+[node name="Boss" type="Node2D" unique_id=727840452 groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_tjfx7")
 
-[node name="DamageArea" type="Area2D" parent="." node_paths=PackedStringArray("_sfx")]
+[node name="DamageArea" type="Area2D" parent="." unique_id=81728980 node_paths=PackedStringArray("_sfx")]
 script = ExtResource("3_0vb5h")
 _sfx = NodePath("../AudioStreamPlayer")
 
-[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
+[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea" unique_id=1082220742]
 script = ExtResource("4_08nm4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1374269136]
 shape = SubResource("RectangleShape2D_c5o42")
 debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=155981891]
 position = Vector2(0, -23.000002)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_wijo7")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1764918853]
+libraries/ = SubResource("AnimationLibrary_mfoj8")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=97239395]
 stream = ExtResource("5_hj6y4")

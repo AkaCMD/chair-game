@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpra6ngarpmqr"]
+[gd_scene format=3 uid="uid://dpra6ngarpmqr"]
 
 [ext_resource type="Script" uid="uid://dur0hbeuoabst" path="res://ui/ReplayBtn.cs" id="1_xjujh"]
 
-[node name="ReplayButton" type="Control" node_paths=PackedStringArray("_btn")]
+[node name="ReplayButton" type="Control" unique_id=222638985 node_paths=PackedStringArray("_btn")]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -11,7 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_xjujh")
 _btn = NodePath("Button")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1092087242]
 layout_mode = 0
 offset_left = 19.0
 offset_top = 661.0

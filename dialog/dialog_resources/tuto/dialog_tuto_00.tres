@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://c5m1lu5jgrv6i"]
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://c5m1lu5jgrv6i"]
 
 [ext_resource type="Texture2D" uid="uid://cet6u3lqltvgc" path="res://assets/ui/dialog/wolf_normal.png" id="1_k0404"]
 [ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_nk8xd"]

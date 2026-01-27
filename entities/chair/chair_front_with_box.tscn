@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://chr7ms4bigd42"]
+[gd_scene format=3 uid="uid://chr7ms4bigd42"]
 
 [ext_resource type="Script" uid="uid://d2hi4mkq444o6" path="res://entities/chair/Chair.cs" id="1_bgjmo"]
 [ext_resource type="Texture2D" uid="uid://cja6pjinw58kt" path="res://assets/world/chair/chair_left.png" id="2_s4cb7"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cnby02dskub2v" path="res://assets/world/chair_box/chair_box_back.png" id="8_hu4g2"]
 [ext_resource type="Texture2D" uid="uid://bkl0376uv6jee" path="res://assets/world/chair_box/chair_box_front.png" id="9_dltyf"]
 
-[node name="Chair" type="Node2D" node_paths=PackedStringArray("_sprite")]
+[node name="Chair" type="Node2D" unique_id=1067694627 node_paths=PackedStringArray("_sprite")]
 y_sort_enabled = true
 script = ExtResource("1_bgjmo")
 _sprite = NodePath("Sprite2D")
@@ -24,7 +24,7 @@ _textureBoxUp = ExtResource("8_hu4g2")
 _textureBoxDown = ExtResource("9_dltyf")
 HasBox = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["movers"]]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2014019943 groups=["movers"]]
 z_index = 1
 position = Vector2(0, -52)
 texture = ExtResource("9_dltyf")

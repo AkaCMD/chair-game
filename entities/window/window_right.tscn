@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jle4ptobvm0y"]
+[gd_scene format=3 uid="uid://jle4ptobvm0y"]
 
 [ext_resource type="Script" uid="uid://dff7a7pajj3nh" path="res://entities/window/GlassWindow.cs" id="1_8j0iu"]
 [ext_resource type="Texture2D" uid="uid://b0r6pt0g216yd" path="res://assets/world/window/window_sliced/window_right.png" id="2_15lfk"]
@@ -55,7 +55,7 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Window" type="Node2D" node_paths=PackedStringArray("_sprite", "SoundBreak") groups=["movers"]]
+[node name="Window" type="Node2D" unique_id=244896262 node_paths=PackedStringArray("_sprite", "SoundBreak") groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_8j0iu")
@@ -64,7 +64,7 @@ _textureIntact = ExtResource("2_15lfk")
 _textureBroken = ExtResource("3_15lfk")
 SoundBreak = NodePath("Break")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1872664071]
 material = SubResource("ShaderMaterial_7esyb")
 texture = ExtResource("2_15lfk")
 region_rect = Rect2(64, 0, 64, 64)
@@ -72,11 +72,9 @@ script = ExtResource("5_a7a51")
 Sweep = 0.5
 Pause = 2.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=740328191]
+libraries/ = SubResource("AnimationLibrary_mfoj8")
 
-[node name="Break" type="AudioStreamPlayer" parent="."]
+[node name="Break" type="AudioStreamPlayer" parent="." unique_id=847612456]
 stream = ExtResource("6_0x1tk")
 volume_db = -15.0

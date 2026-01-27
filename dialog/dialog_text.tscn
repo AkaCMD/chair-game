@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt7r7smubip1t"]
+[gd_scene format=3 uid="uid://bt7r7smubip1t"]
 
 [ext_resource type="Script" uid="uid://bte5e3kfcdai8" path="res://dialog/DialogText.cs" id="1_r36id"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="1_yjpg6"]
 
-[node name="DialogText" type="Node2D" node_paths=PackedStringArray("DialogLabel")]
+[node name="DialogText" type="Node2D" unique_id=611380648 node_paths=PackedStringArray("DialogLabel")]
 texture_filter = 1
 script = ExtResource("1_r36id")
 DialogLabel = NodePath("Label")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=378771503]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5

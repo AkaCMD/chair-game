@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://lrvjk5i4wvab"]
+[gd_scene format=3 uid="uid://lrvjk5i4wvab"]
 
 [ext_resource type="Material" uid="uid://bnflkypwyktdj" path="res://shader/little_tiled_shooking/m_tiled_shooking.tres" id="1_lt7w3"]
 [ext_resource type="Script" uid="uid://crly7g80cuove" path="res://shader/little_tiled_shooking/color_rect.gd" id="2_jrsk3"]
 
-[node name="LittleTiledShooking" type="CanvasLayer"]
+[node name="LittleTiledShooking" type="CanvasLayer" unique_id=1409672955]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=815960041]
 material = ExtResource("1_lt7w3")
 anchors_preset = 15
 anchor_right = 1.0

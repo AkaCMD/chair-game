@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkvf0sn0dl0s4"]
+[gd_scene format=3 uid="uid://dkvf0sn0dl0s4"]
 
 [ext_resource type="Script" uid="uid://evlikn82s1yw" path="res://main_menu/MainMenu.cs" id="1_d3a7t"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="1_oa53l"]
@@ -6,15 +6,15 @@
 
 [sub_resource type="Theme" id="Theme_3shxk"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node2D" unique_id=1217627107]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("StartBtn", "ExitBtn")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1917796473 node_paths=PackedStringArray("StartBtn", "ExitBtn")]
 script = ExtResource("1_d3a7t")
 StartBtn = NodePath("GUI/StartBtn")
 ExitBtn = NodePath("GUI/ExitBtn")
 levelSelect = ExtResource("2_3shxk")
 
-[node name="GUI" type="Control" parent="CanvasLayer"]
+[node name="GUI" type="Control" parent="CanvasLayer" unique_id=575479175]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_3shxk")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/GUI"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/GUI" unique_id=1655520540]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -40,7 +40,7 @@ text = "[rainbow][center]Chair Quest: Office
 椅游
 [/center][/rainbow]"
 
-[node name="StartBtn" type="Button" parent="CanvasLayer/GUI"]
+[node name="StartBtn" type="Button" parent="CanvasLayer/GUI" unique_id=1121571947]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -56,7 +56,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "Check In"
 
-[node name="WtfBtn" type="Button" parent="CanvasLayer/GUI"]
+[node name="WtfBtn" type="Button" parent="CanvasLayer/GUI" unique_id=1221311460]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -72,7 +72,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "Relationship"
 
-[node name="ExitBtn" type="Button" parent="CanvasLayer/GUI"]
+[node name="ExitBtn" type="Button" parent="CanvasLayer/GUI" unique_id=192758285]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

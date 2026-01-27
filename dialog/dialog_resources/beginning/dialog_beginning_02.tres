@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://b5tycq81o83wh"]
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://b5tycq81o83wh"]
 
 [ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_d5aqv"]
 [ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_g6xrq"]

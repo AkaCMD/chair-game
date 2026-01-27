@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bnflkypwyktdj"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bnflkypwyktdj"]
 
 [ext_resource type="Shader" uid="uid://d3h07mrkjrjo2" path="res://shader/little_tiled_shooking/s_tiled_shooking.gdshader" id="1_ww07p"]
 

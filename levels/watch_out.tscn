@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bl1prll4gipyg"]
+[gd_scene format=4 uid="uid://bl1prll4gipyg"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_wii7h"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_nudjm"]
@@ -11,26 +11,26 @@
 [ext_resource type="Resource" uid="uid://dlvya8rxmro7b" path="res://dialog/dialog_resources/watch_out/dialog_about_window_02.tres" id="6_lasrr"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="7_lasrr"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=552520557]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=400574866 node_paths=PackedStringArray("_gameOverOverlay", "ObjectsTileMapLayer")]
 script = ExtResource("1_wii7h")
 _gameOverOverlay = NodePath("../GUI/GameoverOverlay")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=1502260740]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAGAAIAAAAAAAAAAAAGAAMAAAAAAAEAAAAHAAIAAAABAAAAAAAHAAMAAAABAAEAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAEAAAAHAAQAAAABAAAAAAAHAAUAAAABAAEAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAEAAAAHAAYAAAABAAAAAAAHAAcAAAABAAEAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAEAAAA=")
 tile_set = ExtResource("2_nudjm")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=718754623]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAGAAUAAgAAAAAAAgAHAAQAAgAAAAAABAAFAAAAAAAEAAAAAAAFAAEAAAAEAAEAAAAFAAIAAAAEAAEAAAAFAAMAAAAEAAEAAAAFAAQAAAAEAAEAAAAFAAUAAAAEAAEAAAAFAAYAAAAEAAEAAAAFAAcAAAAEAAIAAAAFAAgAAAAEAAMAAAAGAAAAAAAHAAAAAAAGAAEAAAAFAAEAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAEAAAAGAAgAAAAFAAMAAAAHAAAAAAACAAAAAAAHAAEAAAACAAEAAAAHAAIAAAABAAAAAAAHAAMAAAABAAEAAAAHAAYAAAABAAAAAAAHAAcAAAABAAEAAAAHAAgABQAAAAAABAAIAAAAAAAIAAAAAAAIAAEAAAAFAAEAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAEAAAAIAAgAAAAFAAMAAAAJAAAAAAAGAAAAAAAJAAEAAAAGAAEAAAAJAAIAAAAGAAIAAAAJAAMAAAAGAAEAAAAJAAQAAAAGAAIAAAAJAAUAAAAGAAIAAAAJAAYAAAAGAAIAAAAJAAcAAAAGAAIAAAAJAAgAAAAGAAMAAAAHAAUAAgAAAAAACAA=")
 tile_set = ExtResource("2_nudjm")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=544172541]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,21 +38,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogController" parent="GUI" instance=ExtResource("3_7v1rm")]
+[node name="DialogController" parent="GUI" unique_id=1380937754 instance=ExtResource("3_7v1rm")]
 visible = false
 _dialogQueue = Array[ExtResource("4_1rx32")]([ExtResource("5_cu1f5"), ExtResource("6_lasrr")])
 
-[node name="Hint" parent="GUI" instance=ExtResource("4_gxevb")]
+[node name="Hint" parent="GUI" unique_id=299095882 instance=ExtResource("4_gxevb")]
 layout_mode = 1
 
-[node name="ReplayButton" parent="GUI" instance=ExtResource("5_1rx32")]
+[node name="ReplayButton" parent="GUI" unique_id=1888038485 instance=ExtResource("5_1rx32")]
 layout_mode = 1
-anchors_preset = 15
 
-[node name="GameoverOverlay" parent="GUI" instance=ExtResource("6_cu1f5")]
+[node name="GameoverOverlay" parent="GUI" unique_id=582910073 instance=ExtResource("6_cu1f5")]
 visible = false
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=242876688]
 visible = false
 top_level = true
 z_index = -1
@@ -63,4 +62,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 
-[node name="LittleTiledShooking" parent="." instance=ExtResource("7_lasrr")]
+[node name="LittleTiledShooking" parent="." unique_id=1965427615 instance=ExtResource("7_lasrr")]

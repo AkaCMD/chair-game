@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cys8jc3f3bgj8"]
+[gd_scene format=3 uid="uid://cys8jc3f3bgj8"]
 
 [ext_resource type="Script" uid="uid://yni17p4iqol4" path="res://entities/coffee_stain/Coffee.cs" id="1_mnm4l"]
 [ext_resource type="Texture2D" uid="uid://dhbqajd6d3jdn" path="res://assets/world/coffee_stain/coffee_stain.png" id="2_mnm4l"]
@@ -55,15 +55,13 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Coffee" type="Node2D" groups=["obstacles"]]
+[node name="Coffee" type="Node2D" unique_id=235110428 groups=["obstacles"]]
 script = ExtResource("1_mnm4l")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1842027498]
 position = Vector2(0, -8)
 texture = ExtResource("2_mnm4l")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1053548499]
+libraries/ = SubResource("AnimationLibrary_mfoj8")

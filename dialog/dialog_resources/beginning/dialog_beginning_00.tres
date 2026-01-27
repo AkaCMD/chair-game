@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogResource" load_steps=3 format=3 uid="uid://bjjnoydl2jpaj"]
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://bjjnoydl2jpaj"]
 
 [ext_resource type="Texture2D" uid="uid://dexlr0rkhhy17" path="res://assets/ui/dialog/boss_normal.png" id="1_lx26v"]
 [ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="1_oqdca"]

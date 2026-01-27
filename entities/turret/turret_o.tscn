@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfvgup60df7rn"]
+[gd_scene format=3 uid="uid://dfvgup60df7rn"]
 
 [ext_resource type="Script" uid="uid://w3ivrkj8t7h7" path="res://entities/turret/Turret.cs" id="1_syuor"]
 [ext_resource type="Script" uid="uid://8hhmq3n3jx7j" path="res://entities/turret/DamageArea.cs" id="2_l3v0w"]
@@ -40,6 +40,23 @@ tracks/1/keys = {
 "values": [ExtResource("4_52430")]
 }
 
+[sub_resource type="Animation" id="Animation_un5sm"]
+resource_name = "attack"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_k3v65"), ExtResource("7_gbb7q"), ExtResource("8_f1r5a")]
+}
+
 [sub_resource type="Animation" id="Animation_josro"]
 resource_name = "default"
 length = 0.5
@@ -72,23 +89,6 @@ tracks/0/keys = {
 "values": [Rect2(64, 64, 64, 64)]
 }
 
-[sub_resource type="Animation" id="Animation_un5sm"]
-resource_name = "attack"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [ExtResource("6_k3v65"), ExtResource("7_gbb7q"), ExtResource("8_f1r5a")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mfoj8"]
 _data = {
 &"RESET": SubResource("Animation_pihpk"),
@@ -97,36 +97,34 @@ _data = {
 &"reached": SubResource("Animation_mfoj8")
 }
 
-[node name="Turret" type="Node2D" groups=["movers"]]
+[node name="Turret" type="Node2D" unique_id=219144621 groups=["movers"]]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_syuor")
 
-[node name="DamageArea" type="Area2D" parent="." node_paths=PackedStringArray("_animationPlayer", "_sfx")]
+[node name="DamageArea" type="Area2D" parent="." unique_id=1221631148 node_paths=PackedStringArray("_animationPlayer", "_sfx")]
 position = Vector2(0, -1.9073486e-06)
 scale = Vector2(0.99999994, 0.99999994)
 script = ExtResource("2_l3v0w")
 _animationPlayer = NodePath("../AnimationPlayer")
 _sfx = NodePath("../AudioStreamPlayer")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=260893181]
 shape = SubResource("RectangleShape2D_dit17")
 debug_color = Color(0.8603298, 0.32595098, 0.42139798, 0.41960785)
 
-[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea"]
+[node name="DamageRangeVisualizer" type="Node2D" parent="DamageArea" unique_id=452167538]
 script = ExtResource("3_8nht0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=450201886]
 position = Vector2(0, -23.000002)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_52430")
 region_rect = Rect2(64, 0, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mfoj8")
-}
-autoplay = "default"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1411612113]
+libraries/ = SubResource("AnimationLibrary_mfoj8")
+autoplay = &"default"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2022548243]
 stream = ExtResource("9_l3v0w")

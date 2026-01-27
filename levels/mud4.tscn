@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://d221n521ia0rs"]
+[gd_scene format=4 uid="uid://d221n521ia0rs"]
 
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_mukuc"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_xa8cm"]
@@ -7,25 +7,25 @@
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_lcn7e"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="6_74ahv"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1130013672]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("ObjectsTileMapLayer")]
+[node name="World" type="Node2D" parent="." unique_id=1326110316 node_paths=PackedStringArray("ObjectsTileMapLayer")]
 script = ExtResource("1_mukuc")
 ObjectsTileMapLayer = NodePath("Objects")
 
-[node name="Background" type="TileMapLayer" parent="World"]
+[node name="Background" type="TileMapLayer" parent="World" unique_id=1364767714]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAALAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAYAAAAAAAAAAAA=")
 tile_set = ExtResource("2_xa8cm")
 
-[node name="Objects" type="TileMapLayer" parent="World"]
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=132033327]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
 tile_map_data = PackedByteArray("AAADAAUAAgAAAAAAAgADAAQAAgAAAAAACAAEAAMAAgAAAAAADgAFAAMAAgAAAAAADgAGAAMAAgAAAAAADgAGAAQAAgAAAAAADgAGAAUAAgAAAAAADgAGAAYAAgAAAAAADgAHAAYAAgAAAAAADgAHAAUAAgAAAAAADgAIAAUAAgAAAAAADgAIAAYAAgAAAAAADgAJAAYAAgAAAAAADgAJAAUAAgAAAAAADgAKAAMAAgAAAAAADgAKAAQAAgAAAAAADgAKAAUAAgAAAAAADgAKAAYAAgAAAAAADgADAAMAAAAFAAEAAAALAAIAAgAAAAAADgAKAAIAAgAAAAAADgAGAAIAAgAAAAAADgAIAAAAAAACAAAAAAAIAAEAAAACAAEAAAAJAAIAAgAAAAAAAQAHAAAAAAAFAAAAAAAHAAEAAAAFAAEAAAAGAAAAAAAFAAAAAAAGAAEAAAAFAAEAAAAFAAAAAAAFAAAAAAAFAAEAAAAFAAEAAAAEAAAAAAAFAAAAAAAEAAEAAAAFAAEAAAADAAIAAAAIAAIAAAAJAAAAAAAFAAAAAAAJAAEAAAAFAAEAAAAKAAAAAAAFAAAAAAAKAAEAAAAFAAEAAAALAAAAAAAFAAAAAAALAAEAAAAFAAEAAAAMAAEAAAAHAAIAAAAMAAIAAAAFAAEAAAAMAAAAAAAGAAAAAAADAAAAAAAEAAAAAAANAAMAAAAGAAIAAAANAAQAAAAGAAIAAAANAAUAAAAGAAIAAAANAAYAAAAGAAIAAAACAAMAAAAEAAIAAAACAAQAAAAEAAIAAAACAAUAAAAEAAIAAAANAAEAAAAGAAAAAAANAAIAAAAGAAEAAAANAAcAAAAGAAMAAAAMAAcAAAAFAAMAAAALAAcAAAAFAAMAAAAKAAcAAAAFAAMAAAAJAAcAAAAFAAMAAAAIAAcAAAAFAAMAAAAHAAcAAAAFAAMAAAAGAAcAAAAFAAMAAAAFAAcAAAAFAAMAAAAEAAcAAAAFAAMAAAACAAYAAAAEAAMAAAADAAYAAAAIAAEAAAADAAcAAAAEAAMAAAAJAAMAAgAAAAAABAAEAAQAAgAAAAAADgAEAAUAAgAAAAAADgAFAAUAAgAAAAAADgAFAAQAAgAAAAAADgAFAAYAAgAAAAAADgAEAAYAAgAAAAAADgAEAAIAAgAAAAAADgAFAAIAAgAAAAAADgACAAIAAAAEAAAAAAADAAEAAAAEAAIAAAA=")
 tile_set = ExtResource("2_xa8cm")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=740977362]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,16 +33,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogController" parent="GUI" instance=ExtResource("3_splgt")]
+[node name="DialogController" parent="GUI" unique_id=743338176 instance=ExtResource("3_splgt")]
 
-[node name="Hint" parent="GUI" instance=ExtResource("4_ivhm8")]
+[node name="Hint" parent="GUI" unique_id=505090590 instance=ExtResource("4_ivhm8")]
 layout_mode = 1
 
-[node name="ReplayButton" parent="GUI" instance=ExtResource("5_lcn7e")]
+[node name="ReplayButton" parent="GUI" unique_id=99977061 instance=ExtResource("5_lcn7e")]
 layout_mode = 1
 anchors_preset = 15
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1237770215]
 visible = false
 top_level = true
 z_index = -1
@@ -53,4 +53,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11764706, 0.13333334, 0.18039216, 1)
 
-[node name="LittleTiledShooking" parent="." instance=ExtResource("6_74ahv")]
+[node name="LittleTiledShooking" parent="." unique_id=837943 instance=ExtResource("6_74ahv")]
