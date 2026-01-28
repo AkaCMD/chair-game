@@ -117,6 +117,11 @@ public partial class GlassWindow : Mover
         HashSet<Mover> fallenMovers = new HashSet<Mover>();
         CollectMovingGroup(mover, direction, fallenMovers);
 
+        if (TryHandleBossFightFall(fallenMovers))
+        {
+            return;
+        }
+
         foreach (Mover m in fallenMovers)
         {
             // Store original position for undo
@@ -138,6 +143,74 @@ public partial class GlassWindow : Mover
         }
     }
 
+    private bool TryHandleBossFightFall(HashSet<Mover> fallenMovers)
+    {
+        string currentLevel = LevelManager.Instance?.CurrentLevelName;
+        if (string.IsNullOrEmpty(currentLevel))
+        {
+            currentLevel = System.IO.Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath);
+        }
+
+        if (currentLevel == "boss_fight")
+        {
+            return HandleBossFightFall(fallenMovers);
+        }
+
+        return false;
+    }
+
+    private bool HandleBossFightFall(HashSet<Mover> fallenMovers)
+    {
+        bool playerFell = false;
+        bool bossFell = false;
+
+        foreach (var m in fallenMovers)
+        {
+            if (m is Player)
+            {
+                playerFell = true;
+            }
+            else if (m is Turret turret)
+            {
+                // In boss_fight level, treat any Turret as the boss
+                bossFell = true;
+            }
+        }
+
+        foreach (Mover m in fallenMovers)
+        {
+            _fallenObjects[m] = m.GridPosition;
+            m.GridPosition = new Vector2I(999, 999);
+        }
+        
+        // Handle based on what fell
+        if (playerFell)
+        {
+            SoundFall?.Play();
+            if (Game.Instance != null)
+            {
+                Game.Instance.SetGameOver();
+            }
+            return true;
+        }
+        else if (bossFell)
+        {
+            SoundFall?.Play();
+            
+            GD.Print("你肘飞了 boss ！");
+            // TODO: 展示cg
+            GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, "boss_fight");
+            
+            var exitTimer = GetTree().CreateTimer( 3.0f);
+            exitTimer.Timeout += () => {
+                LevelManager.Instance.EmitLevelExit(true);
+            };
+            return true;
+        }
+
+        return false;
+    }
+    
     private void CollectMovingGroup(Mover mover, Vector2I direction, HashSet<Mover> collected)
     {
         if (mover == null || collected.Contains(mover))
