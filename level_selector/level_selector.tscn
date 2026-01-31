@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://hw3e66xpek8u" path="res://levels/turrets.tscn" id="22_54584"]
 [ext_resource type="PackedScene" uid="uid://cqjwg8w3pkhv1" path="res://levels/guard.tscn" id="22_pkhps"]
 [ext_resource type="PackedScene" uid="uid://c1d5xtb2jchp3" path="res://levels/boss_fight.tscn" id="23_jbyjf"]
+[ext_resource type="PackedScene" uid="uid://cta0yqxj0u14v" path="res://levels/mud1.tscn" id="26_whphb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rcln"]
 shader = ExtResource("2_bqtf1")
@@ -123,10 +124,10 @@ LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("10_8n67b")
 
 [node name="SplitCoffee" parent="Nodes" unique_id=578536928 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1847, 348)
+position = Vector2(2350, 334)
 LevelID = ""
-LevelName = "SplitCoffee"
-LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]
+LevelName = "CoffeeMix"
+LevelNodes = [NodePath("../Coffee")]
 PackedLevel = ExtResource("11_b5x44")
 
 [node name="Shuffle" parent="Nodes" unique_id=1000226239 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
@@ -137,77 +138,77 @@ LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("12_55fcj")
 
 [node name="SecretRoom" parent="Nodes" unique_id=13481625 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3408, 531)
+position = Vector2(3911, 517)
 LevelID = "???"
 LevelName = "Secret Room"
 LevelNodes = [NodePath("../BossFight")]
 PackedLevel = ExtResource("13_eu35e")
 
 [node name="Helper" parent="Nodes" unique_id=794506254 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2056, 487)
+position = Vector2(2559, 473)
 LevelID = ""
 LevelName = "Helper"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("16_o2tf7")
 
 [node name="PitInPit" parent="Nodes" unique_id=871189573 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2212, 347)
+position = Vector2(2715, 333)
 LevelID = ""
 LevelName = "Pit in pit"
 LevelNodes = [NodePath("../SplitCoffee")]
 PackedLevel = ExtResource("17_mdq67")
 
 [node name="Turnabout" parent="Nodes" unique_id=2136827423 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2397, 196.00002)
+position = Vector2(2900, 182)
 LevelID = ""
 LevelName = "Turnabout"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("17_jbyjf")
 
 [node name="Coffross" parent="Nodes" unique_id=1023847463 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2371, 488)
+position = Vector2(2874, 474)
 LevelID = ""
 LevelName = "Coffross"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("18_p0hum")
 
 [node name="WatchOut" parent="Nodes" unique_id=2145109444 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2582, 354)
+position = Vector2(3085, 340)
 LevelID = ""
 LevelName = "Watch Out"
 LevelNodes = [NodePath("../Turnabout")]
 PackedLevel = ExtResource("19_xvmaa")
 
 [node name="DangerZone" parent="Nodes" unique_id=1400784766 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2856, 348)
+position = Vector2(3359, 334)
 LevelID = ""
 LevelName = "Danger Zone"
 LevelNodes = [NodePath("../WatchOut")]
 PackedLevel = ExtResource("20_n45w5")
 
 [node name="Trouble Maker" parent="Nodes" unique_id=1776038189 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3125, 478)
+position = Vector2(3628, 464)
 LevelID = ""
 LevelName = "Trouble Maker"
 LevelNodes = [NodePath("../DangerZone")]
 PackedLevel = ExtResource("21_1k4fi")
 
 [node name="Turrets" parent="Nodes" unique_id=1371575067 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3115, 216)
+position = Vector2(3618, 201.99998)
 LevelID = ""
 LevelName = "Turrets"
 LevelNodes = [NodePath("../Trouble Maker")]
 PackedLevel = ExtResource("22_54584")
 
 [node name="BossFight" parent="Nodes" unique_id=1140517233 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3408, 352)
+position = Vector2(3911, 338)
 LevelID = ""
 LevelName = "Boss Fight"
 LevelNodes = [NodePath("../Turrets")]
 PackedLevel = ExtResource("23_jbyjf")
 
 [node name="Guard" parent="Nodes" unique_id=329880759 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2853, 495)
+position = Vector2(3356, 481)
 LevelID = ""
 LevelName = "Guard"
 LevelNodes = [NodePath("../DangerZone")]
@@ -224,6 +225,13 @@ PackedLevel = ExtResource("7_v1hyg")
 anchor_mode = 0
 limit_left = 0
 limit_smoothed = true
+
+[node name="Coffee" parent="Nodes" unique_id=1121280240 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(1942, 334)
+LevelID = ""
+LevelName = "SplitCoffee"
+LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]
+PackedLevel = ExtResource("26_whphb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=618437076]
 

@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_0loe7"]
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_wn5db"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_ieltj"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="4_ieltj"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_mym2a"]
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_dsqo3"]
+[ext_resource type="Resource" uid="uid://cos5w41rm7krd" path="res://dialog/dialog_resources/spill_coffee/dialog_spilled_coffee_01.tres" id="5_mym2a"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="6_1bug7"]
 
 [node name="Main" type="Node2D" unique_id=709002049]
@@ -16,13 +18,13 @@ ObjectsTileMapLayer = NodePath("Objects")
 [node name="Background" type="TileMapLayer" parent="World" unique_id=228637308]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
-tile_map_data = PackedByteArray("AAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAEAAMAAAAAAAAAAAAEAAQAAAAAAAEAAAAFAAMAAAABAAAAAAAFAAQAAAABAAEAAAAGAAMAAAAAAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAEAAAAGAAQAAAAAAAEAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAEAAAAEAAIAAAAAAAEAAAAFAAIAAAABAAAAAAADAAMAAAABAAAAAAADAAQAAAABAAEAAAADAAIAAAABAAEAAAA=")
 tile_set = ExtResource("2_wn5db")
 
 [node name="Objects" type="TileMapLayer" parent="World" unique_id=1165711871]
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
-tile_map_data = PackedByteArray("AAAHAAQAAgAAAAAADgAHAAUAAgAAAAAADgAJAAYAAAAAAAIAAAAIAAYAAAAAAAIAAAAHAAYAAAAAAAIAAAAGAAYAAAAAAAIAAAAFAAYAAAAAAAIAAAAEAAYAAAAAAAIAAAAEAAUAAAAAAAIAAAADAAUAAAAAAAIAAAADAAQAAAAAAAIAAAADAAMAAAAAAAIAAAADAAIAAAAAAAIAAAAEAAIAAAAAAAIAAAAEAAEAAAAAAAIAAAAFAAEAAAAAAAIAAAAGAAEAAAAAAAIAAAAHAAEAAAAAAAIAAAAIAAEAAAAAAAIAAAAJAAEAAAAAAAIAAAAJAAIAAAAAAAIAAAAJAAMAAAAAAAIAAAAFAAQAAgAAAAAABwAFAAMAAgAAAAAAAgAIAAMAAAAAAAIAAAAJAAUAAgAAAAAADgAJAAQAAgAAAAAADgAKAAMAAAAAAAIAAAALAAMAAAAAAAIAAAALAAQAAAAAAAIAAAALAAUAAAAAAAIAAAALAAYAAAAAAAIAAAAKAAYAAAAAAAIAAAAGAAMAAgAAAAAAAwAIAAIAAgAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAEAAAAAAACAAAAAAAEAAEAAAACAAEAAAAGAAEAAAAHAAIAAAAGAAIAAAAFAAEAAAAHAAEAAAAFAAAAAAAHAAIAAAAFAAEAAAAIAAEAAAAFAAAAAAAIAAIAAAAFAAEAAAAGAAMAAgAAAAAADgAGAAQAAgAAAAAADgAJAAMAAAAGAAIAAAAJAAQAAAAGAAIAAAAJAAEAAAAGAAAAAAAJAAIAAAAGAAEAAAAJAAUAAAAGAAMAAAAEAAUAAAAFAAMAAAAFAAUAAAAFAAMAAAAGAAUAAAAFAAMAAAAHAAUAAAAFAAMAAAAIAAUAAAAFAAMAAAAIAAQAAgAAAAAABwAIAAMAAgAAAAAAAgAEAAQAAgAAAAAAAQAFAAAAAAAFAAAAAAAFAAEAAAAFAAEAAAAGAAAAAAAGAAAAAAACAAUAAAAEAAMAAAADAAUAAAAFAAMAAAACAAQAAAAEAAIAAAACAAMAAAAEAAIAAAACAAIAAAAEAAIAAAACAAAAAAAEAAAAAAACAAEAAAAEAAEAAAADAAAAAAAFAAAAAAADAAEAAAAFAAEAAAAFAAQAAgAAAAAADgA=")
 tile_set = ExtResource("2_wn5db")
 
 [node name="GUI" type="Control" parent="." unique_id=1110551409]
@@ -34,13 +36,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DialogController" parent="GUI" unique_id=283429877 instance=ExtResource("3_ieltj")]
+_dialogQueue = Array[ExtResource("4_ieltj")]([ExtResource("5_mym2a")])
 
 [node name="Hint" parent="GUI" unique_id=1082178399 instance=ExtResource("4_mym2a")]
 layout_mode = 1
 
 [node name="ReplayButton" parent="GUI" unique_id=59675507 instance=ExtResource("5_dsqo3")]
 layout_mode = 1
-anchors_preset = 15
 
 [node name="Background" type="ColorRect" parent="." unique_id=1005169644]
 visible = false

@@ -4,10 +4,8 @@
 [ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_qcobq"]
 [ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_43gho"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="4_0nor8"]
-[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="4_38csi"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="4_qsg2u"]
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_0nor8"]
-[ext_resource type="Resource" uid="uid://cos5w41rm7krd" path="res://dialog/dialog_resources/spill_coffee/dialog_spilled_coffee_01.tres" id="5_xhhk0"]
 
 [node name="Main" type="Node2D" unique_id=103672126]
 
@@ -32,14 +30,12 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="DialogController" parent="GUI" unique_id=1413084476 instance=ExtResource("3_43gho")]
-_dialogQueue = Array[ExtResource("4_38csi")]([ExtResource("5_xhhk0")])
 
 [node name="Hint" parent="GUI" unique_id=1867281059 instance=ExtResource("4_qsg2u")]
 layout_mode = 1
 
 [node name="ReplayButton" parent="GUI" unique_id=1386202133 instance=ExtResource("5_0nor8")]
 layout_mode = 1
-anchors_preset = 15
 
 [node name="Background" type="ColorRect" parent="." unique_id=58562604]
 visible = false
