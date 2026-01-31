@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://18q4tpf8575p"]
 
 [ext_resource type="Script" uid="uid://wikmcngrev46" path="res://entities/trashbin/Interactable.cs" id="1_qgog2"]
+[ext_resource type="Resource" uid="uid://cr5o04xuw14tv" path="res://dialog/dialog_resources/secret/dialog_npcdog_02.tres" id="2_c6jxu"]
 [ext_resource type="Texture2D" uid="uid://duy72041hc0d7" path="res://assets/world/coworkers/coworker03.png" id="2_qgog2"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_osd8k"]
 [ext_resource type="Script" uid="uid://bootpsptdggwr" path="res://shared/InteractableArea.cs" id="4_bxssg"]
@@ -65,6 +66,7 @@ z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_qgog2")
 _hintLabel = NodePath("HintLabel")
+_checkDialog = ExtResource("2_c6jxu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=339318710]
 position = Vector2(0, -42)

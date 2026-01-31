@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://ddod874ysx3ga"]
+
+[ext_resource type="Texture2D" uid="uid://cp1ygvbju4uwp" path="res://assets/ui/dialog/player_sweat.png" id="1_qpy24"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_bmg2t"]
+
+[resource]
+script = ExtResource("2_bmg2t")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_qpy24")
+Text = "哇啊！"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

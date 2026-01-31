@@ -46,7 +46,6 @@ layout_mode = 1
 
 [node name="ReplayButton" parent="GUI" unique_id=1041946985 instance=ExtResource("5_kfh6w")]
 layout_mode = 1
-anchors_preset = 15
 
 [node name="GameoverOverlay" parent="GUI" unique_id=69301179 instance=ExtResource("6_bi0pg")]
 visible = false

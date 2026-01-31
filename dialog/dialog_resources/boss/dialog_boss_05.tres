@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://de0i72ci5b0ow"]
+
+[ext_resource type="Texture2D" uid="uid://d0a1prbygqrnw" path="res://assets/ui/dialog/player_evil.png" id="1_qfn4p"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_fbvkn"]
+
+[resource]
+script = ExtResource("2_fbvkn")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_qfn4p")
+Text = "可不要小看山羊。
+以断罪之名，接受我的怒火吧！"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

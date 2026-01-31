@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://cxuvqmra23g82"]
+
+[ext_resource type="Texture2D" uid="uid://dgk0bo4avbxxd" path="res://assets/ui/dialog/boss_bright.png" id="1_brhtw"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_qvopw"]
+
+[resource]
+script = ExtResource("2_qvopw")
+SpeakerName = "Boss"
+SpeakerImg = ExtResource("1_brhtw")
+Text = "你是谁？你是怎么进来的。
+我明白了，听说有员工被裁了还在公司闹事，没想到是一只山羊"
+PitchOffset = -0.5
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

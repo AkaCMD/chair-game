@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://bjt6mcuk3ds4b"]
+
+[ext_resource type="Texture2D" uid="uid://dexlr0rkhhy17" path="res://assets/ui/dialog/boss_normal.png" id="1_vr7ql"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_8wxm1"]
+
+[resource]
+script = ExtResource("2_8wxm1")
+SpeakerName = "？？？"
+SpeakerImg = ExtResource("1_vr7ql")
+Text = "..."
+PitchOffset = -0.5
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

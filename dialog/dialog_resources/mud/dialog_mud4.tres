@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://bdjq3237m231d"]
+
+[ext_resource type="Texture2D" uid="uid://d0a1prbygqrnw" path="res://assets/ui/dialog/player_evil.png" id="1_6prhk"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_gkvht"]
+
+[resource]
+script = ExtResource("2_gkvht")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_6prhk")
+Text = "搞什么飞机..."
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

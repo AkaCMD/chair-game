@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogResource" format=3 uid="uid://u8uataatlj5n"]
+
+[ext_resource type="Texture2D" uid="uid://2xfbcdsf20kr" path="res://assets/ui/dialog/player_normal.png" id="1_utmsn"]
+[ext_resource type="Script" uid="uid://mo2cpoqt1t5s" path="res://dialog/DialogResource.cs" id="2_v8o57"]
+
+[resource]
+script = ExtResource("2_v8o57")
+SpeakerName = "你"
+SpeakerImg = ExtResource("1_utmsn")
+Text = "这里就是Boss的房间了吧"
+metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
