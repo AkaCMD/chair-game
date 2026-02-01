@@ -146,6 +146,12 @@ public partial class LevelSelector : Node2D
                     tween2.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f)
                          .SetTrans(Tween.TransitionType.Cubic)
                          .SetEase(Tween.EaseType.In);
+                    
+                    // Update level selector nodes
+                    tween2.Finished += () =>
+                    {
+                        GetTree().ReloadCurrentScene();
+                    };
                 };
             };
         }
