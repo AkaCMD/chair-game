@@ -22,12 +22,12 @@ config/icon="uid://qypqs8d2dnip"
 
 GameEventSignals="*res://shared/GameEventSignals.cs"
 CommandManager="*res://shared/commands/CommandManager.cs"
-ImGuiRoot="*uid://dugmpnsxaagba"
 SaveManager="*res://shared/save/SaveManager.cs"
 ReplaySystem="*res://shared/save/ReplaySystem.cs"
 LevelManager="*res://shared/LevelManager.cs"
-DeveloperCommands="*uid://c4cp8prie3wmn"
+DeveloperCommands="uid://c4cp8prie3wmn"
 Localization="*uid://b3xeh4r5uprae"
+ImGuiRoot="*uid://dugmpnsxaagba"
 
 [display]
 
@@ -105,3 +105,7 @@ locale/translation_remaps={}
 locale/translations=PackedStringArray("res://localization.en.translation", "res://localization.zh.translation")
 locale/test="en"
 locale/locale_filter_mode=0
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
