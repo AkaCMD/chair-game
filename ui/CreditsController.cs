@@ -67,7 +67,10 @@ public partial class CreditsController : Control
         Visible = true;
 
         // Grab focus for keyboard input
-        GrabFocus();
+        if (IsInsideTree())
+        {
+            GrabFocus();
+        }
 
         // Start BGM
         if (_bgmPlayer != null && !_bgmPlayer.Playing)
@@ -96,7 +99,10 @@ public partial class CreditsController : Control
         }
 
         // Release focus
-        ReleaseFocus();
+        if (IsInsideTree())
+        {
+            ReleaseFocus();
+        }
 
         Visible = false;
 
