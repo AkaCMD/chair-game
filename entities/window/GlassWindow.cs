@@ -182,7 +182,7 @@ public partial class GlassWindow : Mover
             _fallenObjects[m] = m.GridPosition;
             m.GridPosition = new Vector2I(999, 999);
         }
-        
+
         // Handle based on what fell
         if (playerFell)
         {
@@ -196,10 +196,10 @@ public partial class GlassWindow : Mover
         else if (bossFell)
         {
             SoundFall?.Play();
-            
+
             // show CG
             CanvasLayer cgLayer = null;
-            
+
             if (LevelSelector.Instance != null)
             {
                 cgLayer = GetNodeOrNull<CanvasLayer>("/root/LevelSelector/CanvasLayer/Main/GUI/CgLayer");
@@ -209,12 +209,37 @@ public partial class GlassWindow : Mover
                 cgLayer = GetNodeOrNull<CanvasLayer>("/root/Main/GUI/CgLayer");
             }
             cgLayer.Show();
-            
+
+            // Show credits in the CgLayer
+            var creditsController = cgLayer.GetNodeOrNull<CreditsController>("CreditsDisplay");
+            if (creditsController != null)
+            {
+                creditsController.StartCredits();
+            }
+
             GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, "boss_fight");
-            
-            var exitTimer = GetTree().CreateTimer( 3.0f);
-            exitTimer.Timeout += () => {
-                cgLayer.Hide();
+
+            var exitTimer = GetTree().CreateTimer(15.0f); // Extended for credits display (7 lines × 2 seconds + buffer)
+            exitTimer.Timeout += () =>
+            {
+                // Safety check: ensure the scene hasn't been unloaded
+                if (!IsInstanceValid(this))
+                {
+                    return;
+                }
+
+                // Stop credits before hiding CgLayer
+                var creditsCtrl = cgLayer?.GetNodeOrNull<CreditsController>("CreditsDisplay");
+                if (IsInstanceValid(creditsCtrl))
+                {
+                    creditsCtrl.StopCredits();
+                }
+
+                if (IsInstanceValid(cgLayer))
+                {
+                    cgLayer.Hide();
+                }
+
                 if (LevelSelector.Instance == null)
                 {
                     GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
@@ -229,7 +254,7 @@ public partial class GlassWindow : Mover
 
         return false;
     }
-    
+
     private void CollectMovingGroup(Mover mover, Vector2I direction, HashSet<Mover> collected)
     {
         if (mover == null || collected.Contains(mover))

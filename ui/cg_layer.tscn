@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b2t4x35rv5yhy"]
 
 [ext_resource type="Texture2D" uid="uid://caobe1mwxnlx5" path="res://assets/cg.jpg" id="1_kc3bk"]
+[ext_resource type="Script" uid="uid://bqis6154yaxfv" path="res://ui/CreditsController.cs" id="2_0x2fj"]
+[ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_8rcln"]
 
 [node name="CgLayer" type="CanvasLayer" unique_id=579847309]
 layer = 3
@@ -22,3 +24,38 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kc3bk")
 expand_mode = 1
+
+[node name="CreditsDisplay" type="Control" parent="." unique_id=1947212514 node_paths=PackedStringArray("_creditsLabel", "_displayTimer")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_0x2fj")
+_creditsLabel = NodePath("CenterContainer/VBoxContainer/CreditsLabel")
+_displayTimer = NodePath("Timer")
+
+[node name="CenterContainer" type="CenterContainer" parent="CreditsDisplay" unique_id=530701721]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsDisplay/CenterContainer" unique_id=2038265622]
+layout_mode = 2
+alignment = 1
+
+[node name="CreditsLabel" type="Label" parent="CreditsDisplay/CenterContainer/VBoxContainer" unique_id=804301626]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_8rcln")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="CreditsDisplay" unique_id=538224188]

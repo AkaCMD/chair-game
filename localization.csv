@@ -53,13 +53,13 @@ molefish,Slacker colleague,摸鱼同事
 officeghost,Office ghost,办公室幽灵
 dialog_levelselector,"Alrighty! Welcome to the level select screen—\nwait, no, it’s the elevator!
 The boss just ordered all the doors and stairs sealed up, but I’m still here to help you out.
-Though breaking through the door’s gonna be all on you! After all, I’m a ghost—\nI can’t deal any physical damage, y’know.
+Though breaking through the door’s gonna be all on you! After all, I’m a ghost—\nI can’t deal any physical damage, y'know.
 You’ve got this, you’ve got this :)","好嘞，欢迎来到选关界面，啊不，是电梯
 虽然Boss刚刚下令把门和楼梯封死了，但我依然可以为您服务
 不过打破门这件事就得交给你来做了！毕竟我是幽灵嘛无法造成物理伤害
 加油加油:)"
 dialog_mud4,What the heck?,搞什么飞机…
-dialog_npcdog_00,"Ever since I left the company, I've made a fortune drawing fanart.\nI'm so happy! Let's go for hot pot tonight!","自从离开了公司，我靠画同人赚了不少钱，真幸福啊~ 
+dialog_npcdog_00,"Ever since I left the company, I've made a fortune drawing fanart.\nI'm so happy! Let's go for hot pot tonight!","自从离开了公司，我靠画同人赚了不少钱，真幸福啊~
 晚上去吃海底捞吧！"
 dialog_npcdog_01,"Whoa, turns out you’re a total pro! I gotta tip my hat to you!
 When I was packing up and saw the boss fall out the window—\nthat second, I felt like my life was finally redeemed.","原来是大手子，失敬失敬！
@@ -117,10 +117,10 @@ reset,[Reset] R,[重置] R
 gameover,"GAME OVER
 Press Z to undo ","GAME OVER
 按 Z 撤回操作"
-credit_00,[Programming]\nTrioDuckk\nFeishiko,【程序】\n三重鸭\nFeishiko
-credit_01,[Art]\nDaNGo_iz\nTrioDuckk,【美术】\n以子\n三重鸭
-credit_02,[UI]\nFeishiko\nTrioDuckk,【UI】\nFeishiko\n三重鸭
-credit_03,[Design]\nFeishiko\nTrioDuckk\nDaNGo_iz,【策划】\nFeishiko\n三重鸭\n以子
-credit_04,[Music]\nFeishiko,【音乐/音效】\nFeishiko
-credit_05,[Shader]\nFeishiko\nKoiro,【着色器】\nFeishiko\n宏楼
+credit_00,<Programming>\nTrioDuckk\nFeishiko,<程序>\n三重鸭\nFeishiko
+credit_01,<Art>\nDaNGo_iz\nTrioDuckk,<美术>\n以子\n三重鸭
+credit_02,<UI>\nFeishiko\nTrioDuckk,<UI>\nFeishiko\n三重鸭
+credit_03,<Design>\nFeishiko\nTrioDuckk\nDaNGo_iz,<策划>\nFeishiko\n三重鸭\n以子
+credit_04,<Music>\nFeishiko,<音乐/音效>\nFeishiko
+credit_05,<Shader>\nFeishiko\nKoiro,<着色器>\nFeishiko\n宏楼
 credit_06,Thanks for playing!,感谢游玩！
