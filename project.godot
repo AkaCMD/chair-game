@@ -10,7 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Officetaker"
+config/name="Chair Impact"
+config/name_localized={
+"zh_CN": "椅游"
+}
 run/main_scene="uid://g2as385a7me"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="uid://qypqs8d2dnip"
@@ -101,3 +104,4 @@ test={
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://localization.en.translation", "res://localization.zh.translation")
 locale/test="en"
+locale/locale_filter_mode=0

@@ -54,10 +54,10 @@ position = Vector2(435, 87)
 
 [node name="SpeakerName" type="RichTextLabel" parent="DialogUI" unique_id=1993205994]
 layout_mode = 0
-offset_left = 295.0
-offset_top = 152.0
-offset_right = 396.0
-offset_bottom = 189.0
+offset_left = 291.0
+offset_top = 140.0
+offset_right = 406.0
+offset_bottom = 184.0
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[wave][center]以子"

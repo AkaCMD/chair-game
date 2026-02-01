@@ -1,4 +1,4 @@
-﻿keys,en,zh
+keys,en,zh
 dialog_beginning_00,"Heheh, cut costs and boost efficiency... The useless stuff just needs to be cleared out, y'know.","嘿嘿嘿，降本增效…降本增效…
 没用的东西就该清理出去哟"
 dialog_beginning_01,"...Suddenly the whole project team got laid off.\nWhat was all that overtime for the past month even for...
@@ -59,9 +59,8 @@ You’ve got this, you’ve got this :)","好嘞，欢迎来到选关界面，�
 不过打破门这件事就得交给你来做了！毕竟我是幽灵嘛无法造成物理伤害
 加油加油:)"
 dialog_mud4,What the heck?,搞什么飞机…
-dialog_npcdog_00,Though I got laid off…\nBut a guy’s gotta keep looking ahead anyway!\nNow what should I get to eat today~,"虽然丢掉了工作...
-不过狗还是要向前看的！
-今天吃什么好呢~"
+dialog_npcdog_00,"Ever since I left the company, I've made a fortune drawing fanart.\nI'm so happy! Let's go for hot pot tonight!","自从离开了公司，我靠画同人赚了不少钱，真幸福啊~ 
+晚上去吃海底捞吧！"
 dialog_npcdog_01,"Whoa, turns out you’re a total pro! I gotta tip my hat to you!
 When I was packing up and saw the boss fall out the window—\nthat second, I felt like my life was finally redeemed.","原来是大手子，失敬失敬！
 刚刚收拾东西的时候看到老板从窗边掉下去的那一刻
@@ -73,7 +72,7 @@ dialog_npcdog_04,CHAIR! IMPACT!\nHow’s that? Was my move just now totally awes
 怎么样，刚才的姿势帅不帅"
 dialog_npcdog_05,Wanna join me in making indie games? We’ve got no jobs anyway.,"要不要和我一起回去做独立游戏？
 反正工作都没了。"
-npcname_00,Old juice,老果汁
+npcname_00,Old Juice,老果汁
 npcname_01,Madagas,马达加斯
 npcname_02,Raven,老鸦
 ex,Ex-colleague,前同事
