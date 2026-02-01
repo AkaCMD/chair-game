@@ -5,9 +5,7 @@
 
 [resource]
 script = ExtResource("2_fwiva")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_qld8x")
-Text = "什么鬼？
-怎么扫地机器人还能变异来的
-…我记得之前没有冒红光来着。难不成？"
+Text = "dialog_about_turret_00"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

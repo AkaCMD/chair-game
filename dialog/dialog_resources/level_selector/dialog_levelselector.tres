@@ -5,11 +5,8 @@
 
 [resource]
 script = ExtResource("1_u5esg")
-SpeakerName = "办公室幽灵"
+SpeakerName = "officeghost"
 SpeakerImg = ExtResource("1_fbp1o")
-Text = "好嘞，欢迎来到选关界面，啊不，是电梯
-虽然Boss刚刚下令把门和楼梯封死了，但我依然可以为您服务
-不过打破门这件事就得交给你来做了！毕竟我是幽灵嘛无法造成物理伤害
-加油加油:)"
+Text = "dialog_levelselector"
 PitchOffset = 0.30000000000000004
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

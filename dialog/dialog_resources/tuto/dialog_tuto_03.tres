@@ -5,9 +5,7 @@
 
 [resource]
 script = ExtResource("2_gj8fo")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_5ywrq")
-Text = "啊！想起来了
-你就是那个之前因为在办公室举办转椅子大赛被通报批评的
-"
+Text = "dialog_tuto_03"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

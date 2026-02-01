@@ -7,6 +7,6 @@
 script = ExtResource("2_8wxm1")
 SpeakerName = "？？？"
 SpeakerImg = ExtResource("1_vr7ql")
-Text = "..."
+Text = "dialog_boss_02"
 PitchOffset = -0.5
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

@@ -5,10 +5,9 @@
 
 [resource]
 script = ExtResource("2_87f5h")
-SpeakerName = "摸鱼同事"
+SpeakerName = "molefish"
 SpeakerImg = ExtResource("1_m1b1w")
-Text = "我告诉你一个秘密…只要坐在椅子上，就不会被扫地机器人探测到了！
-或者你要是能想办法用椅子把它推走或者弄出去都行，眼不见心为净嘛"
+Text = "dialog_about_turret_03"
 TextSpeed = 0.15000000000000002
 PitchOffset = -0.15000000000000002
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

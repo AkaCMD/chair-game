@@ -5,13 +5,7 @@
 
 [resource]
 script = ExtResource("1_itvp8")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_ev43v")
-Text = "这个房间……地上洒了咖啡吧
-怎么也没有人来清理，也对，大概是清洁工也被降本增效了
-之前老板要求员工自己负责办公区卫生来着
-要是鞋子上沾了咖啡就很讨厌了，绝对不行…！
-走起来大概会粘粘的
-用椅子滑过咖啡渍的话说不定可行？没错，就这么办吧，只要不踩到就好
-"
+Text = "dialog_spilled_coffee"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

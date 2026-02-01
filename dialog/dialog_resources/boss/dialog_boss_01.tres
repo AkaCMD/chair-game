@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_fq81o")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_48kxv")
-Text = "总感觉背后凉凉的"
+Text = "dialog_boss_01"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

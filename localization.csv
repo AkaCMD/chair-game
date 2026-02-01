@@ -20,3 +20,98 @@ dialog_beginning_03,"... Though I gotta say, the rush of breaking things isn’t
 dialog_beginning_04,"Oh no! Why’s the alarm blaring?\n Now I’ll never get out of the company without footing the bill for the damage.\nI bet that boss would make me cough up way more than 114,514 yuan in compensation anyway.","完蛋了，咋响警报，这下不付赔偿连公司都出不去了
 想必那个老板会让员工付上114514元都不够的赔偿金罢"
 you,You,你
+dialog_boss_00,"This must be the Boss’s office, right?",这里就是Boss的房间了吧
+dialog_boss_01,I keep feeling a cold chill down my spine.,总感觉背后凉凉的
+dialog_boss_02,…,…
+dialog_boss_03,Whoa!,哇啊！
+dialog_boss_04,"Who are you? How did you get in here?
+I see. I heard some laid-off employee was causing a ruckus in the office, but I never thought it’d be a goat.","你是谁？你是怎么进来的。
+我明白了，听说有员工被裁了还在公司闹事，没想到是一只山羊"
+dialog_boss_05,"Don't you dare underestimate a goat!
+In the name of judgment, brace yourself for my wrath!","可不要小看山羊。
+以断罪之名，接受我的怒火吧！"
+dialog_about_turret_00,"What the hell?How the hell did a robot vacuum even mutate?
+...I swear it never glowed red before. Could it be...?","什么鬼？
+怎么扫地机器人还能变异来的
+…我记得之前没有冒红光来着。难不成？"
+dialog_about_turret_01,"Hello? Hello? Can you hear me?
+Heard you’re trying to get out of here. \nI just hijacked this radio frequency, so I can pass a message to you.
+The boss just switched all the company’s robot vacuums to alert mode—\nprobably to seal the whole place off.
+Now those robot vacuums will attack any living thing that gets near the area without discrimination. \nYou’d better watch out!","喂喂？能听到我说话吗？
+听说你在想办法离开这里，我正好劫持了这个广播频段，可以给你传话了
+刚刚老板把全公司的扫地机器人都切换成了警戒模式，估计是为了进行封锁吧
+现在扫地机器人会无差别攻击靠近的靠近区域的生物，你最好小心点！"
+dialog_about_turret_02,"Great, it’s not the boss!
+Figured it’d be something like this. I’ll watch my step.
+Then what do I do if the robot vacuums block the only way out?","太好了，不是老板耶。
+还真是这样啊，我会小心的
+那要是扫地机器人挡住必经之路该怎么办？"
+dialog_about_turret_03,"I’ll let you in on a secret… As long as you sit on a chair, the robot vacuums won’t detect you at all!
+Or if you can find a way to push it away or get it out with the chair, that works too. \nOut of sight, out of mind, anyway!","我告诉你一个秘密…只要坐在椅子上，就不会被扫地机器人探测到了！
+或者你要是能想办法用椅子把它推走或者弄出去都行，眼不见心为净嘛"
+molefish,Slacker colleague,摸鱼同事
+officeghost,Office ghost,办公室幽灵
+dialog_levelselector,"Alrighty! Welcome to the level select screen—\nwait, no, it’s the elevator!
+The boss just ordered all the doors and stairs sealed up, but I’m still here to help you out.
+Though breaking through the door’s gonna be all on you! After all, I’m a ghost—\nI can’t deal any physical damage, y’know.
+You’ve got this, you’ve got this :)","好嘞，欢迎来到选关界面，啊不，是电梯
+虽然Boss刚刚下令把门和楼梯封死了，但我依然可以为您服务
+不过打破门这件事就得交给你来做了！毕竟我是幽灵嘛无法造成物理伤害
+加油加油:)"
+dialog_mud4,What the heck?,搞什么飞机…
+dialog_npcdog_00,Though I got laid off…\nBut a guy’s gotta keep looking ahead anyway!\nNow what should I get to eat today~,"虽然丢掉了工作...
+不过狗还是要向前看的！
+今天吃什么好呢~"
+dialog_npcdog_01,"Whoa, turns out you’re a total pro! I gotta tip my hat to you!
+When I was packing up and saw the boss fall out the window—\nthat second, I felt like my life was finally redeemed.","原来是大手子，失敬失敬！
+刚刚收拾东西的时候看到老板从窗边掉下去的那一刻
+感觉到我的生命得到了救赎"
+dialog_npcdog_02,What should I grab to eat today~,今天吃什么好呢~
+dialog_npcdog_03,"Fresh air is drifting into the office for the first time in ages—\nand I’m a ghost, no less.","办公室里也久违飘进了清新的空气
+虽然我是一只幽灵。"
+dialog_npcdog_04,CHAIR! IMPACT!\nHow’s that? Was my move just now totally awesome?,"椅！子！冲！击！
+怎么样，刚才的姿势帅不帅"
+dialog_npcdog_05,Wanna join me in making indie games? We’ve got no jobs anyway.,"要不要和我一起回去做独立游戏？
+反正工作都没了。"
+npcname_00,Old juice,老果汁
+npcname_01,Madagas,马达加斯
+npcname_02,Raven,老鸦
+ex,Ex-colleague,前同事
+dialog_shuffle,What the hell?,什么鬼？
+dialog_spilled_coffee,"This room... there’s coffee spilled all over the floor, right?\nWhy’s no one cleaning it up? Oh right, the cleaners were probably let go for cost-cutting too.\nThe boss made us employees take care of the office cleaning ourselves anyway.\nIt’d be the worst if my shoes get covered in coffee—definitely not gonna let that happen…!\nWalking around would be all sticky if they did.\nMaybe sliding over the coffee stains with the chair would work? \nYep, that’s the way to go! Just gotta make sure I don’t step on them at all.","这个房间……地上洒了咖啡吧
+怎么也没有人来清理，也对，大概是清洁工也被降本增效了
+之前老板要求员工自己负责办公区卫生来着
+要是鞋子上沾了咖啡就很讨厌了，绝对不行…！
+走起来大概会粘粘的
+用椅子滑过咖啡渍的话说不定可行？没错，就这么办吧，只要不踩到就好"
+dialog_about_break_window,"Hey hey hey, I’m back!Once again, I pulled a little tech trick out of my sleeve!
+You remember what I said last time? Let’s use a little free fall to take care of the trouble right in front of us!","害嗨害，我又来了
+再一次，用了一点小小的技术手段
+还记得我上次说的吗？利用一点自由落体来解决掉眼前的麻烦吧"
+dialog_tuto_00,That last hit was so good! I’ve been dying to do this for ages—this lousy company!,刚刚的一击真不赖啊！早就想这么干了，狗公司
+dialog_tuto_01,…\nWho are you?,"。
+你谁啊？"
+dialog_tuto_02,"Oh, you don’t remember me?\nLet me jog your memory—I’m your former colleague!\nWe weren’t in the same department, though.
+Quit my job a while back, and now I’m making indie games!","哦，你不记得了啊
+这样，我是你前同事来的
+不过不是在一个部门
+前段时间辞职了，现在去做独立游戏了"
+dialog_tuto_03,Oh! Now I remember!\nYou’re the one who got a written warning for hosting a swivel chair race in the office a while back!,"啊！想起来了
+你就是那个之前因为在办公室举办转椅子大赛被通报批评的"
+dialog_tuto_04,"Ahem…\nCutting to the chase—let me school you on some ultra pro tips!
+First off, you can adjust your direction by sitting on the chair. \nIf you wanna break down the door, pile junk onto the chair to build up momentum.
+Some moves only work if the chair’s in the right relative position—like pushing it, for example.
+Alright, go figure it out on your own! Good luck escaping the company. (Honestly, I shouldn’t be rambling this much—logic puzzle tutorials are supposed to be a little more sleek and classy.)","（咳咳…）
+不多废话了，让我来教你一些*超绝技巧*吧！
+首先是你可以通过坐上椅子调整方向；想要破坏门的话，把杂物搬上椅子就可以增加动量。
+有些操作需要椅子处于特定的相对方向才能进行，比如推动
+好了，自个儿玩去吧，加油逃离公司（理论上我不应该说这么多的，逻辑解谜教程应该优雅一点）"
+dialog_check_trashbin,The trashbin—it’s piled high with resumes.,人才库，里面堆满了简历。
+dialog_watchout_00,"Oh, there are floor-to-ceiling windows here! \nThe natural light’s way better, and it’s lifted my mood a little too.",这里装了落地窗诶，感觉采光好了不少，心情也跟着好了一点点
+dialog_watchout_01,"Heard they cut corners here to save money, though. \nLet’s hope I don’t slam into the window and go flying out with the chair…",不过听说之前为了省钱偷工减料，但愿不会撞到窗户之后连人带椅子一起掉下去吧…
+space,Press space,按下空格
+replay,Replay,重播
+move,[Move] WASD/Arrow,[移动]WASD/方向键
+action,[Action] E/X,[交互] E/X
+undo,[Undo] Z,[撤销] Z
+reset,[Reset] R,[重置] R

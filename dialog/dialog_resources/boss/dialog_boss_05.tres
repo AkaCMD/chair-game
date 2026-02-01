@@ -5,8 +5,7 @@
 
 [resource]
 script = ExtResource("2_fbvkn")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_qfn4p")
-Text = "可不要小看山羊。
-以断罪之名，接受我的怒火吧！"
+Text = "dialog_boss_05"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

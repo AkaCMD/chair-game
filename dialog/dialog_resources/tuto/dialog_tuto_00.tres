@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_nk8xd")
-SpeakerName = "下头狼"
+SpeakerName = "???"
 SpeakerImg = ExtResource("1_k0404")
-Text = "刚刚的一击真不赖啊！早就想这么干了，狗公司"
+Text = "dialog_tuto_00"
 PitchOffset = -0.20000000000000007
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

@@ -64,12 +64,13 @@ text = "[wave][center]以子"
 fit_content = true
 
 [node name="PressSpace" type="Label" parent="DialogUI" unique_id=464369069]
+auto_translate_mode = 1
 layout_mode = 0
 offset_left = 944.0
 offset_top = 158.0
 offset_right = 1050.0
 offset_bottom = 186.0
 theme_override_font_sizes/font_size = 24
-text = "按下空格"
+text = "space"
 horizontal_alignment = 2
 vertical_alignment = 1

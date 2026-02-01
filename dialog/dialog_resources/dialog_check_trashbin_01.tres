@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_6amp7")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_t7uah")
-Text = "人才库，里面堆满了简历。"
+Text = "dialog_check_trashbin"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

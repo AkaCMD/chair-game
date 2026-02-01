@@ -7,7 +7,6 @@
 script = ExtResource("2_qvopw")
 SpeakerName = "Boss"
 SpeakerImg = ExtResource("1_brhtw")
-Text = "你是谁？你是怎么进来的。
-我明白了，听说有员工被裁了还在公司闹事，没想到是一只山羊"
+Text = "dialog_boss_04"
 PitchOffset = -0.5
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

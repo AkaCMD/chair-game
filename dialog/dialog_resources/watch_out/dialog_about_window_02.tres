@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_pqfrn")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_opeil")
-Text = "不过听说之前为了省钱偷工减料，但愿不会撞到窗户之后连人带椅子一起掉下去吧…"
+Text = "dialog_watchout_01"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

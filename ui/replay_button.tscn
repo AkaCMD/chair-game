@@ -13,10 +13,11 @@ script = ExtResource("1_xjujh")
 _btn = NodePath("Button")
 
 [node name="Button" type="Button" parent="." unique_id=1092087242]
+auto_translate_mode = 1
 layout_mode = 0
 offset_left = 19.0
 offset_top = 661.0
 offset_right = 172.0
 offset_bottom = 706.0
 theme_override_font_sizes/font_size = 32
-text = "重播"
+text = "replay"

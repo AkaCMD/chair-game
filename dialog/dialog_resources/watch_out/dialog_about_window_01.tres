@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_bbmo2")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_581fo")
-Text = "这里装了落地窗诶，感觉采光好了不少，心情也跟着好了一点点"
+Text = "dialog_watchout_00"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

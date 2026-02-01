@@ -5,12 +5,8 @@
 
 [resource]
 script = ExtResource("2_w5ipk")
-SpeakerName = "前同事"
+SpeakerName = "ex"
 SpeakerImg = ExtResource("1_cyltl")
-Text = "（咳咳…）
-不多废话了，让我来教你一些*超绝技巧*吧！
-首先是你可以通过坐上椅子调整方向；想要破坏门的话，把杂物搬上椅子就可以增加动量。
-有些操作需要椅子处于特定的相对方向才能进行，比如推动
-好了，自个儿玩去吧，加油逃离公司（理论上我不应该说这么多的，逻辑解谜教程应该优雅一点）"
+Text = "dialog_tuto_04"
 PitchOffset = -0.20000000000000007
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

@@ -5,8 +5,7 @@
 
 [resource]
 script = ExtResource("2_72amf")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_2nm4k")
-Text = "。
-你谁啊？"
+Text = "dialog_tuto_01"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"
