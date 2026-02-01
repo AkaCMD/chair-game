@@ -3,20 +3,34 @@ using System.Collections.Generic;
 
 public partial class CreditsController : Control
 {
+    [Signal]
+    public delegate void CreditsFinishedEventHandler();
+
     [Export] private Label _creditsLabel;
     [Export] private Timer _displayTimer;
+    [Export] private AudioStreamPlayer _bgmPlayer;
     [Export] private float _displayInterval = 2.0f; // Time between each credit line
 
     private List<string> _creditLines = new List<string>();
     private int _currentIndex = 0;
     private bool _isShowing = false;
+    private bool _creditsDone = false; // Credits displayed but waiting for skip input
 
     public override void _Ready()
     {
+        MouseFilter = MouseFilterEnum.Stop;
+        FocusMode = FocusModeEnum.All;
+
         if (_displayTimer != null)
         {
             _displayTimer.WaitTime = _displayInterval;
             _displayTimer.Timeout += OnDisplayTimerTimeout;
+        }
+
+        // Set BGM to loop
+        if (_bgmPlayer != null)
+        {
+            _bgmPlayer.Finished += OnBGMFinished;
         }
 
         // Load all credit lines from localization
@@ -48,8 +62,18 @@ public partial class CreditsController : Control
         if (_isShowing) return;
 
         _isShowing = true;
+        _creditsDone = false;
         _currentIndex = 0;
         Visible = true;
+
+        // Grab focus for keyboard input
+        GrabFocus();
+
+        // Start BGM
+        if (_bgmPlayer != null && !_bgmPlayer.Playing)
+        {
+            _bgmPlayer.Play();
+        }
 
         // Start with first line
         ShowCurrentLine();
@@ -58,10 +82,22 @@ public partial class CreditsController : Control
     public void StopCredits()
     {
         _isShowing = false;
+        _creditsDone = false;
+
         if (_displayTimer != null)
         {
             _displayTimer.Stop();
         }
+
+        // Stop BGM
+        if (_bgmPlayer != null)
+        {
+            _bgmPlayer.Stop();
+        }
+
+        // Release focus
+        ReleaseFocus();
+
         Visible = false;
 
         // Reset label
@@ -75,8 +111,22 @@ public partial class CreditsController : Control
     {
         if (_currentIndex >= _creditLines.Count)
         {
-            // All credits shown, stop
-            StopCredits();
+            // All credits shown, but keep BGM playing and wait for user input
+            _creditsDone = true;
+
+            // Clear text or show final message (optional)
+            if (_creditsLabel != null)
+            {
+                // Keep last line visible or show "Press any key to continue"
+                // For now, keep last line
+            }
+
+            // Stop timer since credits are done
+            if (_displayTimer != null)
+            {
+                _displayTimer.Stop();
+            }
+
             return;
         }
 
@@ -84,9 +134,6 @@ public partial class CreditsController : Control
         {
             string line = _creditLines[_currentIndex];
             _creditsLabel.Text = line;
-
-            // Simply show text without animation
-            // No scale effect, just display
         }
 
         // Start timer for next line
@@ -104,9 +151,43 @@ public partial class CreditsController : Control
         ShowCurrentLine();
     }
 
+    private void OnBGMFinished()
+    {
+        // Loop BGM
+        if (_bgmPlayer != null && _isShowing)
+        {
+            _bgmPlayer.Play();
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!_isShowing || @event == null) return;
+
+        // Only accept input after credits are done displaying
+        if (_creditsDone && @event.IsPressed() && !@event.IsEcho())
+        {
+            // Skip credits and BGM
+            EmitSignal(nameof(CreditsFinished));
+            StopCredits();
+
+            // Accept the event to prevent propagation
+            var viewport = GetViewport();
+            if (viewport != null)
+            {
+                viewport.SetInputAsHandled();
+            }
+        }
+    }
+
     public bool IsShowing()
     {
         return _isShowing;
+    }
+
+    public bool IsCreditsDone()
+    {
+        return _creditsDone;
     }
 
     public void SetDisplayInterval(float interval)
@@ -120,10 +201,15 @@ public partial class CreditsController : Control
 
     public override void _ExitTree()
     {
-        // Clean up event subscription before node is removed from tree
+        // Clean up event subscriptions before node is removed from tree
         if (IsInstanceValid(_displayTimer))
         {
             _displayTimer.Timeout -= OnDisplayTimerTimeout;
+        }
+
+        if (IsInstanceValid(_bgmPlayer))
+        {
+            _bgmPlayer.Finished -= OnBGMFinished;
         }
 
         base._ExitTree();

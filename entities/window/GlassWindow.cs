@@ -219,40 +219,68 @@ public partial class GlassWindow : Mover
 
             GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, "boss_fight");
 
-            var exitTimer = GetTree().CreateTimer(15.0f); // Extended for credits display (7 lines × 2 seconds + buffer)
-            exitTimer.Timeout += () =>
+            // Wait for credits completion via signal instead of timer
+            if (creditsController != null)
             {
-                // Safety check: ensure the scene hasn't been unloaded
-                if (!IsInstanceValid(this))
+                creditsController.CreditsFinished += OnCreditsFinished;
+            }
+            else
+            {
+                // Fallback: if credits controller not found, use timer
+                var exitTimer = GetTree().CreateTimer(15.0f);
+                exitTimer.Timeout += () =>
                 {
-                    return;
-                }
-
-                // Stop credits before hiding CgLayer
-                var creditsCtrl = cgLayer?.GetNodeOrNull<CreditsController>("CreditsDisplay");
-                if (IsInstanceValid(creditsCtrl))
-                {
-                    creditsCtrl.StopCredits();
-                }
-
-                if (IsInstanceValid(cgLayer))
-                {
-                    cgLayer.Hide();
-                }
-
-                if (LevelSelector.Instance == null)
-                {
-                    GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
-                }
-                else
-                {
-                    LevelManager.Instance.EmitLevelExit(true);
-                }
-            };
+                    OnCreditsFinished();
+                };
+            }
             return true;
         }
 
         return false;
+    }
+
+    private void OnCreditsFinished()
+    {
+        // Safety check: ensure the scene hasn't been unloaded
+        if (!IsInstanceValid(this))
+        {
+            return;
+        }
+
+        // Find CgLayer again since it might have changed
+        CanvasLayer cgLayer = null;
+        if (LevelSelector.Instance != null)
+        {
+            cgLayer = GetNodeOrNull<CanvasLayer>("/root/LevelSelector/CanvasLayer/Main/GUI/CgLayer");
+        }
+        else
+        {
+            cgLayer = GetNodeOrNull<CanvasLayer>("/root/Main/GUI/CgLayer");
+        }
+
+        if (IsInstanceValid(cgLayer))
+        {
+            cgLayer.Hide();
+        }
+
+        // Clean up signal connection
+        if (IsInstanceValid(cgLayer))
+        {
+            var creditsController = cgLayer.GetNodeOrNull<CreditsController>("CreditsDisplay");
+            if (IsInstanceValid(creditsController))
+            {
+                creditsController.CreditsFinished -= OnCreditsFinished;
+            }
+        }
+
+        if (LevelSelector.Instance == null)
+        {
+            GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
+        }
+        else
+        {
+            LevelManager.Instance.EmitLevelExit(true);
+        }
     }
 
     private void CollectMovingGroup(Mover mover, Vector2I direction, HashSet<Mover> collected)

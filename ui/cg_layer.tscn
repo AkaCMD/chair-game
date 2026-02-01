@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://caobe1mwxnlx5" path="res://assets/cg.jpg" id="1_kc3bk"]
 [ext_resource type="Script" uid="uid://bqis6154yaxfv" path="res://ui/CreditsController.cs" id="2_0x2fj"]
 [ext_resource type="FontFile" uid="uid://b6johbck0aygp" path="res://assets/Silver.ttf" id="3_8rcln"]
+[ext_resource type="AudioStream" uid="uid://chxixd48bxg7c" path="res://audios/credits_bgm.ogg" id="4_credits_bgm"]
 
 [node name="CgLayer" type="CanvasLayer" unique_id=579847309]
 layer = 3
@@ -25,7 +26,7 @@ grow_vertical = 2
 texture = ExtResource("1_kc3bk")
 expand_mode = 1
 
-[node name="CreditsDisplay" type="Control" parent="." unique_id=1947212514 node_paths=PackedStringArray("_creditsLabel", "_displayTimer")]
+[node name="CreditsDisplay" type="Control" parent="." unique_id=1947212514 node_paths=PackedStringArray("_creditsLabel", "_displayTimer", "_bgmPlayer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -36,6 +37,7 @@ grow_vertical = 2
 script = ExtResource("2_0x2fj")
 _creditsLabel = NodePath("CenterContainer/VBoxContainer/CreditsLabel")
 _displayTimer = NodePath("Timer")
+_bgmPlayer = NodePath("CreditsBGM")
 
 [node name="CenterContainer" type="CenterContainer" parent="CreditsDisplay" unique_id=530701721]
 layout_mode = 0
@@ -59,3 +61,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="CreditsDisplay" unique_id=538224188]
+
+[node name="CreditsBGM" type="AudioStreamPlayer" parent="CreditsDisplay" unique_id=1947212515]
+stream = ExtResource("4_credits_bgm")
