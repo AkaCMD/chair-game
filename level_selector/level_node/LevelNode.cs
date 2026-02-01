@@ -11,7 +11,7 @@ public partial class LevelNode : Node2D
     [Export] private Label _nameUI;
     [Export] private Panel _panelUI;
     [Export] private Panel _hoverUI;
-    
+
     private string _levelID;
     [Export]
     public string LevelID
@@ -23,7 +23,7 @@ public partial class LevelNode : Node2D
             UpdateDisplay();
         }
     }
-    
+
     private string _levelName = "";
     [Export]
     public string LevelName
@@ -35,7 +35,7 @@ public partial class LevelNode : Node2D
             UpdateDisplay();
         }
     }
-    
+
     private LevelNode[] _levelNodes = new LevelNode[0];
     [Export]
     public LevelNode[] LevelNodes
@@ -47,11 +47,12 @@ public partial class LevelNode : Node2D
             QueueRedraw();
         }
     }
-    
+
     [Export] public PackedScene PackedLevel;
 
     [Export] public Color DisabledColor = new Color(112f / 255, 112f / 255, 112f / 255);
     [Export] public Color NormalColor = new Color(1, 1, 1);
+    [Export] public Color UnlockColor = new Color(200f / 255, 200f / 255, 200f / 255);
     private bool _isHover = false;
 
     // Store delegate references for proper unsubscription
@@ -61,35 +62,33 @@ public partial class LevelNode : Node2D
     {
         UpdateDisplay();
         QueueRedraw();
-        
-        if (!Engine.IsEditorHint())
+
+        _hoverUI.Scale = new Vector2(0, 1);
+        _area.MouseEntered += () =>
         {
-            _hoverUI.Scale = new Vector2(0, 1);
-            _area.MouseEntered += () =>
-            {
-                var tween = GetTree().CreateTween();
-                var tween2 = GetTree().CreateTween();
-                tween.TweenProperty(_panelUI, "rotation", .2f, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-                tween2.TweenProperty(_hoverUI, "scale", Vector2.One, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-                _isHover = true;
-            };
-            _area.MouseExited += () =>
-            {
-                var tween = GetTree().CreateTween();
-                var tween2 = GetTree().CreateTween();
-                tween.TweenProperty(_panelUI, "rotation", 0f, .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-                tween2.TweenProperty(_hoverUI, "scale", new Vector2(0, 0), .5).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-                _isHover = false;
-            };
+            var tween = GetTree().CreateTween();
+            var tween2 = GetTree().CreateTween();
+            tween.TweenProperty(_panelUI, "rotation", .2f, .5).SetTrans(Tween.TransitionType.Quad)
+                .SetEase(Tween.EaseType.Out);
+            tween2.TweenProperty(_hoverUI, "scale", Vector2.One, .5).SetTrans(Tween.TransitionType.Quad)
+                .SetEase(Tween.EaseType.Out);
+            _isHover = true;
+        };
+        _area.MouseExited += () =>
+        {
+            var tween = GetTree().CreateTween();
+            var tween2 = GetTree().CreateTween();
+            tween.TweenProperty(_panelUI, "rotation", 0f, .5).SetTrans(Tween.TransitionType.Quad)
+                .SetEase(Tween.EaseType.Out);
+            tween2.TweenProperty(_hoverUI, "scale", new Vector2(0, 0), .5).SetTrans(Tween.TransitionType.Quad)
+                .SetEase(Tween.EaseType.In);
+            _isHover = false;
+        };
 
-            _onLevelEnterDelegate = (packedScene) =>
-            {
-                _isHover = false;
-            };
+        _onLevelEnterDelegate = packedScene => { _isHover = false; };
 
-            LevelManager.Instance.OnLevelEnter += _onLevelEnterDelegate;
-            Init();
-        }
+        LevelManager.Instance.OnLevelEnter += _onLevelEnterDelegate;
+        Init();
     }
 
     public override void _Input(InputEvent @event)
@@ -102,7 +101,7 @@ public partial class LevelNode : Node2D
                 {
                     return;
                 }
-                
+
                 if (IsCleared() || CanEnter())
                 {
                     LevelManager.Instance.EmitLevelEnter(PackedLevel);
@@ -136,10 +135,10 @@ public partial class LevelNode : Node2D
         {
             return;
         }
-        
+
         _numberUI.Text = LevelID;
         _nameUI.Text = LevelName;
-        
+
         QueueRedraw();
     }
 
@@ -154,7 +153,7 @@ public partial class LevelNode : Node2D
         else if (CanEnter())
         {
             _hoverUI.Modulate = NormalColor;
-            _panelUI.Modulate = NormalColor;
+            _panelUI.Modulate = UnlockColor;
             _sprite.Modulate = DisabledColor;
         }
         else
@@ -169,7 +168,7 @@ public partial class LevelNode : Node2D
     {
         if (Engine.IsEditorHint() || PackedLevel == null || PackedLevel.ResourcePath == null)
             return true;
-            
+
         return GetNode<SaveManager>("/root/SaveManager").IsLevelCleared(Path.GetFileNameWithoutExtension(PackedLevel.ResourcePath));
     }
 
@@ -177,7 +176,7 @@ public partial class LevelNode : Node2D
     {
         if (Engine.IsEditorHint())
             return true;
-            
+
         bool canEnter = true;
         foreach (var node in LevelNodes)
         {

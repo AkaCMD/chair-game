@@ -35,6 +35,8 @@ _panelUI = NodePath("Panel")
 _hoverUI = NodePath("Hover")
 LevelID = "1-1"
 LevelName = "Name"
+NormalColor = Color(0.627451, 0.83137256, 0.8156863, 1)
+UnlockColor = Color(1, 1, 1, 1)
 
 [node name="Hover" type="Panel" parent="." unique_id=81019567]
 anchors_preset = 4
