@@ -153,6 +153,10 @@ public partial class LevelSelector : Node2D
 
     public override void _Input(InputEvent @event)
     {
+        if (_isOnLevel)
+        {
+            return;
+        }
         if (@event is InputEventMouseButton inputEventMouseButton)
         {
             if (inputEventMouseButton.Pressed)
