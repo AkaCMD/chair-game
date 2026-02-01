@@ -17,8 +17,10 @@ public partial class DialogController : Node2D
 
     [ExportGroup("Settings")]
     [Export] private float _charInterval = 0.05f;
-    [Export] private float _charSpacing = 30f;
-    [Export] private int _maxCharsPerLine = 20;
+    [Export] private float _charSpacingZh = 30f;
+    [Export] private float _charSpacingEn = 15f;
+    [Export] private int _maxCharsPerLineZh = 20;
+    [Export] private int _maxCharsPerLineEn = 40;
     [Export] private float _lineSpacing = 40f;
     [Export] private Array<DialogResource> _dialogQueue = new Array<DialogResource>(); // Being played when entering the scene
 
@@ -48,16 +50,9 @@ public partial class DialogController : Node2D
         _dialogUI.Visible = false;
         if (_dialogQueue.Count != 0)
         {
-            // this plays the dialog when player entering the scene
+            // This plays the dialog when player enters the scene
             StartDialog(new List<DialogResource>(_dialogQueue), "AutoStartDialog");
         }
-        //Test();
-    }
-
-    private void Test()
-    {
-        var line = GD.Load<DialogResource>("res://dialog/DialogResources/dialog_test.tres");
-        StartDialog(new List<DialogResource> { line });
     }
 
     public void StartDialog(List<DialogResource> dialogs)
@@ -174,16 +169,51 @@ public partial class DialogController : Node2D
         var charNode = _packedDialogText.Instantiate<DialogText>();
         _textContainer.AddChild(charNode);
 
+        float spacing = GetCharSpacing();
+        int maxChars = GetMaxCharsPerLine();
+
         int col = index;
         int row = 0;
-        if (_maxCharsPerLine > 0)
+        if (maxChars > 0)
         {
-            col = index % _maxCharsPerLine;
-            row = index / _maxCharsPerLine;
+            col = index % maxChars;
+            row = index / maxChars;
         }
 
-        var pos = new Vector2(col * _charSpacing, row * _lineSpacing);
+        var pos = new Vector2(col * spacing, row * _lineSpacing);
         charNode.Setup(_currentResource.Text[index].ToString(), pos);
+    }
+
+    // Get character spacing based on current language
+    private float GetCharSpacing()
+    {
+        string locale = TranslationServer.GetLocale();
+        // Support simplified Chinese (zh_CN) and traditional Chinese (zh_TW)
+        if (locale.StartsWith("zh"))
+        {
+            return _charSpacingZh;
+        }
+        else
+        {
+            // Use English spacing for other languages
+            return _charSpacingEn;
+        }
+    }
+
+    // Get maximum characters per line based on current language
+    private int GetMaxCharsPerLine()
+    {
+        string locale = TranslationServer.GetLocale();
+        // Support simplified Chinese (zh_CN) and traditional Chinese (zh_TW)
+        if (locale.StartsWith("zh"))
+        {
+            return _maxCharsPerLineZh;
+        }
+        else
+        {
+            // Use English maximum characters for other languages
+            return _maxCharsPerLineEn;
+        }
     }
 
     private void OpenDialogUI()
