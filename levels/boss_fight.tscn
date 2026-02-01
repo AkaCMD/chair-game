@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="5_sbg3u"]
 [ext_resource type="PackedScene" uid="uid://cw2lt817npp2q" path="res://ui/gameover_overlay.tscn" id="6_5a8ju"]
 [ext_resource type="Resource" uid="uid://bi4qrvmds07j8" path="res://dialog/dialog_resources/boss/dialog_boss_01.tres" id="6_sbg3u"]
+[ext_resource type="PackedScene" uid="uid://b2t4x35rv5yhy" path="res://ui/cg_layer.tscn" id="7_p17wa"]
 [ext_resource type="Resource" uid="uid://bjt6mcuk3ds4b" path="res://dialog/dialog_resources/boss/dialog_boss_02.tres" id="7_sbg3u"]
 [ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="7_u5nvv"]
 [ext_resource type="Resource" uid="uid://ddod874ysx3ga" path="res://dialog/dialog_resources/boss/dialog_boss_03.tres" id="8_5a8ju"]
@@ -54,6 +55,8 @@ layout_mode = 1
 
 [node name="GameoverOverlay" parent="GUI" unique_id=1132266442 instance=ExtResource("6_5a8ju")]
 visible = false
+
+[node name="CgLayer" parent="GUI" unique_id=579847309 instance=ExtResource("7_p17wa")]
 
 [node name="Background" type="ColorRect" parent="." unique_id=280575011]
 visible = false
