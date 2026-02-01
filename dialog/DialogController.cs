@@ -16,7 +16,8 @@ public partial class DialogController : Node2D
     [Export] private RichTextLabel _speakerName;
 
     [ExportGroup("Settings")]
-    [Export] private float _charInterval = 0.05f;
+    [Export] private float _charIntervalZh = 0.05f;  // Character interval for Chinese
+    [Export] private float _charIntervalEn = 0.033f; // Character interval for English (approximately 1.5x faster)
     [Export] private float _charSpacingZh = 30f;
     [Export] private float _charSpacingEn = 15f;
     [Export] private int _maxCharsPerLineZh = 20;
@@ -30,6 +31,12 @@ public partial class DialogController : Node2D
     private int _charIndex;
     private bool _isTyping = false;
     private string _currentDialogId = "";
+
+    // For English word wrapping and audio
+    private bool _isEnglish = false;
+    private List<int> _wordStartIndices = new List<int>(); // Start index of each word in the current line
+    private List<int> _wordLengths = new List<int>();     // Length of each word
+    private List<Vector2> _characterPositions = new List<Vector2>(); // Pre-calculated positions for all characters
 
     public override void _EnterTree()
     {
@@ -69,6 +76,7 @@ public partial class DialogController : Node2D
         foreach (var data in dialogs)
         {
             data.Text = Tr(data.Text);
+            // Split text by newlines (preserve intentional line breaks)
             var lines = data.Text.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             foreach (var line in lines)
             {
@@ -87,7 +95,8 @@ public partial class DialogController : Node2D
         if (!_isTyping || _currentResource == null) return;
 
         _timer += delta;
-        if (_timer > _charInterval)
+        float charInterval = GetCharInterval();
+        if (_timer > charInterval)
         {
             _timer = 0;
             SpawnNextChar();
@@ -139,6 +148,133 @@ public partial class DialogController : Node2D
         _charIndex = 0;
         _timer = 0;
         _isTyping = true;
+
+        // Detect language and prepare for English word wrapping
+        _isEnglish = !TranslationServer.GetLocale().StartsWith("zh");
+        _wordStartIndices.Clear();
+        _wordLengths.Clear();
+        _characterPositions.Clear();
+
+        if (_isEnglish && _currentResource.Text != null)
+        {
+            PrepareEnglishWordInfo(_currentResource.Text);
+            CalculateEnglishCharacterPositions();
+        }
+    }
+
+    private void PrepareEnglishWordInfo(string text)
+    {
+        _wordStartIndices.Clear();
+        _wordLengths.Clear();
+
+        bool inWord = false;
+        int wordStart = 0;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            char c = text[i];
+            bool isWordChar = IsEnglishWordChar(c);
+
+            if (isWordChar && !inWord)
+            {
+                // Start of a word
+                wordStart = i;
+                inWord = true;
+            }
+            else if (!isWordChar && inWord)
+            {
+                // End of a word
+                _wordStartIndices.Add(wordStart);
+                _wordLengths.Add(i - wordStart);
+                inWord = false;
+            }
+        }
+
+        // Add the last word if we're still in a word
+        if (inWord)
+        {
+            _wordStartIndices.Add(wordStart);
+            _wordLengths.Add(text.Length - wordStart);
+        }
+    }
+
+    private bool IsEnglishWordChar(char c)
+    {
+        return char.IsLetterOrDigit(c) || c == '\'' || c == '-';
+    }
+
+    private void CalculateEnglishCharacterPositions()
+    {
+        _characterPositions.Clear();
+        if (_currentResource.Text == null) return;
+
+        string text = _currentResource.Text;
+        float spacing = _charSpacingEn;
+        float maxLineWidth = _maxCharsPerLineEn * spacing;
+
+        float currentX = 0;
+        float currentY = 0;
+        int wordIndex = 0;
+        int charIndex = 0;
+
+        while (charIndex < text.Length)
+        {
+            // Check if current character is part of a word
+            bool isInWord = false;
+            int wordStart = -1;
+            int wordLength = 0;
+
+            for (int i = 0; i < _wordStartIndices.Count; i++)
+            {
+                if (charIndex >= _wordStartIndices[i] &&
+                    charIndex < _wordStartIndices[i] + _wordLengths[i])
+                {
+                    isInWord = true;
+                    wordStart = _wordStartIndices[i];
+                    wordLength = _wordLengths[i];
+                    wordIndex = i;
+                    break;
+                }
+            }
+
+            if (isInWord)
+            {
+                // We're inside a word
+                float wordWidth = wordLength * spacing;
+
+                // Check if word fits on current line
+                if (currentX + wordWidth > maxLineWidth && currentX > 0)
+                {
+                    // Word doesn't fit, move to next line
+                    currentX = 0;
+                    currentY += _lineSpacing;
+                }
+
+                // Calculate positions for all characters in this word
+                for (int i = 0; i < wordLength; i++)
+                {
+                    _characterPositions.Add(new Vector2(currentX + i * spacing, currentY));
+                }
+
+                currentX += wordWidth;
+                charIndex += wordLength;
+                wordIndex++;
+            }
+            else
+            {
+                // We're on a non-word character (space or punctuation)
+                // Check if we need to wrap (for very long lines with no spaces)
+                if (currentX + spacing > maxLineWidth && currentX > 0)
+                {
+                    currentX = 0;
+                    currentY += _lineSpacing;
+                }
+
+                _characterPositions.Add(new Vector2(currentX, currentY));
+                currentX += spacing;
+                charIndex++;
+            }
+        }
     }
 
     private void SpawnNextChar()
@@ -148,8 +284,42 @@ public partial class DialogController : Node2D
             _isTyping = false;
             return;
         }
+
+        // Check if we should play sound for this character
+        bool shouldPlaySound = true;
+        if (_isEnglish)
+        {
+            // Find which word we're in (if any)
+            int wordIndex = -1;
+            for (int i = 0; i < _wordStartIndices.Count; i++)
+            {
+                if (_charIndex >= _wordStartIndices[i] &&
+                    _charIndex < _wordStartIndices[i] + _wordLengths[i])
+                {
+                    wordIndex = i;
+                    break;
+                }
+            }
+
+            // Play sound only at the start of each word
+            if (wordIndex != -1)
+            {
+                shouldPlaySound = (_charIndex == _wordStartIndices[wordIndex]);
+            }
+            else
+            {
+                // For non-word characters (punctuation), play sound normally
+                shouldPlaySound = true;
+            }
+        }
+
         CreateCharNode(_charIndex);
-        Utils.PlayWithRandomPitch(_soundTalk, _currentResource.PitchOffset);
+
+        if (shouldPlaySound)
+        {
+            Utils.PlayWithRandomPitch(_soundTalk, _currentResource.PitchOffset);
+        }
+
         _charIndex++;
     }
 
@@ -169,26 +339,52 @@ public partial class DialogController : Node2D
         var charNode = _packedDialogText.Instantiate<DialogText>();
         _textContainer.AddChild(charNode);
 
-        float spacing = GetCharSpacing();
-        int maxChars = GetMaxCharsPerLine();
+        Vector2 position;
 
-        int col = index;
-        int row = 0;
-        if (maxChars > 0)
+        if (_isEnglish && _characterPositions.Count > index)
         {
-            col = index % maxChars;
-            row = index / maxChars;
+            // Use pre-calculated positions for English (with word wrapping)
+            position = _characterPositions[index];
+        }
+        else
+        {
+            // Chinese or fallback: simple character-based layout
+            float spacing = GetCharSpacing();
+            int maxChars = GetMaxCharsPerLine();
+
+            int col = index;
+            int row = 0;
+            if (maxChars > 0)
+            {
+                col = index % maxChars;
+                row = index / maxChars;
+            }
+
+            position = new Vector2(col * spacing, row * _lineSpacing);
         }
 
-        var pos = new Vector2(col * spacing, row * _lineSpacing);
-        charNode.Setup(_currentResource.Text[index].ToString(), pos);
+        charNode.Setup(_currentResource.Text[index].ToString(), position);
+    }
+
+    // Get character interval based on current language
+    private float GetCharInterval()
+    {
+        string locale = TranslationServer.GetLocale();
+        if (locale.StartsWith("zh"))
+        {
+            return _charIntervalZh;
+        }
+        else
+        {
+            // English and other languages use faster interval
+            return _charIntervalEn;
+        }
     }
 
     // Get character spacing based on current language
     private float GetCharSpacing()
     {
         string locale = TranslationServer.GetLocale();
-        // Support simplified Chinese (zh_CN) and traditional Chinese (zh_TW)
         if (locale.StartsWith("zh"))
         {
             return _charSpacingZh;
@@ -204,7 +400,6 @@ public partial class DialogController : Node2D
     private int GetMaxCharsPerLine()
     {
         string locale = TranslationServer.GetLocale();
-        // Support simplified Chinese (zh_CN) and traditional Chinese (zh_TW)
         if (locale.StartsWith("zh"))
         {
             return _maxCharsPerLineZh;
