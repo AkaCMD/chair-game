@@ -35,9 +35,17 @@ public partial class DamageArea : Area2D
             _wasPlayerLeavingChair = false;
 
             // Player just finished leaving chair, check if they're in danger now
-            if (!Player.Instance.IsSit && !Player.Instance.IsSliding && IsPlayerOverlapping())
+            if (!Player.Instance.IsSit && !Player.Instance.IsSliding)
             {
-                TriggerAttack();
+                // Use CallDeferred to ensure all position updates and collision checks are complete
+                // This prevents false positives when player moves to safe area immediately after leaving chair
+                Callable.From(() =>
+                {
+                    if (Player.Instance != null && IsPlayerOverlapping())
+                    {
+                        TriggerAttack();
+                    }
+                }).CallDeferred();
             }
         }
 
