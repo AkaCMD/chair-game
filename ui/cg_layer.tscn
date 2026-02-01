@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b2t4x35rv5yhy"]
 
+[ext_resource type="Texture2D" uid="uid://caobe1mwxnlx5" path="res://assets/cg.jpg" id="1_kc3bk"]
+
 [node name="CgLayer" type="CanvasLayer" unique_id=579847309]
 layer = 3
 visible = false
@@ -18,20 +20,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("1_kc3bk")
 expand_mode = 1
-
-[node name="Label" type="Label" parent="." unique_id=557975562]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -239.0
-offset_top = -32.0
-offset_right = 237.0
-offset_bottom = 38.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-text = "你成功肘飞了 Boss !"
-horizontal_alignment = 1
