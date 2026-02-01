@@ -98,6 +98,11 @@ public partial class Mover : Node2D
         _gridPosition += _plannedMove;
         prevMoveDir = _plannedMove;
         _plannedMove = Vector2I.Zero;
+        
+        if (this is Player player && IsCoffee(_gridPosition, out _))
+        {
+            player.SoundWater.Play();
+        }
     }
 
     public virtual bool CanMoveToward(Vector2I dir)

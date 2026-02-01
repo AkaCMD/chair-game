@@ -195,8 +195,7 @@ public partial class Player : Mover
         {
             if (IsCoffee(GridPosition, out _))
             {
-                Player.Instance.SoundWater.Play();
-                GD.Print("coffee");
+                SoundWater.Play();
             }
             if (IsSliding) return;
             bool isSameDirection = (newDirection == Direction);
