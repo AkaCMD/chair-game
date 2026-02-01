@@ -50,9 +50,9 @@ public partial class LevelNode : Node2D
 
     [Export] public PackedScene PackedLevel;
 
-    [Export] public Color DisabledColor = new Color(112f / 255, 112f / 255, 112f / 255);
-    [Export] public Color NormalColor = new Color(1, 1, 1);
-    [Export] public Color UnlockColor = new Color(200f / 255, 200f / 255, 200f / 255);
+    [Export] public Color Grey = new Color(112f / 255, 112f / 255, 112f / 255);
+    [Export] public Color Green = new Color(1, 1, 1);
+    [Export] public Color White = new Color(200f / 255, 200f / 255, 200f / 255);
     private bool _isHover = false;
 
     // Store delegate references for proper unsubscription
@@ -142,25 +142,22 @@ public partial class LevelNode : Node2D
         QueueRedraw();
     }
 
-    private void Init()
+    public void Init()
     {
         if (IsCleared())
         {
-            _hoverUI.Modulate = NormalColor;
-            _panelUI.Modulate = NormalColor;
-            _sprite.Modulate = NormalColor;
+            _hoverUI.Modulate = White;
+            _panelUI.Modulate = Green;
         }
         else if (CanEnter())
         {
-            _hoverUI.Modulate = NormalColor;
-            _panelUI.Modulate = UnlockColor;
-            _sprite.Modulate = DisabledColor;
+            _hoverUI.Modulate = White;
+            _panelUI.Modulate = White;
         }
         else
         {
-            _hoverUI.Modulate = DisabledColor;
-            _panelUI.Modulate = DisabledColor;
-            _sprite.Modulate = DisabledColor;
+            _hoverUI.Modulate = Grey;
+            _panelUI.Modulate = Grey;
         }
     }
 

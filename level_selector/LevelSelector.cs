@@ -148,12 +148,20 @@ public partial class LevelSelector : Node2D
                          .SetEase(Tween.EaseType.In);
                     
                     // Update level selector nodes
-                    tween2.Finished += () =>
-                    {
-                        GetTree().ReloadCurrentScene();
-                    };
+                    tween2.Finished += UpdateNodes;
                 };
             };
+        }
+    }
+
+    private void UpdateNodes()
+    {
+        foreach (var child in Nodes.GetChildren())
+        {
+            if (child is LevelNode levelNode)
+            {
+                levelNode.Init();
+            }
         }
     }
 
