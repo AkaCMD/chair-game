@@ -7,7 +7,6 @@
 script = ExtResource("1_oqdca")
 SpeakerName = "？？？"
 SpeakerImg = ExtResource("1_lx26v")
-Text = "嘿嘿嘿，降本增效…降本增效…
-没用的东西就该清理出去哟"
+Text = "dialog_beginning_00"
 PitchOffset = -0.33000000000000007
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

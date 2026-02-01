@@ -5,15 +5,7 @@
 
 [resource]
 script = ExtResource("1_fq686")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_onlbv")
-Text = "…
-突然整个项目组都被裁掉了啊
-那前一个月的加班算什么…
-…真是安静呢
-。。。
-工位上的东西已经打包好放在箱子里了
-放在椅子上推走能省点力气
-东西堆得真是一团糟，似乎都走不出去了
-试着推一下我收拾好的椅子吧"
+Text = "dialog_beginning_01"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

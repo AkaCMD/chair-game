@@ -5,9 +5,8 @@
 
 [resource]
 script = ExtResource("2_08d8t")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_wsnaa")
-Text = "。。。
-不过不得不说破坏的感觉挺好的"
+Text = "dialog_beginning_03"
 PitchOffset = -0.10000000000000007
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

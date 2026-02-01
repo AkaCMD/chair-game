@@ -5,8 +5,7 @@
 
 [resource]
 script = ExtResource("2_bixfn")
-SpeakerName = "你"
+SpeakerName = "you"
 SpeakerImg = ExtResource("1_fmihg")
-Text = "完蛋了，咋响警报，这下不付赔偿连公司都出不去了
-想必那个老板会让员工付上114514元都不够的赔偿金罢"
+Text = "dialog_beginning_04"
 metadata/_custom_type_script = "uid://mo2cpoqt1t5s"

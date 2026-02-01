@@ -73,10 +73,11 @@ public partial class DialogController : Node2D
 
         foreach (var data in dialogs)
         {
+            data.Text = Tr(data.Text);
             var lines = data.Text.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             foreach (var line in lines)
             {
-                var runtimeData = (DialogResource) data.Duplicate();
+                var runtimeData = (DialogResource)data.Duplicate();
                 runtimeData.Text = line;
                 _runtimeQueue.Add(runtimeData);
             }
@@ -137,6 +138,7 @@ public partial class DialogController : Node2D
         _runtimeQueue.RemoveAt(0);
 
         _portraitRect.Texture = _currentResource.SpeakerImg;
+        _currentResource.SpeakerName = Tr(_currentResource.SpeakerName);
         _speakerName.Text = "[wave][center]" + _currentResource.SpeakerName;
 
         _charIndex = 0;
@@ -179,7 +181,7 @@ public partial class DialogController : Node2D
             col = index % _maxCharsPerLine;
             row = index / _maxCharsPerLine;
         }
-        
+
         var pos = new Vector2(col * _charSpacing, row * _lineSpacing);
         charNode.Setup(_currentResource.Text[index].ToString(), pos);
     }
