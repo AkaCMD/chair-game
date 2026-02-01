@@ -197,13 +197,32 @@ public partial class GlassWindow : Mover
         {
             SoundFall?.Play();
             
-            GD.Print("你肘飞了 boss ！");
-            // TODO: 展示cg
+            // show CG
+            CanvasLayer cgLayer = null;
+            
+            if (LevelSelector.Instance != null)
+            {
+                cgLayer = GetNodeOrNull<CanvasLayer>("/root/LevelSelector/CanvasLayer/Main/GUI/CgLayer");
+            }
+            else
+            {
+                cgLayer = GetNodeOrNull<CanvasLayer>("/root/Main/GUI/CgLayer");
+            }
+            cgLayer.Show();
+            
             GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.LevelComplete, "boss_fight");
             
             var exitTimer = GetTree().CreateTimer( 3.0f);
             exitTimer.Timeout += () => {
-                LevelManager.Instance.EmitLevelExit(true);
+                cgLayer.Hide();
+                if (LevelSelector.Instance == null)
+                {
+                    GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
+                }
+                else
+                {
+                    LevelManager.Instance.EmitLevelExit(true);
+                }
             };
             return true;
         }

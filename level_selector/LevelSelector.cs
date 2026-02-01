@@ -17,7 +17,7 @@ public partial class LevelSelector : Node2D
 
     [Export] private CanvasLayer _canvasLayer;
     [Export] private Panel _levelSelectorTitle;
-    [Export] private Node2D _nodes;
+    [Export] public Node2D Nodes;
     [Export] private Sprite2D _breakSprite;
 
     private Node2D _currentLevel;
@@ -50,7 +50,7 @@ public partial class LevelSelector : Node2D
             _canvasLayer.AddChild(entryScene.Instantiate());
         }
 
-        if (!saveManager.IsLevelCleared("tuto1"))
+        if (!saveManager.IsLevelCleared("tuto1") && saveManager.IsLevelCleared("beginning"))
         {
             DialogController.Instance.StartDialog(
                 new List<DialogResource> { GD.Load<DialogResource>("res://dialog/dialog_resources/level_selector/dialog_levelselector.tres")});
@@ -88,7 +88,7 @@ public partial class LevelSelector : Node2D
                 timer.Timeout += () =>
                 {
                     // Hide level selector UI
-                    _nodes.Visible = false;
+                    Nodes.Visible = false;
                     _levelSelectorTitle.Visible = false;
 
                     // Instantiate and add the level
@@ -132,7 +132,7 @@ public partial class LevelSelector : Node2D
                     _currentLevel = null;
 
                     // Show level selector UI
-                    _nodes.Visible = true;
+                    Nodes.Visible = true;
                     _levelSelectorTitle.Visible = true;
 
                     // Restore camera position when returning to level selector

@@ -63,6 +63,17 @@ public partial class SaveManager : Node
         }
     }
 
+    public void ClearSaveData()
+    {
+        if (FileAccess.FileExists(SavePath))
+        {
+            DirAccess.RemoveAbsolute(SavePath);
+            GD.Print("已删除存档文件");
+        }
+
+        Data = new GameSaveData();
+    }
+
     private void LoadGame()
     {
         if (!FileAccess.FileExists(SavePath))
