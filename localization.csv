@@ -115,3 +115,6 @@ move,[Move] WASD/Arrow,[移动]WASD/方向键
 action,[Action] E/X,[交互] E/X
 undo,[Undo] Z,[撤销] Z
 reset,[Reset] R,[重置] R
+gameover,"GAME OVER
+Press Z to undo ","GAME OVER
+按 Z 撤回操作"
