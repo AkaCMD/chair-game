@@ -118,3 +118,10 @@ reset,[Reset] R,[重置] R
 gameover,"GAME OVER
 Press Z to undo ","GAME OVER
 按 Z 撤回操作"
+credit_00,[Programming]\nTrioDuckk\nFeishiko,【程序】\n三重鸭\nFeishiko
+credit_01,[Art]\nDaNGo_iz\nTrioDuckk,【美术】\n以子\n三重鸭
+credit_02,[UI]\nFeishiko\nTrioDuckk,【UI】\nFeishiko\n三重鸭
+credit_03,[Design]\nFeishiko\nTrioDuckk\nDaNGo_iz,【策划】\nFeishiko\n三重鸭\n以子
+credit_04,[Music]\nFeishiko,【音乐/音效】\nFeishiko
+credit_05,[Shader]\nFeishiko\nKoiro,【着色器】\nFeishiko\n宏楼
+credit_06,Thanks for playing!,感谢游玩！
