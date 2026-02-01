@@ -35,8 +35,8 @@ _panelUI = NodePath("Panel")
 _hoverUI = NodePath("Hover")
 LevelID = "1-1"
 LevelName = "Name"
-NormalColor = Color(0.627451, 0.83137256, 0.8156863, 1)
-UnlockColor = Color(1, 1, 1, 1)
+Green = Color(0.6310402, 0.9659893, 0.8497977, 1)
+White = Color(1, 1, 1, 1)
 
 [node name="Hover" type="Panel" parent="." unique_id=81019567]
 anchors_preset = 4
@@ -47,6 +47,7 @@ offset_top = -19.0
 offset_right = 153.0
 offset_bottom = 21.0
 grow_vertical = 2
+scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(153, 19)
 theme_override_styles/panel = SubResource("StyleBoxFlat_tuw2l")
 
