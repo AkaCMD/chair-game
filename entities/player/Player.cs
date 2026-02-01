@@ -54,6 +54,7 @@ public partial class Player : Mover
     [Export] public AudioStreamPlayer SoundCrush;
     [Export] public AudioStreamPlayer SoundCollide;
     [Export] public AudioStreamPlayer SoundBreak;
+    [Export] public AudioStreamPlayer SoundWater;
 
     public override void _EnterTree()
     {
@@ -192,6 +193,11 @@ public partial class Player : Mover
 
         if (IsSit)
         {
+            if (IsCoffee(GridPosition, out _))
+            {
+                Player.Instance.SoundWater.Play();
+                GD.Print("coffee");
+            }
             if (IsSliding) return;
             bool isSameDirection = (newDirection == Direction);
             if (isSameDirection)
