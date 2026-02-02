@@ -16,6 +16,9 @@ public partial class CreditsController : Control
     private bool _isShowing = false;
     private bool _creditsDone = false; // Credits displayed but waiting for skip input
 
+    // Store reference to paused level music
+    private AudioStreamPlayer _pausedLevelMusic = null;
+
     public override void _Ready()
     {
         MouseFilter = MouseFilterEnum.Stop;
@@ -72,6 +75,9 @@ public partial class CreditsController : Control
             GrabFocus();
         }
 
+        // Pause level music before starting credits BGM
+        PauseLevelMusic();
+
         // Start BGM
         if (_bgmPlayer != null && !_bgmPlayer.Playing)
         {
@@ -98,6 +104,9 @@ public partial class CreditsController : Control
             _bgmPlayer.Stop();
         }
 
+        // Resume level music after stopping credits BGM
+        ResumeLevelMusic();
+
         // Release focus
         if (IsInsideTree())
         {
@@ -111,6 +120,62 @@ public partial class CreditsController : Control
         {
             _creditsLabel.Text = "";
         }
+    }
+
+    // Pause the level music (Music node in level_selector scene)
+    private void PauseLevelMusic()
+    {
+        _pausedLevelMusic = null;
+
+        // Try to find the Music node
+        var root = GetTree().Root;
+
+        // First try by known path
+        var musicNode = root.GetNodeOrNull<AudioStreamPlayer>("/root/LevelSelector/Music");
+        if (musicNode == null)
+        {
+            // Fallback: search recursively for a node named "Music"
+            musicNode = FindMusicNodeInTree(root);
+        }
+
+        if (musicNode != null && musicNode.Playing)
+        {
+            // Pause without checking what it's playing
+            musicNode.StreamPaused = true;
+            _pausedLevelMusic = musicNode;
+            GD.Print($"Paused level music: {musicNode.Name} (path: {musicNode.GetPath()})");
+        }
+    }
+
+    // Recursively search for a node named "Music" that is an AudioStreamPlayer
+    private AudioStreamPlayer FindMusicNodeInTree(Node node)
+    {
+        if (node is AudioStreamPlayer player && node.Name == "Music")
+        {
+            return player;
+        }
+
+        foreach (var child in node.GetChildren())
+        {
+            var found = FindMusicNodeInTree(child);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    // Resume the previously paused level music
+    private void ResumeLevelMusic()
+    {
+        if (_pausedLevelMusic != null && IsInstanceValid(_pausedLevelMusic))
+        {
+            _pausedLevelMusic.StreamPaused = false;
+            GD.Print($"Resumed level music: {_pausedLevelMusic.Name}");
+        }
+        _pausedLevelMusic = null;
     }
 
     private void ShowCurrentLine()

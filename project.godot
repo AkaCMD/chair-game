@@ -27,7 +27,7 @@ ReplaySystem="*res://shared/save/ReplaySystem.cs"
 LevelManager="*res://shared/LevelManager.cs"
 DeveloperCommands="uid://c4cp8prie3wmn"
 Localization="*uid://b3xeh4r5uprae"
-ImGuiRoot="*uid://dugmpnsxaagba"
+ImGuiRoot="uid://dugmpnsxaagba"
 
 [display]
 
