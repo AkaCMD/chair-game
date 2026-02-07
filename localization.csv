@@ -111,9 +111,10 @@ dialog_watchout_01,"Heard they cut corners here to save money, though. \nLet’s
 space,Press space,按下空格
 replay,Replay,重播
 move,[Move] WASD/Arrow,[移动]WASD/方向键
-action,[Action] E/X,[交互] E/X
+action,[Grab/Put Box] E/X,[拿/放箱子] E/X
 undo,[Undo] Z,[撤销] Z
 reset,[Reset] R,[重置] R
+esc,[Return] ESC,[返回] ESC
 gameover,"GAME OVER
 Press Z to undo ","GAME OVER
 按 Z 撤回操作"

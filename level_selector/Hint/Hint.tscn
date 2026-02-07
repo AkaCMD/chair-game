@@ -14,31 +14,39 @@ grow_vertical = 2
 [node name="HintItem" parent="." unique_id=196148682 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
-offset_top = 548.0
+offset_top = 511.0
 offset_right = 1054.88
-offset_bottom = 548.28
+offset_bottom = 511.28
 _labelText = "move"
 
 [node name="HintItem2" parent="." unique_id=365244367 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
-offset_top = 590.0
+offset_top = 553.0
 offset_right = 1054.88
-offset_bottom = 590.28
+offset_bottom = 553.28
 _labelText = "action"
 
 [node name="HintItem3" parent="." unique_id=1371056382 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
-offset_top = 632.0
+offset_top = 595.0
 offset_right = 1054.88
-offset_bottom = 632.28
+offset_bottom = 595.28
 _labelText = "undo"
 
 [node name="HintItem4" parent="." unique_id=337710404 instance=ExtResource("1_8k0ya")]
 layout_mode = 1
 offset_left = 1055.0
-offset_top = 673.0
+offset_top = 636.0
 offset_right = 1054.88
-offset_bottom = 673.28
+offset_bottom = 636.28
 _labelText = "reset"
+
+[node name="HintItem5" parent="." unique_id=412820196 instance=ExtResource("1_8k0ya")]
+layout_mode = 1
+offset_left = 1055.0
+offset_top = 678.0
+offset_right = 1054.88
+offset_bottom = 678.28
+_labelText = "esc"
