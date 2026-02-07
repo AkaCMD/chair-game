@@ -11,7 +11,7 @@ public partial class Game : Node
 
     public List<Mover> Movers = new();
 
-    public float MoveTime = 0.1f;  // time it takes to move 1 unit
+    public float MoveTime = 0.09f;  // time it takes to move 1 unit
     public float MoveBufferSpeedupFactor = 0.5f; // degree of speedup due to buffered inputs
 
     private int _movingCount = 0;
