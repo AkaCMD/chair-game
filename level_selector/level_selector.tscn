@@ -47,7 +47,7 @@ shadow_offset = Vector2(5, 5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hggau"]
 shader = ExtResource("5_28gom")
 
-[node name="LevelSelector" type="Node2D" unique_id=484866355 node_paths=PackedStringArray("_camera", "_screenColorRect", "_canvasLayer", "_levelSelectorTitle", "Nodes", "_breakSprite", "_soundLevelStart")]
+[node name="LevelSelector" type="Node2D" unique_id=484866355 node_paths=PackedStringArray("_camera", "_screenColorRect", "_canvasLayer", "_levelSelectorTitle", "Nodes", "_breakSprite", "_dialog", "_soundLevelStart")]
 script = ExtResource("1_hfeca")
 DRAGGING_LIMIT_X = 3000.0
 _camera = NodePath("Nodes/Camera2D")
@@ -56,6 +56,7 @@ _canvasLayer = NodePath("CanvasLayer")
 _levelSelectorTitle = NodePath("CanvasLayer/Panel")
 Nodes = NodePath("Nodes")
 _breakSprite = NodePath("CanvasLayer/Break")
+_dialog = NodePath("DialogController")
 _soundLevelStart = NodePath("LevelStart")
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=774915249]

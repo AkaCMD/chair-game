@@ -90,6 +90,15 @@ public partial class DialogController : Node2D
         ShowNextLine();
     }
 
+    public void StopAllDialogs()
+    {
+        _runtimeQueue.Clear();
+        _currentResource = null;
+        _isTyping = false;
+        _currentDialogId = "";
+        CloseDialogUI();
+    }
+
     public override void _Process(double delta)
     {
         if (!_isTyping || _currentResource == null) return;

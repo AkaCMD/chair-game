@@ -19,6 +19,7 @@ public partial class LevelSelector : Node2D
     [Export] private Panel _levelSelectorTitle;
     [Export] public Node2D Nodes;
     [Export] private Sprite2D _breakSprite;
+    [Export] private Node2D _dialog;
 
     private Node2D _currentLevel;
     public static LevelSelector Instance { get; private set; }
@@ -53,10 +54,16 @@ public partial class LevelSelector : Node2D
         if (!saveManager.IsLevelCleared("tuto1") && saveManager.IsLevelCleared("beginning"))
         {
             DialogController.Instance.StartDialog(
-                new List<DialogResource> { GD.Load<DialogResource>("res://dialog/dialog_resources/level_selector/dialog_levelselector.tres")});
+                new List<DialogResource> { GD.Load<DialogResource>("res://dialog/dialog_resources/level_selector/dialog_levelselector.tres") });
         }
         LevelManager.Instance.OnLevelEnter += HandleLevelEnter;
+        LevelManager.Instance.OnLevelEnter += HideLvlSelectorDialog;
         LevelManager.Instance.OnLevelExit += HandleLevelExit;
+    }
+
+    private void HideLvlSelectorDialog(PackedScene _)
+    {
+        DialogController.Instance?.StopAllDialogs();
     }
 
     private void HandleLevelEnter(PackedScene packedLevel)
@@ -146,7 +153,7 @@ public partial class LevelSelector : Node2D
                     tween2.TweenProperty(_screenColorRect, "size", new Vector2(0, 720), 1f)
                          .SetTrans(Tween.TransitionType.Cubic)
                          .SetEase(Tween.EaseType.In);
-                    
+
                     // Update level selector nodes
                     tween2.Finished += UpdateNodes;
                 };
@@ -225,6 +232,7 @@ public partial class LevelSelector : Node2D
     public override void _ExitTree()
     {
         LevelManager.Instance.OnLevelEnter -= HandleLevelEnter;
+        LevelManager.Instance.OnLevelEnter -= HideLvlSelectorDialog;
         LevelManager.Instance.OnLevelExit -= HandleLevelExit;
     }
 }
