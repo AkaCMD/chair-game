@@ -16,11 +16,16 @@ public partial class ReplaySystem : Node
         if (solution == null)
         {
             GD.Print("No solution record available for this level.");
+            Game.Instance.IsReplaying = false;
             return;
         }
 
         Player.Instance.InputBuffer.Clear();
         Game.Instance.ExecuteReset();
+
+        // Wait for one frame to ensure the level is fully loaded and all nodes are initialized
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
         foreach (var step in solution)
         {
             if (step.Type == StepType.Move)
@@ -45,7 +50,6 @@ public partial class ReplaySystem : Node
 
     private async Task WaitForAllMovementComplete()
     {
-        
         while ((Game.Instance != null && Game.Instance.HasMoverSliding()) || 
                (Player.Instance != null && Player.Instance.InputBuffer.Count > 0))
         {

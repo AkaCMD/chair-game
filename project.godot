@@ -26,6 +26,7 @@ SaveManager="*res://shared/save/SaveManager.cs"
 ReplaySystem="*res://shared/save/ReplaySystem.cs"
 LevelManager="*res://shared/LevelManager.cs"
 Localization="*uid://b3xeh4r5uprae"
+ImGuiRoot="*uid://dugmpnsxaagba"
 
 [display]
 
