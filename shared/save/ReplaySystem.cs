@@ -45,7 +45,9 @@ public partial class ReplaySystem : Node
 
     private async Task WaitForAllMovementComplete()
     {
-        while (Game.Instance.HasMoverSliding() || Player.Instance.InputBuffer.Count > 0)
+        
+        while ((Game.Instance != null && Game.Instance.HasMoverSliding()) || 
+               (Player.Instance != null && Player.Instance.InputBuffer.Count > 0))
         {
             await ToSignal(GetTree().CreateTimer(0.05f), SceneTreeTimer.SignalName.Timeout);
         }

@@ -75,7 +75,7 @@ public partial class Player : Mover
         }
 
         if (Game.Instance == null) return;
-        
+
         // Back to level selector without beating the level
         if (Input.IsActionJustPressed("escape"))
         {
@@ -110,7 +110,7 @@ public partial class Player : Mover
         {
             IsSit = false;
         }
-        
+
         if (IsSit)
         {
             _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
@@ -139,8 +139,8 @@ public partial class Player : Mover
         if (Game.Instance == null) return false;
         if (!IsInstanceValid(this)) return false;
         return !Game.Instance.IsMoving &&
-               !Game.Instance.IsHoldingUndo && 
-               !IsSliding 
+               !Game.Instance.IsHoldingUndo &&
+               !IsSliding
                && !Game.Instance.IsInputBlocked;
     }
 
@@ -248,6 +248,10 @@ public partial class Player : Mover
                 else
                 {
                     CommandManager.ExecuteCommand(new LeaveChairCommand(GridPosition));
+                    if (TryPlanMove(Direction))
+                    {
+                        Game.Instance.MoveStart();
+                    }
                 }
             }
             else
