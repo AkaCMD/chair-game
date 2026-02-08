@@ -1,6 +1,4 @@
 // Things that can move that should be tracked for the undo system
-
-using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -9,7 +7,8 @@ public partial class Mover : Node2D
     public TileMapLayer Map;
     private Vector2I _gridPosition;
 
-    public bool IsPlayer => IsInstanceValid(this) && IsInGroup("player");
+    public bool IsPlayer => GodotObject.IsInstanceValid(this) && IsInGroup("player");
+    public bool IsValid => GodotObject.IsInstanceValid(this) && GodotObject.IsInstanceValid(Map);
     public bool IsSliding = false;
 
     // During a movement cycle, what's the next move (as a difference
@@ -23,7 +22,10 @@ public partial class Mover : Node2D
         get => _gridPosition;
         set
         {
-            Position = Map.MapToLocal(value);
+            if (IsValid)
+            {
+                Position = Map.MapToLocal(value);
+            }
             _gridPosition = value;
         }
     }
@@ -74,7 +76,7 @@ public partial class Mover : Node2D
     // push them in the same direction.
     private void PlanPushes(Vector2I dir)
     {
-        // TODO: 如果该mover包含多格，需要单独检查每个tile的方向
+        // TODO: If this mover occupies multiple tiles, each tile direction needs separate checking
         Vector2I posToCheck = GridPosition + dir;
         Mover m = GetMover(posToCheck);
         if (m == null || m == this) return;
@@ -98,7 +100,7 @@ public partial class Mover : Node2D
         _gridPosition += _plannedMove;
         prevMoveDir = _plannedMove;
         _plannedMove = Vector2I.Zero;
-        
+
         if (this is Player player && IsCoffee(_gridPosition, out _))
         {
             player.SoundWater.Play();
@@ -107,25 +109,25 @@ public partial class Mover : Node2D
 
     public virtual bool CanMoveToward(Vector2I dir)
     {
-        // TODO: 如果该mover包含多格，需要单独检查每个tile的方向
+        // TODO: If this mover occupies multiple tiles, each tile direction needs separate checking
         Vector2I posToCheck = GridPosition + dir;
         if (IsWall(posToCheck))
         {
             return false;
         }
         Mover m = GetMover(posToCheck);
-        if (IsCoffee(posToCheck, out _) && IsPlayer && !Player.Instance.IsSit)
+        if (IsCoffee(posToCheck, out _) && IsPlayer && Player.Instance != null && !Player.Instance.IsSit)
         {
             return false;
         }
 
-        // destructible obstacles
+        // Destructible obstacles
         if (m is Obstacle obstacle)
         {
             return obstacle.CanMoveToward(dir);
         }
 
-        // Movers don't block themselves.
+        // Movers don't block themselves
         if (m != null && m != this)
         {
             if (!IsPlayer && !Game.IsPolybanMode)
@@ -143,6 +145,7 @@ public partial class Mover : Node2D
 
     protected bool IsWall(Vector2I pos)
     {
+        if (!IsValid) return false;
         TileData data = Map.GetCellTileData(pos);
         if (data == null)
         {
@@ -154,6 +157,7 @@ public partial class Mover : Node2D
 
     protected bool IsTarget(Vector2I pos)
     {
+        if (!IsValid) return false;
         TileData data = Map.GetCellTileData(pos);
         if (data == null)
         {
@@ -190,7 +194,14 @@ public partial class Mover : Node2D
 
     public bool IsCoffee(Vector2I pos, out Coffee coffee)
     {
-        foreach (var node in GetTree().GetNodesInGroup("obstacles"))
+        var tree = GetTree();
+        if (tree == null || !GodotObject.IsInstanceValid(tree))
+        {
+            coffee = null;
+            return false;
+        }
+
+        foreach (var node in tree.GetNodesInGroup("obstacles").Where(n => n != null && GodotObject.IsInstanceValid(n)))
         {
             if (node is Coffee coffeeObj && coffeeObj.GridPosition == pos)
             {
@@ -205,7 +216,10 @@ public partial class Mover : Node2D
 
     protected Mover GetMover(Vector2I pos)
     {
-        foreach (var mover in GetTree().GetNodesInGroup("movers").OfType<Mover>())
+        var tree = GetTree();
+        if (tree == null || !GodotObject.IsInstanceValid(tree)) return null;
+
+        foreach (var mover in tree.GetNodesInGroup("movers").OfType<Mover>().Where(m => m != null && GodotObject.IsInstanceValid(m)))
         {
             if (mover.GridPosition == pos)
             {
@@ -215,11 +229,12 @@ public partial class Mover : Node2D
         return null;
     }
 
-
-
     public void Bump(Vector2I targetGridPos, bool shouldMove = false)
     {
         Tween?.Kill();
+
+        if (!IsValid)
+            return;
 
         Vector2 currentPos = Map.MapToLocal(GridPosition);
         Vector2 targetPos = Map.MapToLocal(targetGridPos);
@@ -230,48 +245,59 @@ public partial class Mover : Node2D
         Tween.SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
 
-        Tween.TweenProperty(this, "position", bumpPos, Game.Instance.MoveTime / 2);
-        Tween.TweenProperty(this, "position", currentPos, Game.Instance.MoveTime / 2);
+        Tween.TweenProperty(this, "position", bumpPos, Game.Instance?.MoveTime ?? 0.09f / 2);
+        Tween.TweenProperty(this, "position", currentPos, Game.Instance?.MoveTime ?? 0.09f / 2);
 
         if (shouldMove)
         {
             Tween.Finished += () =>
             {
-                Game.Instance.MoveStart();
+                var game = Game.Instance;
+                if (game != null && GodotObject.IsInstanceValid(game))
+                {
+                    game.MoveStart();
+                }
             };
         }
     }
 
     protected virtual void TrySlide()
     {
+        if (!IsValid) return;
+        if (!IsSliding) return;
+
+        // Check if mover has fallen out of bounds (e.g., after breaking glass)
+        if (GridPosition.X >= 500 || GridPosition.Y >= 500)
+        {
+            IsSliding = false;
+            var player = Player.Instance;
+            if (player != null && GodotObject.IsInstanceValid(player))
+                player.SoundSlide.Stop();
+            CommandManager.AddNewTurn();
+            return;
+        }
+
+        IsSliding = TryPlanMove(prevMoveDir);
         if (IsSliding)
         {
-            // Check if mover has fallen out of bounds (e.g., after breaking glass)
-            if (GridPosition.X >= 500 || GridPosition.Y >= 500)
-            {
-                IsSliding = false;
-                Player.Instance.SoundSlide.Stop();
-                CommandManager.AddNewTurn();
-                return;
-            }
+            var player = Player.Instance;
+            if (player != null && GodotObject.IsInstanceValid(player))
+                player.SoundSlide.Stop();
+            Utils.PlayWithRandomPitch(player?.SoundSlide);
 
-            IsSliding = TryPlanMove(prevMoveDir);
-            if (IsSliding)
-            {
-                Player.Instance.SoundSlide.Stop();
-                Utils.PlayWithRandomPitch(Player.Instance.SoundSlide);
-                Game.Instance.MoveStart();
-            }
-            else
-            {
-                CommandManager.AddNewTurn();
-            }
+            var game = Game.Instance;
+            if (game != null && GodotObject.IsInstanceValid(game))
+                game.MoveStart();
+        }
+        else
+        {
+            CommandManager.AddNewTurn();
         }
     }
 
     public override void _ExitTree()
     {
         GameEventSignals.Instance.MoveComplete -= TrySlide;
-        base._ExitTree();
+        RemoveFromGroup("movers");
     }
 }

@@ -51,10 +51,10 @@ public partial class Chair : Mover
     private void OnPushEvent()
     {
         if (_isBoxSliding) return; // Prevent recursive calls
-        if (HasBox && 
-            Direction == Player.Instance.Direction && 
-            Player.Instance.GridPosition == GridPosition - Direction && 
-            !Player.Instance.IsSit && 
+        if (HasBox &&
+            Direction == Player.Instance.Direction &&
+            Player.Instance.GridPosition == GridPosition - Direction &&
+            !Player.Instance.IsSit &&
             !Player.Instance.HasBox)
         {
             Game.Instance.StepHistory.Add(Step.CreateMove(Direction));
@@ -115,7 +115,7 @@ public partial class Chair : Mover
     private void OnLevelExitTimerComplete()
     {
         LevelManager.Instance.EmitLevelExit(true);
-        // 当不从 LevelSelector 场景进入而是单独测试关卡的时候，过关不播放 Break 动画，直接进入 LevelSelector
+        // When not entering from LevelSelector scene but testing a level individually, skip Break animation and directly go to LevelSelector
         if (LevelSelector.Instance == null)
         {
             GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
@@ -214,13 +214,13 @@ public partial class Chair : Mover
     private bool CanMoveInDirection(Vector2I direction)
     {
         if (Player.Instance.HasBox) return false;
-        
+
         if (HasBox && Direction != direction) return false;
-        
+
         if (IsWall(GridPosition + direction)) return false;
-        
+
         if (IsCoffee(GridPosition + direction, out _)) return true;
-        
+
         return HasBox || Direction != -direction;
     }
 

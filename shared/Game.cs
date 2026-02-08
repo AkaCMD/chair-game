@@ -60,7 +60,7 @@ public partial class Game : Node
 
         if (_gameOverOverlay != null)
         {
-            _gameOverOverlay.Visible = false;   
+            _gameOverOverlay.Visible = false;
         }
     }
 
@@ -81,11 +81,29 @@ public partial class Game : Node
     private void OnLevelExit(bool isBool)
     {
         IsInputBlocked = true;
-        CallDeferred(nameof(InitAfterFrame));
-        IsInputBlocked = false;
+
+        // Clean up all event subscriptions to prevent callbacks from accessing disposed objects
+        if (GameEventSignals.Instance != null)
+        {
+            GameEventSignals.Instance.MoveComplete -= SetReferences;
+            if (_levelCompleteHandler != null)
+            {
+                GameEventSignals.Instance.LevelComplete -= _levelCompleteHandler;
+            }
+        }
+
+        // Stop all animations and sliding
+        KillAllTweens();
+
+        // Clean up movers group, only operate on still valid movers
+        var movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m?.IsValid ?? false).ToList();
+        foreach (var mover in movers)
+        {
+            mover.RemoveFromGroup("movers");
+        }
+
         Instance = null;
         QueueFree();
-        GetTree().CallGroup("movers", "RemoveFromGroup", "movers");
     }
 
     private void InitAfterFrame()
@@ -98,7 +116,7 @@ public partial class Game : Node
         if (!IsInstanceValid(this)) return;
 
         Movers.Clear();
-        Movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m != null).ToList();
+        Movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m?.IsValid ?? false).ToList();
     }
 
     public override void _Process(double delta)
@@ -131,7 +149,7 @@ public partial class Game : Node
                 ResumeFromGameOver();
             }
             ExecuteUndo();
-            StartUndoRepeat();   
+            StartUndoRepeat();
         }
 
         if (Input.IsActionJustReleased("undo"))
@@ -166,9 +184,16 @@ public partial class Game : Node
     {
         KillAllTweens();
         StepHistory.Clear();
-        CommandManager.Initialize();
-        LevelSelector.Instance?.ReloadCurrentLevel();
-        
+        if (LevelSelector.Instance != null)
+        {
+            CommandManager.Initialize();
+            LevelSelector.Instance.ReloadCurrentLevel();
+        }
+        else
+        {
+            CommandManager.ResetAll();
+        }
+
         Refresh();
         GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.Reset);
     }
@@ -185,7 +210,8 @@ public partial class Game : Node
         {
             StepHistory.RemoveAt(StepHistory.Count - 1);
         }
-        Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
+        if (Player.Instance != null)
+            Utils.PlayWithRandomPitch(Player.Instance.SoundUndo);
 
         CommandManager.UndoCommand();
         Refresh();
@@ -217,7 +243,7 @@ public partial class Game : Node
         var positions = new List<MoverPosition>();
         foreach (var mover in Movers)
         {
-            if (mover != null)
+            if (mover?.IsValid ?? false)
             {
                 positions.Add(new MoverPosition(mover));
             }
@@ -236,7 +262,8 @@ public partial class Game : Node
     private void InitializeMovement()
     {
         _plannedMoves.Clear();
-        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.MoveStart, Player.Instance.Direction);
+        GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.MoveStart,
+            Player.Instance != null ? Player.Instance.Direction : Vector2I.Zero);
     }
 
     private void CalculateMovementCycles()
@@ -269,14 +296,14 @@ public partial class Game : Node
 
     private bool TryExecuteMoverMove(Mover mover, ref bool isPushing)
     {
-        bool isPlayerSitting = mover.IsPlayer && Player.Instance.IsSit;
+        bool isPlayerSitting = mover.IsPlayer && Player.Instance != null && Player.Instance.IsSit;
 
         if (mover.ExecuteLogicalMove())
         {
             if (!mover.IsPlayer)
                 isPushing = true;
 
-            if (!isPlayerSitting)
+            if (!isPlayerSitting && Player.Instance != null)
             {
                 Player.Instance.SoundWalk.Stop();
                 Utils.PlayWithRandomPitch(Player.Instance.SoundWalk);
@@ -288,9 +315,12 @@ public partial class Game : Node
 
     private void UpdatePlayerState()
     {
-        Player.Instance.IsPreviousSit = Player.Instance.IsSit;
-        Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
-        Player.Instance.PreviousDirection = Player.Instance.Direction;
+        if (Player.Instance != null)
+        {
+            Player.Instance.IsPreviousSit = Player.Instance.IsSit;
+            Player.Instance.PreviousPreviousDirection = Player.Instance.PreviousDirection;
+            Player.Instance.PreviousDirection = Player.Instance.Direction;
+        }
         _plannedMoves.Add(GetCurrentMoverPositions());
     }
 
@@ -316,7 +346,7 @@ public partial class Game : Node
 
     private float CalculateMoveDuration()
     {
-        return MoveTime / (Player.Instance.InputBuffer.Count * MoveBufferSpeedupFactor + 1);
+        return MoveTime / ((Player.Instance?.InputBuffer.Count ?? 0) * MoveBufferSpeedupFactor + 1);
     }
 
     private void AnimateMovers(List<MoverPosition> moves, float duration)
@@ -381,7 +411,7 @@ public partial class Game : Node
     public void SetGameOver()
     {
         if (_isGameOver) return;
-        
+
         _isGameOver = true;
         IsInputBlocked = true;
         if (_gameOverOverlay != null)
@@ -389,14 +419,14 @@ public partial class Game : Node
             _gameOverOverlay.Visible = true;
         }
     }
-    
+
     public void ResumeFromGameOver()
     {
         if (!_isGameOver) return;
-        
+
         _isGameOver = false;
         IsInputBlocked = false;
-        
+
         if (_gameOverOverlay != null)
         {
             _gameOverOverlay.Visible = false;
