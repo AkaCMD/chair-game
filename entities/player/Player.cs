@@ -43,7 +43,7 @@ public partial class Player : Mover
 
     public bool IsWaiting = false;
 
-    private bool _waitForInputRelease = false;
+    public bool WaitForInputRelease = false;
 
     [Export] public AudioStreamPlayer SoundUndo;
     [Export] public AudioStreamPlayer SoundWalk;
@@ -97,7 +97,20 @@ public partial class Player : Mover
                 HandleAction();
             }
         }
+        UpdateSprite();
+    }
 
+    public void UpdateSprite()
+    {
+        if (HasBox && BoxInstance == null)
+        {
+            HasBox = false;
+        }
+        if (IsSit && ChairInstance == null)
+        {
+            IsSit = false;
+        }
+        
         if (IsSit)
         {
             _sprite.Texture = Direction == Vector2I.Left ? _textureLeft : _sprite.Texture;
@@ -124,7 +137,11 @@ public partial class Player : Mover
     public bool CanInput()
     {
         if (Game.Instance == null) return false;
-        return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo && !IsSliding && !Game.Instance.IsInputBlocked;
+        if (!IsInstanceValid(this)) return false;
+        return !Game.Instance.IsMoving &&
+               !Game.Instance.IsHoldingUndo && 
+               !IsSliding 
+               && !Game.Instance.IsInputBlocked;
     }
 
     public void ClearInputBuffer()
@@ -132,7 +149,6 @@ public partial class Player : Mover
         InputBuffer.Clear();
         _prevHorInput = 0;
         _prevVerInput = 0;
-        Direction = Vector2I.Zero;
     }
 
     public void BufferInput()
@@ -145,11 +161,11 @@ public partial class Player : Mover
                 "move_down")
             .Round();
 
-        if (_waitForInputRelease)
+        if (WaitForInputRelease)
         {
             if (newDir == Vector2I.Zero)
             {
-                _waitForInputRelease = false;
+                WaitForInputRelease = false;
             }
             else
             {
@@ -212,7 +228,7 @@ public partial class Player : Mover
             if (isSameDirection)
             {
                 Vector2I checkPos = GridPosition + Direction;
-                bool hasObstacle = IsWall(checkPos) || GetMover(checkPos) != null;
+                bool hasObstacle = IsWall(checkPos) || GetMover(checkPos) != null || IsCoffee(checkPos, out _);
                 if (hasObstacle)
                 {
                     if (!IsCoffee(checkPos, out _))
@@ -254,7 +270,7 @@ public partial class Player : Mover
                     CommandManager.ExecuteCommand(new SitChairCommand(chair));
                     CommandManager.AddNewTurn();
                     InputBuffer.Clear();
-                    _waitForInputRelease = true;
+                    WaitForInputRelease = true;
 
                     Game.Instance.StepHistory.Add(Step.CreateMove(newDirection));
                     PrintSolutionSequence();

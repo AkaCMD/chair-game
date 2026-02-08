@@ -134,10 +134,10 @@ public partial class Game : Node
             GetTree().ChangeSceneToFile("res://level_selector/level_selector.tscn");
         }
 
-        if (@event.IsActionPressed("test"))
-        {
-            GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(LevelManager.Instance?.CurrentLevelName ?? Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
-        }
+        // if (@event.IsActionPressed("test"))
+        // {
+        //     GetNode<ReplaySystem>("/root/ReplaySystem").StartReplay(LevelManager.Instance?.CurrentLevelName ?? Path.GetFileNameWithoutExtension(GetTree().CurrentScene.SceneFilePath));
+        // }
     }
 
     private void HandleUndoInput()
@@ -174,6 +174,24 @@ public partial class Game : Node
     {
         _movingCount = 0;
         _plannedMoves.Clear();
+        
+        // Reset sliding state for all movers in the scene
+        var movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m?.IsValid ?? false);
+        foreach (var mover in movers)
+        {
+            mover.IsSliding = false;
+            mover.Stop(); // Clear any planned moves
+        }
+    
+        // Reset player-specific states
+        if (Player.Instance?.IsValid ?? false)
+        {
+            Player.Instance.IsSliding = false;
+            Player.Instance.ClearInputBuffer();
+            Player.Instance.IsWaiting = false;
+            Player.Instance.WaitForInputRelease = false;
+            Player.Instance.UpdateSprite();
+        }
     }
 
     public bool IsMoving => _movingCount > 0;
@@ -381,8 +399,9 @@ public partial class Game : Node
     public void MoveEnd()
     {
         _movingCount--;
-        if (_movingCount == 0)
+        if (_movingCount <= 0)
         {
+            _movingCount = 0;
             StartMoveCycle();
         }
     }
