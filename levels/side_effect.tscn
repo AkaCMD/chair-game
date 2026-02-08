@@ -1,0 +1,56 @@
+[gd_scene format=4 uid="uid://de07q4r05lgpl"]
+
+[ext_resource type="Script" uid="uid://cimt8f3mpvb0" path="res://shared/Game.cs" id="1_2jgs2"]
+[ext_resource type="TileSet" uid="uid://esohyydcd2dt" path="res://sokoban.tres" id="2_ob2yk"]
+[ext_resource type="PackedScene" uid="uid://8njujq2xqliw" path="res://dialog/dialog_controller.tscn" id="3_bojqm"]
+[ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="10_dg1ij"]
+[ext_resource type="PackedScene" uid="uid://dpra6ngarpmqr" path="res://ui/replay_button.tscn" id="11_fd5uk"]
+[ext_resource type="PackedScene" uid="uid://lrvjk5i4wvab" path="res://shader/little_tiled_shooking/little_tiled_shooking.tscn" id="12_h1c7n"]
+
+[node name="Main" type="Node2D" unique_id=1245031726]
+
+[node name="World" type="Node2D" parent="." unique_id=1875136704 node_paths=PackedStringArray("ObjectsTileMapLayer")]
+script = ExtResource("1_2jgs2")
+ObjectsTileMapLayer = NodePath("Objects")
+
+[node name="Background" type="TileMapLayer" parent="World" unique_id=1421129029]
+y_sort_enabled = true
+scale = Vector2(0.65, 0.65)
+tile_map_data = PackedByteArray("AAABAAYAAAAFAAIAAAAAAAYAAAAFAAIAAAAFAAMAAAABAAEAAAAFAAQAAAABAAAAAAAFAAUAAAABAAEAAAAFAAYAAAABAAAAAAAGAAMAAAAAAAEAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAEAAAAGAAYAAAAAAAAAAAAHAAMAAAABAAEAAAAHAAQAAAABAAAAAAAHAAUAAAABAAEAAAAHAAYAAAABAAAAAAAIAAMAAAAAAAEAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAEAAAAIAAYAAAAAAAAAAAAJAAMAAAABAAEAAAAJAAQAAAABAAAAAAAJAAUAAAABAAEAAAAJAAYAAAABAAAAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAEAAAAKAAYAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAEAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAEAAAAEAAYAAAAAAAAAAAAFAAIAAAABAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAABAAAAAAAIAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAKAAIAAAAAAAAAAAA=")
+tile_set = ExtResource("2_ob2yk")
+
+[node name="Objects" type="TileMapLayer" parent="World" unique_id=250994112]
+y_sort_enabled = true
+scale = Vector2(0.65, 0.65)
+tile_map_data = PackedByteArray("AAANAAYAAAAHAAMAAAANAAUAAAAHAAMAAAANAAIAAAAHAAMAAAAKAAgAAAAHAAMAAAAFAAgAAAAHAAMAAAAGAAgAAAAHAAMAAAAHAAgAAAAHAAMAAAAIAAgAAAAFAAIAAAAJAAgAAAAFAAIAAAADAAAAAAAEAAAAAAADAAEAAAAEAAEAAAADAAIAAAAEAAEAAAADAAMAAAAEAAEAAAADAAQAAAAEAAEAAAAEAAQAAgAAAAAAAgAFAAAAAAAFAAAAAAAFAAEAAAAFAAEAAAAGAAAAAAAFAAAAAAAGAAEAAAAFAAEAAAADAAUAAAAEAAIAAAADAAcAAAAEAAMAAAADAAYAAAAEAAIAAAAEAAcAAAAFAAMAAAAFAAcAAAAFAAMAAAAGAAcAAAAFAAMAAAAHAAcAAAAFAAMAAAAIAAcAAAAFAAMAAAAJAAcAAAAFAAMAAAAKAAcAAAAFAAMAAAALAAcAAAAGAAMAAAALAAYAAAAGAAIAAAALAAUAAAAGAAIAAAALAAQAAAAGAAIAAAALAAMAAAAGAAIAAAALAAIAAAAGAAIAAAAKAAEAAAADAAAAAAALAAEAAAAGAAEAAAAKAAAAAAAFAAAAAAALAAAAAAAGAAAAAAAJAAAAAAAFAAAAAAAJAAEAAAAFAAEAAAAIAAAAAAAFAAAAAAAIAAEAAAAFAAEAAAAHAAAAAAACAAAAAAAHAAEAAAACAAEAAAAEAAAAAAAFAAAAAAAEAAEAAAADAAAAAAAGAAQAAgAAAAAACwAKAAIAAAADAAEAAAAEAAIAAAADAAEAAAAFAAIAAAAJAAMAAAAGAAIAAAAKAAMAAAAIAAIAAAAJAAMAAAAJAAIAAAAKAAMAAAA=")
+tile_set = ExtResource("2_ob2yk")
+
+[node name="GUI" type="Control" parent="." unique_id=482760521]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogController" parent="GUI" unique_id=1962755746 instance=ExtResource("3_bojqm")]
+visible = false
+
+[node name="Hint" parent="GUI" unique_id=1134446400 instance=ExtResource("10_dg1ij")]
+layout_mode = 1
+
+[node name="ReplayButton" parent="GUI" unique_id=720427253 instance=ExtResource("11_fd5uk")]
+layout_mode = 1
+
+[node name="Background" type="ColorRect" parent="." unique_id=623372059]
+visible = false
+top_level = true
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11764706, 0.13333334, 0.18039216, 1)
+
+[node name="LittleTiledShooking" parent="." unique_id=735998692 instance=ExtResource("12_h1c7n")]

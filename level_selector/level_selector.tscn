@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dr1tola3r1tpt" path="res://levels/tuto1.tscn" id="4_v1hyg"]
 [ext_resource type="PackedScene" uid="uid://c01atco7trwo3" path="res://levels/crush1.tscn" id="5_6j37x"]
 [ext_resource type="Shader" path="res://level_selector/cover.gdshader" id="5_28gom"]
+[ext_resource type="PackedScene" uid="uid://de07q4r05lgpl" path="res://levels/side_effect.tscn" id="5_fiptq"]
 [ext_resource type="PackedScene" uid="uid://blu5fvjmasuaf" path="res://level_selector/Hint/Hint.tscn" id="6_hggau"]
 [ext_resource type="PackedScene" uid="uid://dpidn1r2ryt3o" path="res://levels/corner.tscn" id="6_ukbrm"]
 [ext_resource type="PackedScene" uid="uid://by8yr2xkcystk" path="res://levels/love.tscn" id="7_ot8yv"]
@@ -49,7 +50,7 @@ shader = ExtResource("5_28gom")
 
 [node name="LevelSelector" type="Node2D" unique_id=484866355 node_paths=PackedStringArray("_camera", "_screenColorRect", "_canvasLayer", "_levelSelectorTitle", "Nodes", "_breakSprite", "_dialog", "_soundLevelStart")]
 script = ExtResource("1_hfeca")
-DRAGGING_LIMIT_X = 3000.0
+DRAGGING_LIMIT_X = 3200.0
 _camera = NodePath("Nodes/Camera2D")
 _screenColorRect = NodePath("CanvasLayer/ColorRect")
 _canvasLayer = NodePath("CanvasLayer")
@@ -76,6 +77,13 @@ LevelName = "Break"
 LevelNodes = [NodePath("../Beginning")]
 PackedLevel = ExtResource("4_v1hyg")
 
+[node name="SideEffect" parent="Nodes" unique_id=1121280240 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(466, 334)
+LevelID = ""
+LevelName = "Side Effect"
+LevelNodes = [NodePath("../Tuto1")]
+PackedLevel = ExtResource("5_fiptq")
+
 [node name="Beginning" parent="Nodes" unique_id=1908848344 instance=ExtResource("1_g7fs3")]
 position = Vector2(190, 548)
 LevelID = ""
@@ -83,140 +91,140 @@ LevelName = "Beginning"
 PackedLevel = ExtResource("4_imy11")
 
 [node name="Minimalist" parent="Nodes" unique_id=499973856 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(462, 334)
+position = Vector2(741.00006, 334)
 LevelID = ""
 LevelName = "Minimalist"
-LevelNodes = [NodePath("../Tuto1")]
+LevelNodes = [NodePath("../SideEffect")]
 PackedLevel = ExtResource("9_6j37x")
 
 [node name="LongDesk" parent="Nodes" unique_id=1968800129 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(732, 334)
+position = Vector2(1011.00006, 334)
 LevelID = ""
 LevelName = "Long Desk"
 LevelNodes = [NodePath("../Minimalist")]
 PackedLevel = ExtResource("8_fytug")
 
 [node name="Love" parent="Nodes" unique_id=377015690 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1009, 334)
+position = Vector2(1288, 334)
 LevelID = ""
 LevelName = "Love"
 LevelNodes = [NodePath("../LongDesk")]
 PackedLevel = ExtResource("7_ot8yv")
 
 [node name="Corner" parent="Nodes" unique_id=1751365229 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1286, 334)
+position = Vector2(1565, 334)
 LevelID = ""
 LevelName = "Corner"
 LevelNodes = [NodePath("../Love")]
 PackedLevel = ExtResource("6_ukbrm")
 
 [node name="Crush" parent="Nodes" unique_id=628954046 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1566, 223)
+position = Vector2(1845, 223)
 LevelID = ""
 LevelName = "Crush"
 LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("5_6j37x")
 
 [node name="Destroy" parent="Nodes" unique_id=415445264 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1565, 471)
+position = Vector2(1844, 471)
 LevelID = ""
 LevelName = "Destroy"
 LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("10_8n67b")
 
 [node name="SplitCoffee" parent="Nodes" unique_id=578536928 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2350, 334)
+position = Vector2(2629, 334)
 LevelID = ""
 LevelName = "CoffeeMix"
 LevelNodes = [NodePath("../Coffee")]
 PackedLevel = ExtResource("11_b5x44")
 
 [node name="Shuffle" parent="Nodes" unique_id=1000226239 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1286, 495)
+position = Vector2(1565, 495)
 LevelID = ""
 LevelName = "Shuffle"
 LevelNodes = [NodePath("../Corner")]
 PackedLevel = ExtResource("12_55fcj")
 
 [node name="SecretRoom" parent="Nodes" unique_id=13481625 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3911, 517)
+position = Vector2(4190, 517)
 LevelID = "???"
 LevelName = "Secret Room"
 LevelNodes = [NodePath("../BossFight")]
 PackedLevel = ExtResource("13_eu35e")
 
 [node name="Helper" parent="Nodes" unique_id=794506254 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2559, 473)
+position = Vector2(2838, 473)
 LevelID = ""
 LevelName = "Helper"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("16_o2tf7")
 
 [node name="PitInPit" parent="Nodes" unique_id=871189573 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2715, 333)
+position = Vector2(2994, 333)
 LevelID = ""
 LevelName = "Pit in pit"
 LevelNodes = [NodePath("../SplitCoffee")]
 PackedLevel = ExtResource("17_mdq67")
 
 [node name="Turnabout" parent="Nodes" unique_id=2136827423 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2900, 182)
+position = Vector2(3179, 182)
 LevelID = ""
 LevelName = "Turnabout"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("17_jbyjf")
 
 [node name="Coffross" parent="Nodes" unique_id=1023847463 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(2874, 474)
+position = Vector2(3153, 474)
 LevelID = ""
 LevelName = "Coffross"
 LevelNodes = [NodePath("../PitInPit")]
 PackedLevel = ExtResource("18_p0hum")
 
 [node name="WatchOut" parent="Nodes" unique_id=2145109444 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3085, 340)
+position = Vector2(3364, 340)
 LevelID = ""
 LevelName = "Watch Out"
 LevelNodes = [NodePath("../Turnabout")]
 PackedLevel = ExtResource("19_xvmaa")
 
 [node name="DangerZone" parent="Nodes" unique_id=1400784766 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3359, 334)
+position = Vector2(3638, 334)
 LevelID = ""
 LevelName = "Danger Zone"
 LevelNodes = [NodePath("../WatchOut")]
 PackedLevel = ExtResource("20_n45w5")
 
 [node name="Trouble Maker" parent="Nodes" unique_id=1776038189 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3628, 464)
+position = Vector2(3907, 464)
 LevelID = ""
 LevelName = "Trouble Maker"
 LevelNodes = [NodePath("../DangerZone")]
 PackedLevel = ExtResource("21_1k4fi")
 
 [node name="Turrets" parent="Nodes" unique_id=1371575067 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3618, 201.99998)
+position = Vector2(3897, 202)
 LevelID = ""
 LevelName = "Turrets"
 LevelNodes = [NodePath("../Trouble Maker")]
 PackedLevel = ExtResource("22_54584")
 
 [node name="BossFight" parent="Nodes" unique_id=1140517233 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3911, 338)
+position = Vector2(4190, 338)
 LevelID = ""
 LevelName = "Boss Fight"
 LevelNodes = [NodePath("../Turrets")]
 PackedLevel = ExtResource("23_jbyjf")
 
 [node name="Guard" parent="Nodes" unique_id=329880759 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(3356, 481)
+position = Vector2(3635, 481)
 LevelID = ""
 LevelName = "Guard"
 LevelNodes = [NodePath("../DangerZone")]
 PackedLevel = ExtResource("22_pkhps")
 
 [node name="Microban" parent="Nodes" unique_id=883461206 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(732, 501)
+position = Vector2(1011.00006, 501)
 LevelID = ""
 LevelName = "Microban"
 LevelNodes = [NodePath("../LongDesk")]
@@ -227,8 +235,8 @@ anchor_mode = 0
 limit_left = 0
 limit_smoothed = true
 
-[node name="Coffee" parent="Nodes" unique_id=1121280240 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
-position = Vector2(1942, 334)
+[node name="Coffee" parent="Nodes" unique_id=968172554 node_paths=PackedStringArray("LevelNodes") instance=ExtResource("1_g7fs3")]
+position = Vector2(2221, 334)
 LevelID = ""
 LevelName = "SplitCoffee"
 LevelNodes = [NodePath("../Crush"), NodePath("../Destroy")]

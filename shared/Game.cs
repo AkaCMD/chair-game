@@ -92,9 +92,6 @@ public partial class Game : Node
             }
         }
 
-        // Stop all animations and sliding
-        KillAllTweens();
-
         // Clean up movers group, only operate on still valid movers
         var movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m?.IsValid ?? false).ToList();
         foreach (var mover in movers)
@@ -174,7 +171,7 @@ public partial class Game : Node
     {
         _movingCount = 0;
         _plannedMoves.Clear();
-        
+
         // Reset sliding state for all movers in the scene
         var movers = GetTree().GetNodesInGroup("movers").OfType<Mover>().Where(m => m?.IsValid ?? false);
         foreach (var mover in movers)
@@ -182,7 +179,7 @@ public partial class Game : Node
             mover.IsSliding = false;
             mover.Stop(); // Clear any planned moves
         }
-    
+
         // Reset player-specific states
         if (Player.Instance?.IsValid ?? false)
         {
