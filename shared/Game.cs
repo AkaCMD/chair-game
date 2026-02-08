@@ -46,20 +46,9 @@ public partial class Game : Node
     [Export]
     public TileMapLayer ObjectsTileMapLayer;
 
-    public override void _EnterTree()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            GD.PushError("Multiple Game instances found.");
-        }
-    }
-
     public override void _Ready()
     {
+        Instance = this;
         IsInputBlocked = true;
         CallDeferred(nameof(InitAfterFrame));
         IsInputBlocked = false;
@@ -177,7 +166,9 @@ public partial class Game : Node
     {
         KillAllTweens();
         StepHistory.Clear();
-        CommandManager.ResetAll();
+        CommandManager.Initialize();
+        LevelSelector.Instance?.ReloadCurrentLevel();
+        
         Refresh();
         GameEventSignals.Instance.EmitSignal(GameEventSignals.SignalName.Reset);
     }

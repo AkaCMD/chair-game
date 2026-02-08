@@ -62,13 +62,21 @@ public partial class Player : Mover
         AddToGroup("player");
     }
 
+    public override void _ExitTree()
+    {
+        RemoveFromGroup("player");
+    }
+
     public override void _Process(double delta)
     {
         if (IsWaiting)
         {
             return;
         }
-        // Back to level selector without beat the level
+
+        if (Game.Instance == null) return;
+        
+        // Back to level selector without beating the level
         if (Input.IsActionJustPressed("escape"))
         {
             LevelManager.Instance.EmitLevelExit(false);
@@ -115,6 +123,7 @@ public partial class Player : Mover
 
     public bool CanInput()
     {
+        if (Game.Instance == null) return false;
         return !Game.Instance.IsMoving && !Game.Instance.IsHoldingUndo && !IsSliding && !Game.Instance.IsInputBlocked;
     }
 
@@ -128,6 +137,7 @@ public partial class Player : Mover
 
     public void BufferInput()
     {
+        if (Game.Instance == null) return;
         if (Game.Instance.IsReplaying) return;
         Vector2I newDir = (Vector2I)Input.GetVector("move_left",
                 "move_right",

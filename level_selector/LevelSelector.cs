@@ -24,6 +24,8 @@ public partial class LevelSelector : Node2D
     private Node2D _currentLevel;
     public static LevelSelector Instance { get; private set; }
 
+    private PackedScene _currentLevelScene;
+
     [Export] private AudioStreamPlayer _soundLevelStart;
 
     // Store camera position to restore when returning to level selector
@@ -86,6 +88,8 @@ public partial class LevelSelector : Node2D
                  .SetTrans(Tween.TransitionType.Cubic)
                  .SetEase(Tween.EaseType.Out);
 
+            _currentLevelScene = packedLevel;
+
             tween.Finished += () =>
             {
                 _soundLevelStart.PitchScale = .8f;
@@ -134,6 +138,8 @@ public partial class LevelSelector : Node2D
                 var timer = GetTree().CreateTimer(1);
                 timer.Timeout += () =>
                 {
+                    _currentLevelScene = null;
+                    
                     // Clean up current level
                     _currentLevel?.QueueFree();
                     _currentLevel = null;
@@ -234,5 +240,18 @@ public partial class LevelSelector : Node2D
         LevelManager.Instance.OnLevelEnter -= HandleLevelEnter;
         LevelManager.Instance.OnLevelEnter -= HideLvlSelectorDialog;
         LevelManager.Instance.OnLevelExit -= HandleLevelExit;
+    }
+
+    public void ReloadCurrentLevel()
+    {
+        if (!_isOnLevel || _currentLevelScene == null) return;
+        
+        _currentLevel?.QueueFree();
+        _currentLevel = null;
+        
+        _currentLevel = (Node2D)_currentLevelScene.Instantiate();
+        _canvasLayer.AddChild(_currentLevel);
+        
+        GD.Print("Reload the level.");
     }
 }

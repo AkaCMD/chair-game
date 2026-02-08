@@ -9,7 +9,7 @@ public partial class Mover : Node2D
     public TileMapLayer Map;
     private Vector2I _gridPosition;
 
-    public bool IsPlayer => IsInGroup("player");
+    public bool IsPlayer => IsInstanceValid(this) && IsInGroup("player");
     public bool IsSliding = false;
 
     // During a movement cycle, what's the next move (as a difference
